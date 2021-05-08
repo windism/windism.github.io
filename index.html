@@ -195,23 +195,23 @@
     <article class="col-12 col-md-12 mx-auto index-info">
       <h1 class="index-header">
         
-        <a href="/2832863520.html">(Leetcode 2021 刷题计划) 88. 合并两个有序数组</a>
+        <a href="/2865381291.html">Hive 隐形转换笔记.md</a>
       </h1>
 
       <p class="index-excerpt">
-        <a href="/2832863520.html">
+        <a href="/2865381291.html">
           
           
             
           
-          
-每日一题时间: 2020-04-05
-题目链接: 88. 合并两个有序数组
-官方题解链接: 合并两个有序数组
+           背景
+本次分析的 hive 版本为 1.2.1
 
- 题目
-给你两个有序整数数组 nums1 和 nums2，请你将 nums2 合并到 nums1 中，使 nums1 成为一个有序数组。
-初始化 nums1 和 nums2 的元素数量分别为 m 和 n 。你可以假设 nums1 的空间大小等于 m + n，这样它就有足够的空间保存来自
+在工作中使用 Hive 遇到一个情况 SELECT 'default' &lt;&gt; -1 按照使用者的想法是想排除异常数值 -1, 但实际上是 SELECT CAST('default' AS INT) &lt;&gt; -1 结果是 null.
+
+从该问题来看, 如下两个 SQL
+SELECT 01 IN ('01')
+SELECT 01
         </a>
       </p>
 
@@ -219,8 +219,8 @@
         
           <div class="post-meta mr-3">
             <i class="iconfont icon-date"></i>
-            <time datetime="2021-04-05 08:25" pubdate>
-              2021-04-05
+            <time datetime="2021-05-06 21:43" pubdate>
+              2021-05-06
             </time>
           </div>
         
@@ -228,7 +228,7 @@
           <div class="post-meta mr-3">
             <i class="iconfont icon-category"></i>
             
-              <a href="/categories/Leetcode/">Leetcode</a>
+              <a href="/categories/%E5%A4%A7%E6%95%B0%E6%8D%AE%E6%8A%80%E8%83%BD%E8%B7%AF%E7%BA%BF/">大数据技能路线</a>
             
           </div>
         
@@ -236,7 +236,7 @@
           <div class="post-meta">
             <i class="iconfont icon-tags"></i>
             
-              <a href="/tags/Leetcode/">Leetcode</a>
+              <a href="/tags/Hive/">Hive</a>
             
           </div>
         
@@ -250,28 +250,19 @@
     <article class="col-12 col-md-12 mx-auto index-info">
       <h1 class="index-header">
         
-        <a href="/222766490.html">(Leetcode 2021 刷题计划) 781. 森林中的兔子</a>
+        <a href="/0.html"></a>
       </h1>
 
       <p class="index-excerpt">
-        <a href="/222766490.html">
+        <a href="/0.html">
           
           
             
           
-          
-每日一题时间: 2020-04-04
-题目链接: 781. 森林中的兔子
-官方题解链接: 森林中的兔子
-
- 题目
-森林中，每个兔子都有颜色。其中一些兔子（可能是全部）告诉你还有多少其他的兔子和自己有相同的颜色。我们将这些回答放在 answers 数组里。
-返回森林中兔子的最少数量。
-示例:
-输入: answers &#x3D; [1, 1, 2]
-输出: 5
-解释:
-两只回答了 &quot;1&
+           
+ Swing算法
+不同于传统基于点的节点亲密度(proximity)计算方式, 如:Common  Neighbors, Cosine  Similarity,  Jaccard  Similarity等, Swing算法会考虑网络结构信息,以高维的网络结构向二跳节点扩展, 抗噪能力强, 相比传统的 itemCF 准确性有大幅的提升.
+Swing指的是秋千,例如用户 uuu 和用户 vvv ,
         </a>
       </p>
 
@@ -279,8 +270,46 @@
         
           <div class="post-meta mr-3">
             <i class="iconfont icon-date"></i>
-            <time datetime="2021-04-04 08:25" pubdate>
-              2021-04-04
+            <time datetime="2021-05-04 20:04" pubdate>
+              2021-05-04
+            </time>
+          </div>
+        
+        
+        
+      </div>
+    </article>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+    <article class="col-12 col-md-12 mx-auto index-info">
+      <h1 class="index-header">
+        
+        <a href="/4195862106.html">Redis 学习笔记</a>
+      </h1>
+
+      <p class="index-excerpt">
+        <a href="/4195862106.html">
+          
+          
+            
+          
+          Redis 是互联网加技术领域使用最为广泛的存储中间件, 它是 Remote Dictionary Service(远程字典服务)的首字母缩写.
+ 安装使用 Redis
+针对大数据的运行环境基本上是基于 Linux 或 Mac 环境, 初步学习可以采用 docker 方式(环境崩重建方便)
+docker pull redis
+docker run --name myredis -d -p6379:
+        </a>
+      </p>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>
+            <time datetime="2021-05-02 10:02" pubdate>
+              2021-05-02
             </time>
           </div>
         
@@ -288,7 +317,7 @@
           <div class="post-meta mr-3">
             <i class="iconfont icon-category"></i>
             
-              <a href="/categories/Leetcode/">Leetcode</a>
+              <a href="/categories/%E5%A4%A7%E6%95%B0%E6%8D%AE%E6%8A%80%E8%83%BD%E8%B7%AF%E7%BA%BF/">大数据技能路线</a>
             
           </div>
         
@@ -296,7 +325,7 @@
           <div class="post-meta">
             <i class="iconfont icon-tags"></i>
             
-              <a href="/tags/Leetcode/">Leetcode</a>
+              <a href="/tags/Redis/">Redis</a>
             
           </div>
         
@@ -310,24 +339,27 @@
     <article class="col-12 col-md-12 mx-auto index-info">
       <h1 class="index-header">
         
-        <a href="/3032443138.html">(Leetcode 2021 刷题计划) 1143. 最长公共子序列</a>
+        <a href="/1.html"></a>
       </h1>
 
       <p class="index-excerpt">
-        <a href="/3032443138.html">
+        <a href="/1.html">
           
           
             
           
-          
-每日一题时间: 2020-04-03
-题目链接: 1143. 最长公共子序列
-官方题解链接: 最长公共子序列
+           概述
+HBase 是一种分布式、可扩展、支持海量数据存储的 NoSQL 数据库.
 
- 题目
-给定两个字符串 text1 和 text2，返回这两个字符串的最长 公共子序列 的长度。如果不存在 公共子序列 ，返回 0 。
-一个字符串的 子序列 是指这样一个新的字符串：它是由原字符串在不改变字符的相对顺序的情况下删除某些字符（也可以不删除任何字符）后组成的新字符串。
-例如
+HBase 是建立在 Hadoop 文件系统上支持支持横向扩展的数据库, 它利用HDFS提供了容错的能力,可以直接或者通过 HBase 的存储 HDFS 数据.
+
+
+HBase 官方网站: Welcome to Apache HBase
+B站学习教程: 尚硅谷HBase教程
+
+ 特点
+
+该部分来源自官网描述, 此
         </a>
       </p>
 
@@ -335,368 +367,12 @@
         
           <div class="post-meta mr-3">
             <i class="iconfont icon-date"></i>
-            <time datetime="2021-04-03 08:25" pubdate>
-              2021-04-03
+            <time datetime="2021-04-11 16:33" pubdate>
+              2021-04-11
             </time>
           </div>
         
         
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-category"></i>
-            
-              <a href="/categories/Leetcode/">Leetcode</a>
-            
-          </div>
-        
-        
-          <div class="post-meta">
-            <i class="iconfont icon-tags"></i>
-            
-              <a href="/tags/Leetcode/">Leetcode</a>
-            
-          </div>
-        
-      </div>
-    </article>
-  </div>
-
-  <div class="row mx-auto index-card">
-    
-    
-    <article class="col-12 col-md-12 mx-auto index-info">
-      <h1 class="index-header">
-        
-        <a href="/4255538369.html">(Leetcode 2021 刷题计划) 面试题 17.21. 直方图的水量</a>
-      </h1>
-
-      <p class="index-excerpt">
-        <a href="/4255538369.html">
-          
-          
-            
-          
-          
-每日一题时间: 2020-04-02
-题目链接: 面试题 17.21. 直方图的水量
-官方题解链接: 直方图的水量
-
- 题目
-给定一个直方图(也称柱状图)，假设有人从上面源源不断地倒水，最后直方图能存多少水量?直方图的宽度为 1。
-上面是由数组 [0,1,0,2,1,0,1,3,2,1,2,1] 表示的直方图，在这种情况下，可以接 6 个单位的水（蓝色部分表示水）。
-示例:
-输入: [0,1,0
-        </a>
-      </p>
-
-      <div class="index-btm post-metas">
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-date"></i>
-            <time datetime="2021-04-02 08:25" pubdate>
-              2021-04-02
-            </time>
-          </div>
-        
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-category"></i>
-            
-              <a href="/categories/Leetcode/">Leetcode</a>
-            
-          </div>
-        
-        
-          <div class="post-meta">
-            <i class="iconfont icon-tags"></i>
-            
-              <a href="/tags/Leetcode/">Leetcode</a>
-            
-          </div>
-        
-      </div>
-    </article>
-  </div>
-
-  <div class="row mx-auto index-card">
-    
-    
-    <article class="col-12 col-md-12 mx-auto index-info">
-      <h1 class="index-header">
-        
-        <a href="/823169801.html">(Leetcode 2021 刷题计划) 1006. 笨阶乘</a>
-      </h1>
-
-      <p class="index-excerpt">
-        <a href="/823169801.html">
-          
-          
-            
-          
-          
-每日一题时间: 2020-04-01
-题目链接: 1006. 笨阶乘
-官方题解链接: 笨阶乘
-
- 题目
-通常，正整数 n 的阶乘是所有小于或等于 n 的正整数的乘积。例如，factorial(10) = 10 * 9 * 8 * 7 * 6 * 5 * 4 * 3 * 2 * 1。
-相反，我们设计了一个笨阶乘 clumsy：在整数的递减序列中，我们以一个固定顺序的操作符序列来依次替换原有的乘法操
-        </a>
-      </p>
-
-      <div class="index-btm post-metas">
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-date"></i>
-            <time datetime="2021-04-01 08:25" pubdate>
-              2021-04-01
-            </time>
-          </div>
-        
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-category"></i>
-            
-              <a href="/categories/Leetcode/">Leetcode</a>
-            
-          </div>
-        
-        
-          <div class="post-meta">
-            <i class="iconfont icon-tags"></i>
-            
-              <a href="/tags/Leetcode/">Leetcode</a>
-            
-          </div>
-        
-      </div>
-    </article>
-  </div>
-
-  <div class="row mx-auto index-card">
-    
-    
-    <article class="col-12 col-md-12 mx-auto index-info">
-      <h1 class="index-header">
-        
-        <a href="/3027694780.html">(Leetcode 2021 刷题计划) 90. 子集 II</a>
-      </h1>
-
-      <p class="index-excerpt">
-        <a href="/3027694780.html">
-          
-          
-            
-          
-          
-每日一题时间: 2020-03-31
-题目链接: 90. 子集 II
-官方题解链接: 子集 II
-
- 题目
-给你一个整数数组 nums ，其中可能包含重复元素，请你返回该数组所有可能的子集（幂集）。
-解集 不能 包含重复的子集。返回的解集中，子集可以按 任意顺序 排列。
-示例 1：
-输入：nums &#x3D; [1,2,2]
-输出：[[],[1],[1,2],[1,2,2],[2],[2,2]
-        </a>
-      </p>
-
-      <div class="index-btm post-metas">
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-date"></i>
-            <time datetime="2021-03-30 08:25" pubdate>
-              2021-03-30
-            </time>
-          </div>
-        
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-category"></i>
-            
-              <a href="/categories/Leetcode/">Leetcode</a>
-            
-          </div>
-        
-        
-          <div class="post-meta">
-            <i class="iconfont icon-tags"></i>
-            
-              <a href="/tags/Leetcode/">Leetcode</a>
-            
-          </div>
-        
-      </div>
-    </article>
-  </div>
-
-  <div class="row mx-auto index-card">
-    
-    
-    <article class="col-12 col-md-12 mx-auto index-info">
-      <h1 class="index-header">
-        
-        <a href="/2538342676.html">(Leetcode 2021 刷题计划) 74. 搜索二维矩阵</a>
-      </h1>
-
-      <p class="index-excerpt">
-        <a href="/2538342676.html">
-          
-          
-            
-          
-          
-每日一题时间: 2020-03-30
-题目链接: 74. 搜索二维矩阵
-官方题解链接: 搜索二维矩阵
-
- 题目
-编写一个高效的算法来判断 m x n 矩阵中，是否存在一个目标值。该矩阵具有如下特性：
-每行中的整数从左到右按升序排列。
-每行的第一个整数大于前一行的最后一个整数。
-示例 1：
-输入：matrix &#x3D; [[1,3,5,7],[10,11,16,20],[23,30,34,60
-        </a>
-      </p>
-
-      <div class="index-btm post-metas">
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-date"></i>
-            <time datetime="2021-03-30 08:25" pubdate>
-              2021-03-30
-            </time>
-          </div>
-        
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-category"></i>
-            
-              <a href="/categories/Leetcode/">Leetcode</a>
-            
-          </div>
-        
-        
-          <div class="post-meta">
-            <i class="iconfont icon-tags"></i>
-            
-              <a href="/tags/Leetcode/">Leetcode</a>
-            
-          </div>
-        
-      </div>
-    </article>
-  </div>
-
-  <div class="row mx-auto index-card">
-    
-    
-    <article class="col-12 col-md-12 mx-auto index-info">
-      <h1 class="index-header">
-        
-        <a href="/1169731816.html">(Leetcode 2021 刷题计划) 190. 颠倒二进制位</a>
-      </h1>
-
-      <p class="index-excerpt">
-        <a href="/1169731816.html">
-          
-          
-            
-          
-          
-每日一题时间: 2020-03-29
-题目链接: 190. 颠倒二进制位
-官方题解链接: 颠倒二进制位
-
- 题目
-颠倒给定的 32 位无符号整数的二进制位。
-提示：
-
-请注意，在某些语言（如 Java）中，没有无符号整数类型。在这种情况下，输入和输出都将被指定为有符号整数类型，并且不应影响您的实现，因为无论整数是有符号的还是无符号的，其内部的二进制表示形式都是相同的。
-在 Java 中，编译器使
-        </a>
-      </p>
-
-      <div class="index-btm post-metas">
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-date"></i>
-            <time datetime="2021-03-29 08:25" pubdate>
-              2021-03-29
-            </time>
-          </div>
-        
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-category"></i>
-            
-              <a href="/categories/Leetcode/">Leetcode</a>
-            
-          </div>
-        
-        
-          <div class="post-meta">
-            <i class="iconfont icon-tags"></i>
-            
-              <a href="/tags/Leetcode/">Leetcode</a>
-            
-          </div>
-        
-      </div>
-    </article>
-  </div>
-
-  <div class="row mx-auto index-card">
-    
-    
-    <article class="col-12 col-md-12 mx-auto index-info">
-      <h1 class="index-header">
-        
-        <a href="/1455896452.html">(Leetcode 2021 刷题计划) 173. 二叉搜索树迭代器</a>
-      </h1>
-
-      <p class="index-excerpt">
-        <a href="/1455896452.html">
-          
-          
-            
-          
-          
-每日一题时间: 2020-03-28
-题目链接: 173. 二叉搜索树迭代器
-官方题解链接: 二叉搜索树迭代器
-
- 题目
-实现一个二叉搜索树迭代器类 BSTIterator ，表示一个按中序遍历二叉搜索树（BST）的迭代器：
-
-BSTIterator(TreeNode root) 初始化 BSTIterator 类的一个对象。BST 的根节点 root 会作为构造函数的一部分给出。指针应初始化为
-        </a>
-      </p>
-
-      <div class="index-btm post-metas">
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-date"></i>
-            <time datetime="2021-03-28 08:25" pubdate>
-              2021-03-28
-            </time>
-          </div>
-        
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-category"></i>
-            
-              <a href="/categories/Leetcode/">Leetcode</a>
-            
-          </div>
-        
-        
-          <div class="post-meta">
-            <i class="iconfont icon-tags"></i>
-            
-              <a href="/tags/Leetcode/">Leetcode</a>
-            
-          </div>
         
       </div>
     </article>
@@ -718,9 +394,9 @@ BSTIterator(TreeNode root) 初始化 BSTIterator 类的一个对象。BST 的根
             
           
            前言
-2021年是我工作的第二年, 过去的一年间, 由于疫情与种种事情, 目标总是停滞不前, 今年希望能够逐渐改变自己, 与昨日懒惰的自己挥手告别, 不仅仅为了更好的工作学习, 也是为了能够更好的整理自己的生活。
+2021年是我工作的第二年, 过去的一年间, 由于疫情与种种事情, 目标总是停滞不前, 今年希望能够逐渐改变自己, 与昨日懒惰的自己挥手告别, 不仅仅为了更好的工作学习, 也是为了能够更好的整理自己的生活.
  GTD 时间管理法则
-GTD 就是 Getting Things Done 的缩写，意思是 &quot;把需要做的事情处理好&quot;，是一个管理时间的方法。
+GTD 就是 Getting Things Done 的缩写,意思是 &quot;把需要做的事情处理好&quot;,是一个管理时间的方法.
 
 真正的生产力不应该
         </a>
@@ -755,11 +431,287 @@ GTD 就是 Getting Things Done 的缩写，意思是 &quot;把需要做的事情
     </article>
   </div>
 
+  <div class="row mx-auto index-card">
+    
+    
+    <article class="col-12 col-md-12 mx-auto index-info">
+      <h1 class="index-header">
+        
+        <a href="/1217630946.html">特征分箱方法</a>
+      </h1>
+
+      <p class="index-excerpt">
+        <a href="/1217630946.html">
+          
+          
+            
+          
+          在 评分卡等模型中, 一般需要对连续特征离散化, 从而增加模型的鲁棒性, 降低模型的过拟合风险, 而离散化一般采用分箱的方法.
+ 分箱的优势
+本部分来自于严林的知乎回答, 并根据评论区回复进行整理.该部分优势相互之间有所重复和耦合, 但是为保证完整, 全部保留.
+
+
+离散特征的增加和减少都很容易,易于模型的快速迭代
+
+该部分不代表模型无需重新训练, 而是相较于连续特征其处理上较为简单
+
+
+
+稀疏向
+        </a>
+      </p>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>
+            <time datetime="2021-03-16 21:13" pubdate>
+              2021-03-16
+            </time>
+          </div>
+        
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-category"></i>
+            
+              <a href="/categories/%E7%89%B9%E5%BE%81%E5%B7%A5%E7%A8%8B/">特征工程</a>
+            
+          </div>
+        
+        
+          <div class="post-meta">
+            <i class="iconfont icon-tags"></i>
+            
+              <a href="/tags/%E7%89%B9%E5%BE%81%E5%B7%A5%E7%A8%8B/">特征工程</a>
+            
+          </div>
+        
+      </div>
+    </article>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+    <article class="col-12 col-md-12 mx-auto index-info">
+      <h1 class="index-header">
+        
+        <a href="/1048667507.html">特征筛选方法</a>
+      </h1>
+
+      <p class="index-excerpt">
+        <a href="/1048667507.html">
+          
+          
+            
+          
+           参考资料
+
+用于特征选择的F-Score打分及其Python实现
+特征选择过滤器 -chi2(卡方统计量)
+
+
+        </a>
+      </p>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>
+            <time datetime="2021-03-16 21:13" pubdate>
+              2021-03-16
+            </time>
+          </div>
+        
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-category"></i>
+            
+              <a href="/categories/%E7%89%B9%E5%BE%81%E5%B7%A5%E7%A8%8B/">特征工程</a>
+            
+          </div>
+        
+        
+          <div class="post-meta">
+            <i class="iconfont icon-tags"></i>
+            
+              <a href="/tags/%E7%89%B9%E5%BE%81%E5%B7%A5%E7%A8%8B/">特征工程</a>
+            
+          </div>
+        
+      </div>
+    </article>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+    <article class="col-12 col-md-12 mx-auto index-info">
+      <h1 class="index-header">
+        
+        <a href="/1015665139.html">样本不均衡解决方法-过采样与欠采样</a>
+      </h1>
+
+      <p class="index-excerpt">
+        <a href="/1015665139.html">
+          
+          
+            
+          
+          
+在风控场景中, 由于正样本获取的成本较高, 往往样本比例是失衡的, 样本的不平衡很容易导致模型偏向比例较高的一方.解决该问题的方法有很多, 本文重要探讨基于 imbalanced-learn 的采样方法.
+
+ 概述
+imbalanced-learn 是一个MIT许可开源的源代码库, 依赖于 scikit-learn 库, 为处理不均衡的分类问题提供工具.
+
+imbalanced-learn 文档
+        </a>
+      </p>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>
+            <time datetime="2021-03-15 21:13" pubdate>
+              2021-03-15
+            </time>
+          </div>
+        
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-category"></i>
+            
+              <a href="/categories/%E7%89%B9%E5%BE%81%E5%B7%A5%E7%A8%8B/">特征工程</a>
+            
+          </div>
+        
+        
+          <div class="post-meta">
+            <i class="iconfont icon-tags"></i>
+            
+              <a href="/tags/%E7%89%B9%E5%BE%81%E5%B7%A5%E7%A8%8B/">特征工程</a>
+            
+          </div>
+        
+      </div>
+    </article>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+    <article class="col-12 col-md-12 mx-auto index-info">
+      <h1 class="index-header">
+        
+        <a href="/2449372400.html">信用评分卡模型</a>
+      </h1>
+
+      <p class="index-excerpt">
+        <a href="/2449372400.html">
+          
+          
+            
+          
+           概述
+信用评分卡模型是一种最常见的金融风控手段.它是指根据客户的各种属性和行为数据构建一个信用评分模型,对客户进行信用评分,并据此决定是否给予授信以及授信的额度和利率,从而识别和减少在金融交易中存在的交易风险.
+在不同的业务阶段我们可以构建不同的评分卡模型.根据借贷时间,评分卡模型可以划分为以下三种:
+
+贷前: 申请评分卡(Application score card),又称为A卡
+贷中: 行为
+        </a>
+      </p>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>
+            <time datetime="2021-01-18 21:13" pubdate>
+              2021-01-18
+            </time>
+          </div>
+        
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-category"></i>
+            
+              <a href="/categories/%E9%A3%8E%E6%8E%A7%E6%8A%80%E6%9C%AF/">风控技术</a>
+            
+          </div>
+        
+        
+          <div class="post-meta">
+            <i class="iconfont icon-tags"></i>
+            
+              <a href="/tags/%E8%AF%84%E5%88%86%E5%8D%A1%E6%A8%A1%E5%9E%8B/">评分卡模型</a>
+            
+          </div>
+        
+      </div>
+    </article>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+    <article class="col-12 col-md-12 mx-auto index-info">
+      <h1 class="index-header">
+        
+        <a href="/3306641566.html">并查集</a>
+      </h1>
+
+      <p class="index-excerpt">
+        <a href="/3306641566.html">
+          
+          
+            
+          
+          并查集是一种树形的数据结构,顾名思义,它用于处理一些不交集的 合并 及 查询 问题. 它支持两种操作:
+
+查找(Find): 确定某个元素处于哪个子集;
+合并(Union): 将两个子集合并成一个集合.
+
+ 实现并查集
+并查集的实现大同小异, 如下实现来自于Leetcode 721: 合并账户
+class UnionFind &#123;
+public:
+    vector&lt;int> pa
+        </a>
+      </p>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>
+            <time datetime="2021-01-18 08:25" pubdate>
+              2021-01-18
+            </time>
+          </div>
+        
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-category"></i>
+            
+              <a href="/categories/%E9%9D%A2%E8%AF%95%E7%AE%97%E6%B3%95/">面试算法</a>
+            
+          </div>
+        
+        
+          <div class="post-meta">
+            <i class="iconfont icon-tags"></i>
+            
+              <a href="/tags/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/">数据结构</a>
+            
+          </div>
+        
+      </div>
+    </article>
+  </div>
+
 
 
   <nav aria-label="navigation">
     <span class="pagination" id="pagination">
-      <span class="page-number current">1</span><a class="page-number" href="/page/2/#board">2</a><a class="page-number" href="/page/3/#board">3</a><span class="space">&hellip;</span><a class="page-number" href="/page/5/#board">5</a><a class="extend next" rel="next" href="/page/2/#board"><i class="iconfont icon-arrowright"></i></a>
+      <span class="page-number current">1</span><a class="page-number" href="/page/2/#board">2</a><a class="page-number" href="/page/3/#board">3</a><a class="extend next" rel="next" href="/page/2/#board"><i class="iconfont icon-arrowright"></i></a>
     </span>
   </nav>
 

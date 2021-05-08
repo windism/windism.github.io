@@ -258,7 +258,7 @@
             
               <p class="note note-info">
                 
-                  本文最后更新于：2021年3月23日 中午
+                  本文最后更新于：2021年5月8日 下午
                 
               </p>
             
@@ -347,7 +347,7 @@ data_bins <span class="token operator">=</span> pd<span class="token punctuation
 <li>连续型变量:  分箱后的 <code>KS</code> 值&lt;=分箱前的 <code>KS</code> 值</li>
 <li>分箱过程中,决定分箱后的 <code>KS</code> 值是某一个切点,而不是多个切点的共同作用.这个切点的位置是原始 <code>KS</code> 值最大的位置.</li>
 </ul>
-<p>代码暂时可以参考<a target="_blank" rel="noopener" href="https://www.cnblogs.com/wqbin/p/10549683.html">特征工程之分箱–Best-KS分箱</a>或<a target="_blank" rel="noopener" href="https://www.pythonheidong.com/blog/article/550929/cbf363d99072bc1d54e4/">特征工程之特征分箱（决策树分箱、卡方分箱、bestks以及评价标准WOE和IV)</a></p>
+<p>代码暂时可以参考<a target="_blank" rel="noopener" href="https://www.cnblogs.com/wqbin/p/10549683.html">特征工程之分箱–Best-KS分箱</a>或<a target="_blank" rel="noopener" href="https://www.pythonheidong.com/blog/article/550929/cbf363d99072bc1d54e4/">特征工程之特征分箱(决策树分箱、卡方分箱、bestks以及评价标准WOE和IV)</a></p>
 <p>TODO: Best-KS代码</p>
 <h3 id="卡方分箱"><a class="markdownIt-Anchor" href="#卡方分箱"></a> 卡方分箱</h3>
 <p>卡方分箱(ChiMerge): 由 <code>Kerber</code> 于1992提出; 依赖于卡方检验的分箱方法,在统计指标上选择卡方统计量(<code>chi-Square</code>)进行判别.</p>
@@ -355,14 +355,14 @@ data_bins <span class="token operator">=</span> pd<span class="token punctuation
 <ol>
 <li>初始化阶段:
 <ol>
-<li>首先按照属性值的大小进行排序（对于非连续特征,需要先做数值转换,比如转为坏人率,然后排序）,然后每个属性值单独作为一组.</li>
+<li>首先按照属性值的大小进行排序(对于非连续特征,需要先做数值转换,比如转为坏人率,然后排序),然后每个属性值单独作为一组.</li>
 </ol>
 </li>
 <li>合并阶段:
 <ol>
 <li>对每一对相邻的组,计算卡方值</li>
 <li>根据计算的卡方值,对其中最小的一对邻组合并为一组</li>
-<li>不断重复 &lt;1&gt;, &lt;2&gt; 直到计算出的卡方值都不低于事先设定的阈值,或者分组数达到一定的条件（如最小分组数5,最大分组数8）.</li>
+<li>不断重复 &lt;1&gt;, &lt;2&gt; 直到计算出的卡方值都不低于事先设定的阈值,或者分组数达到一定的条件(如最小分组数5,最大分组数8).</li>
 </ol>
 </li>
 </ol>
@@ -373,7 +373,7 @@ data_bins <span class="token operator">=</span> pd<span class="token punctuation
 <li><a target="_blank" rel="noopener" href="https://blog.csdn.net/Pylady/article/details/78882220">特征工程之分箱</a></li>
 <li><a target="_blank" rel="noopener" href="https://www.zhihu.com/question/31989952/answer/54184582">严林的知乎回答</a></li>
 <li><a target="_blank" rel="noopener" href="https://www.cnblogs.com/wqbin/p/10549683.html">特征工程之分箱–Best-KS分箱</a></li>
-<li><a target="_blank" rel="noopener" href="https://www.pythonheidong.com/blog/article/550929/cbf363d99072bc1d54e4/">特征工程之特征分箱（决策树分箱、卡方分箱、bestks以及评价标准WOE和IV)</a></li>
+<li><a target="_blank" rel="noopener" href="https://www.pythonheidong.com/blog/article/550929/cbf363d99072bc1d54e4/">特征工程之特征分箱(决策树分箱、卡方分箱、bestks以及评价标准WOE和IV)</a></li>
 <li><a target="_blank" rel="noopener" href="https://cloud.tencent.com/developer/article/1530232">一文介绍特征工程里的卡方分箱,附代码实现</a></li>
 </ol>
 
@@ -410,9 +410,9 @@ data_bins <span class="token operator">=</span> pd<span class="token punctuation
                   <article class="post-prev col-6">
                     
                     
-                      <a href="/1048667507.html">
+                      <a href="/2131573533.html">
                         <i class="iconfont icon-arrowleft"></i>
-                        <span class="hidden-mobile">特征筛选方法</span>
+                        <span class="hidden-mobile">(2021年年度计划-个人管理方面) GTD 时间管理法则 与 OKR 目标管理法则</span>
                         <span class="visible-mobile">上一篇</span>
                       </a>
                     
@@ -420,8 +420,8 @@ data_bins <span class="token operator">=</span> pd<span class="token punctuation
                   <article class="post-next col-6">
                     
                     
-                      <a href="/692910374.html">
-                        <span class="hidden-mobile">(Leetcode 2021 刷题计划) 59. 螺旋矩阵 II</span>
+                      <a href="/1048667507.html">
+                        <span class="hidden-mobile">特征筛选方法</span>
                         <span class="visible-mobile">下一篇</span>
                         <i class="iconfont icon-arrowright"></i>
                       </a>

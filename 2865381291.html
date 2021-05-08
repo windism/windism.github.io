@@ -16,9 +16,9 @@
   <meta name="theme-color" content="#2f4154">
   <meta name="description" content="记录自己的每一步">
   <meta name="author" content="windism">
-  <meta name="keywords" content="Hive,隐形转换,getCommonClass,getCommonClassForComparison,getCommonClassForUnionAll">
+  <meta name="keywords" content="HBase,学习笔记">
   
-  <title>Hive 隐形转换笔记.md - 风扬</title>
+  <title>HBase 学习笔记 - 风扬</title>
 
   <link  rel="stylesheet" href="https://cdn.staticfile.org/twitter-bootstrap/4.5.3/css/bootstrap.min.css" />
 
@@ -184,7 +184,7 @@
       <div class="full-bg-img">
         <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
           <div class="page-header text-center fade-in-up">
-            <span class="h2" id="subtitle" title="Hive 隐形转换笔记.md">
+            <span class="h2" id="subtitle" title="HBase 学习笔记">
               
             </span>
 
@@ -194,8 +194,8 @@
   
     <span class="post-meta">
       <i class="iconfont icon-date-fill" aria-hidden="true"></i>
-      <time datetime="2021-05-06 21:43" pubdate>
-        2021年5月6日 晚上
+      <time datetime="2021-04-06 21:43" pubdate>
+        2021年4月6日 晚上
       </time>
     </span>
   
@@ -206,7 +206,7 @@
     
     <span class="post-meta mr-2">
       <i class="iconfont icon-chart"></i>
-      964 字
+      1.7k 字
     </span>
   
 
@@ -216,7 +216,7 @@
       <i class="iconfont icon-clock-fill"></i>
       
       
-      12
+      20
        分钟
     </span>
   
@@ -254,7 +254,7 @@
         <div class="py-5" id="board">
           <article class="post-content mx-auto">
             <!-- SEO header -->
-            <h1 style="display: none">Hive 隐形转换笔记.md</h1>
+            <h1 style="display: none">HBase 学习笔记</h1>
             
               <p class="note note-info">
                 
@@ -263,120 +263,168 @@
               </p>
             
             <div class="markdown-body">
-              <h2 id="背景"><a class="markdownIt-Anchor" href="#背景"></a> 背景</h2>
-<p>本次分析的 <code>hive</code> 版本为 <a target="_blank" rel="noopener" href="https://github.com/apache/hive/tree/release-1.2.1">1.2.1</a></p>
+              <h2 id="概述"><a class="markdownIt-Anchor" href="#概述"></a> 概述</h2>
+<p>HBase 是一种分布式、可扩展、支持海量数据存储的 NoSQL 数据库.</p>
 <blockquote>
-<p>在工作中使用 <code>Hive</code> 遇到一个情况 <code>SELECT 'default' &lt;&gt; -1</code> 按照使用者的想法是想排除异常数值 <code>-1</code>, 但实际上是 <code>SELECT CAST('default' AS INT) &lt;&gt; -1</code> 结果是 <code>null</code>.</p>
+<p>HBase 是建立在 <strong>Hadoop</strong> 文件系统上支持支持横向扩展的数据库, 它利用HDFS提供了容错的能力,可以直接或者通过 HBase 的存储 HDFS 数据.</p>
 </blockquote>
-<p>从该问题来看, 如下两个 SQL</p>
-<div class="code-wrapper"><pre class="line-numbers language-sql" data-language="sql"><code class="language-sql"><span class="token keyword">SELECT</span> <span class="token number">01</span> <span class="token operator">IN</span> <span class="token punctuation">(</span><span class="token string">'01'</span><span class="token punctuation">)</span>
-<span class="token keyword">SELECT</span> <span class="token number">01</span> <span class="token operator">=</span> <span class="token string">'01'</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre></div>
-<p>其实际执行计划和结果为</p>
-<div class="code-wrapper"><pre class="line-numbers language-sql" data-language="sql"><code class="language-sql"><span class="token keyword">SELECT</span> CAST<span class="token punctuation">(</span><span class="token number">01</span> <span class="token keyword">AS</span> STRING<span class="token punctuation">)</span> <span class="token operator">IN</span> <span class="token punctuation">(</span><span class="token string">'01'</span><span class="token punctuation">)</span>
-<span class="token comment">-- 请注意 01 会在分析阶段转换为 1</span>
-<span class="token comment">-- false</span>
-<span class="token keyword">SELECT</span> <span class="token number">01</span> <span class="token operator">=</span> CAST<span class="token punctuation">(</span><span class="token string">'01'</span> <span class="token keyword">AS</span> <span class="token keyword">INT</span><span class="token punctuation">)</span>
-<span class="token comment">-- true</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre></div>
-<h2 id="比较函数的隐形转换分析"><a class="markdownIt-Anchor" href="#比较函数的隐形转换分析"></a> 比较函数的隐形转换分析</h2>
-<p>针对比较函数(’=’)其文件位置在 <a target="_blank" rel="noopener" href="https://github.com/apache/hive/blob/release-1.2.1/ql/src/java/org/apache/hadoop/hive/ql/udf/generic/GenericUDFOPEqual.java">GenericUDFOPEqual.java</a></p>
-<p>根据针对 <code>GenericUDF</code> 的了解, 其 <code>initialize</code> 函数是用于解析输入参数的类型和进行初始化操作, 该文件并没有, 因此需要向上回溯其父类 <a target="_blank" rel="noopener" href="https://github.com/apache/hive/blob/release-1.2.1/ql/src/java/org/apache/hadoop/hive/ql/udf/generic/GenericUDFBaseCompare.java">GenericUDFBaseCompare.java</a></p>
-<p>针对 <code>initialize</code> 进行分析可以知道</p>
 <ul>
-<li>如果比较的两个变量类型相同, 即直接进行该类型的比较(设定 <code>compareType</code> 并在 <code>GenericUDFOPEqual.java</code> 中使用)</li>
-<li>如果比较的两个变量类型不同, 通过 <code>FunctionRegistry.getCommonClassForComparison</code> 进行  <code>compareType</code> 设定</li>
+<li>HBase 官方网站: <a target="_blank" rel="noopener" href="https://hbase.apache.org/">Welcome to Apache HBase</a></li>
+<li>B站学习教程: <a target="_blank" rel="noopener" href="https://www.bilibili.com/video/BV1Y4411B7jy?t=31">尚硅谷HBase教程</a></li>
 </ul>
-<p>仍需要向上追溯 <a target="_blank" rel="noopener" href="https://github.com/apache/hive/blob/release-1.2.1/ql/src/java/org/apache/hadoop/hive/ql/exec/FunctionRegistry.java">FunctionRegistry.java</a>, 可以找到最终的默认隐形转换代码:</p>
-<div class="code-wrapper"><pre class="line-numbers language-java" data-language="java"><code class="language-java"><span class="token keyword">public</span> <span class="token keyword">static</span> <span class="token class-name">TypeInfo</span> <span class="token function">getCommonClassForComparison</span><span class="token punctuation">(</span><span class="token class-name">TypeInfo</span> a<span class="token punctuation">,</span> <span class="token class-name">TypeInfo</span> b<span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
-    <span class="token comment">// 前面基本逻辑: 若均为 String 族, 则使用 String 比较; 若互相为数值族和时间戳, 则采用 double 比较 </span>
-    <span class="token comment">// </span>
-    <span class="token keyword">for</span> <span class="token punctuation">(</span><span class="token class-name">PrimitiveCategory</span> t <span class="token operator">:</span> numericTypeList<span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
-        <span class="token keyword">if</span> <span class="token punctuation">(</span><span class="token class-name">FunctionRegistry</span><span class="token punctuation">.</span><span class="token function">implicitConvertible</span><span class="token punctuation">(</span>pcA<span class="token punctuation">,</span> t<span class="token punctuation">)</span>
-            <span class="token operator">&amp;&amp;</span> <span class="token class-name">FunctionRegistry</span><span class="token punctuation">.</span><span class="token function">implicitConvertible</span><span class="token punctuation">(</span>pcB<span class="token punctuation">,</span> t<span class="token punctuation">)</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
-            <span class="token keyword">return</span> <span class="token function">getTypeInfoForPrimitiveCategory</span><span class="token punctuation">(</span><span class="token punctuation">(</span><span class="token class-name">PrimitiveTypeInfo</span><span class="token punctuation">)</span>a<span class="token punctuation">,</span> <span class="token punctuation">(</span><span class="token class-name">PrimitiveTypeInfo</span><span class="token punctuation">)</span>b<span class="token punctuation">,</span> t<span class="token punctuation">)</span><span class="token punctuation">;</span>
-        <span class="token punctuation">&#125;</span>
-    <span class="token punctuation">&#125;</span>
-    <span class="token comment">//...</span>
-<span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre></div>
-<p>该部分则利用 <code>implicitConvertible</code> 判断若两者均可转为统一数值类型, 则进行该类型的转换(其中比较两者之间的优先级)</p>
-<div class="code-wrapper"><pre class="line-numbers language-java" data-language="java"><code class="language-java"><span class="token keyword">public</span> <span class="token keyword">static</span> <span class="token keyword">boolean</span> <span class="token function">implicitConvertible</span><span class="token punctuation">(</span><span class="token class-name">PrimitiveCategory</span> from<span class="token punctuation">,</span> <span class="token class-name">PrimitiveCategory</span> <span class="token keyword">to</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
-    <span class="token comment">// 前面基本逻辑: </span>
-    <span class="token comment">// 允许从 String 转 Double, Decimal, Date</span>
-    <span class="token comment">// 允许数值族 转 String族</span>
-
-    <span class="token comment">// Allow implicit conversion from Byte -> Integer -> Long -> Float -> Double</span>
-    <span class="token comment">// Decimal -> String</span>
-    <span class="token class-name">Integer</span> f <span class="token operator">=</span> numericTypes<span class="token punctuation">.</span><span class="token function">get</span><span class="token punctuation">(</span>from<span class="token punctuation">)</span><span class="token punctuation">;</span>
-    <span class="token class-name">Integer</span> t <span class="token operator">=</span> numericTypes<span class="token punctuation">.</span><span class="token function">get</span><span class="token punctuation">(</span><span class="token keyword">to</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-    <span class="token keyword">if</span> <span class="token punctuation">(</span>f <span class="token operator">==</span> <span class="token keyword">null</span> <span class="token operator">||</span> t <span class="token operator">==</span> <span class="token keyword">null</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
-        <span class="token keyword">return</span> <span class="token boolean">false</span><span class="token punctuation">;</span>
-    <span class="token punctuation">&#125;</span>
-    <span class="token keyword">if</span> <span class="token punctuation">(</span>f<span class="token punctuation">.</span><span class="token function">intValue</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">></span> t<span class="token punctuation">.</span><span class="token function">intValue</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
-        <span class="token keyword">return</span> <span class="token boolean">false</span><span class="token punctuation">;</span>
-    <span class="token punctuation">&#125;</span>
-    <span class="token keyword">return</span> <span class="token boolean">true</span><span class="token punctuation">;</span>
-<span class="token punctuation">&#125;</span>
-
-<span class="token comment">// 优先级部分的设置代码</span>
-<span class="token keyword">static</span> <span class="token class-name">EnumMap</span><span class="token generics"><span class="token punctuation">&lt;</span><span class="token class-name">PrimitiveCategory</span><span class="token punctuation">,</span> <span class="token class-name">Integer</span><span class="token punctuation">></span></span> numericTypes <span class="token operator">=</span>
-    <span class="token keyword">new</span> <span class="token class-name">EnumMap</span><span class="token generics"><span class="token punctuation">&lt;</span><span class="token class-name">PrimitiveCategory</span><span class="token punctuation">,</span> <span class="token class-name">Integer</span><span class="token punctuation">></span></span><span class="token punctuation">(</span><span class="token class-name">PrimitiveCategory</span><span class="token punctuation">.</span><span class="token keyword">class</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-<span class="token keyword">static</span> <span class="token class-name">List</span><span class="token generics"><span class="token punctuation">&lt;</span><span class="token class-name">PrimitiveCategory</span><span class="token punctuation">></span></span> numericTypeList <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">ArrayList</span><span class="token generics"><span class="token punctuation">&lt;</span><span class="token class-name">PrimitiveCategory</span><span class="token punctuation">></span></span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-
-<span class="token keyword">static</span> <span class="token keyword">void</span> <span class="token function">registerNumericType</span><span class="token punctuation">(</span><span class="token class-name">PrimitiveCategory</span> primitiveCategory<span class="token punctuation">,</span> <span class="token keyword">int</span> level<span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
-    numericTypeList<span class="token punctuation">.</span><span class="token function">add</span><span class="token punctuation">(</span>primitiveCategory<span class="token punctuation">)</span><span class="token punctuation">;</span>
-    numericTypes<span class="token punctuation">.</span><span class="token function">put</span><span class="token punctuation">(</span>primitiveCategory<span class="token punctuation">,</span> level<span class="token punctuation">)</span><span class="token punctuation">;</span>
-<span class="token punctuation">&#125;</span>
-
-<span class="token keyword">static</span> <span class="token punctuation">&#123;</span>
-    <span class="token function">registerNumericType</span><span class="token punctuation">(</span><span class="token class-name">PrimitiveCategory</span><span class="token punctuation">.</span>BYTE<span class="token punctuation">,</span> <span class="token number">1</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-    <span class="token function">registerNumericType</span><span class="token punctuation">(</span><span class="token class-name">PrimitiveCategory</span><span class="token punctuation">.</span>SHORT<span class="token punctuation">,</span> <span class="token number">2</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-    <span class="token function">registerNumericType</span><span class="token punctuation">(</span><span class="token class-name">PrimitiveCategory</span><span class="token punctuation">.</span>INT<span class="token punctuation">,</span> <span class="token number">3</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-    <span class="token function">registerNumericType</span><span class="token punctuation">(</span><span class="token class-name">PrimitiveCategory</span><span class="token punctuation">.</span>LONG<span class="token punctuation">,</span> <span class="token number">4</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-    <span class="token function">registerNumericType</span><span class="token punctuation">(</span><span class="token class-name">PrimitiveCategory</span><span class="token punctuation">.</span>FLOAT<span class="token punctuation">,</span> <span class="token number">5</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-    <span class="token function">registerNumericType</span><span class="token punctuation">(</span><span class="token class-name">PrimitiveCategory</span><span class="token punctuation">.</span>DOUBLE<span class="token punctuation">,</span> <span class="token number">6</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-    <span class="token function">registerNumericType</span><span class="token punctuation">(</span><span class="token class-name">PrimitiveCategory</span><span class="token punctuation">.</span>DECIMAL<span class="token punctuation">,</span> <span class="token number">7</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-    <span class="token function">registerNumericType</span><span class="token punctuation">(</span><span class="token class-name">PrimitiveCategory</span><span class="token punctuation">.</span>STRING<span class="token punctuation">,</span> <span class="token number">8</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-<span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre></div>
-<h2 id="in-函数的隐形转换分析"><a class="markdownIt-Anchor" href="#in-函数的隐形转换分析"></a> IN 函数的隐形转换分析</h2>
-<p>针对比较函数(‘IN’)其文件位置在 <a target="_blank" rel="noopener" href="https://github.com/apache/hive/blob/release-1.2.1/ql/src/java/org/apache/hadoop/hive/ql/udf/generic/GenericUDFIn.java">GenericUDFIn.java</a>, 可以看出该函数是自身含有 <code>initialize</code> 函数利用 <code>GenericUDFUtils</code> 进行类型的优先级匹配</p>
-<p>因此向上回溯 <a target="_blank" rel="noopener" href="https://github.com/apache/hive/blob/release-1.2.1/ql/src/java/org/apache/hadoop/hive/ql/udf/generic/GenericUDFUtils.java">GenericUDFUtils.java</a> 其中利用 <code>update</code> 函数不断比较每个变量的类型情况, 关键代码如下</p>
-<div class="code-wrapper"><pre class="line-numbers language-java" data-language="java"><code class="language-java"><span class="token keyword">private</span> <span class="token keyword">boolean</span> <span class="token function">update</span><span class="token punctuation">(</span><span class="token class-name">ObjectInspector</span> oi<span class="token punctuation">,</span> <span class="token keyword">boolean</span> isUnionAll<span class="token punctuation">)</span> <span class="token keyword">throws</span> <span class="token class-name">UDFArgumentTypeException</span> <span class="token punctuation">&#123;</span>
-    <span class="token comment">// ...</span>
-    <span class="token class-name">TypeInfo</span> commonTypeInfo <span class="token operator">=</span> <span class="token keyword">null</span><span class="token punctuation">;</span>
-    <span class="token keyword">if</span> <span class="token punctuation">(</span>isUnionAll<span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
-    commonTypeInfo <span class="token operator">=</span> <span class="token class-name">FunctionRegistry</span><span class="token punctuation">.</span><span class="token function">getCommonClassForUnionAll</span><span class="token punctuation">(</span>oiTypeInfo<span class="token punctuation">,</span>
-        rTypeInfo<span class="token punctuation">)</span><span class="token punctuation">;</span>
-    <span class="token punctuation">&#125;</span> <span class="token keyword">else</span> <span class="token punctuation">&#123;</span>    <span class="token comment">// 采用该情况, 因为无参数 update 默认 isunionall 为 false</span>
-    commonTypeInfo <span class="token operator">=</span> <span class="token class-name">FunctionRegistry</span><span class="token punctuation">.</span><span class="token function">getCommonClass</span><span class="token punctuation">(</span>oiTypeInfo<span class="token punctuation">,</span>
-        rTypeInfo<span class="token punctuation">)</span><span class="token punctuation">;</span>
-    <span class="token punctuation">&#125;</span>
-    <span class="token keyword">if</span> <span class="token punctuation">(</span>commonTypeInfo <span class="token operator">==</span> <span class="token keyword">null</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
-    <span class="token keyword">return</span> <span class="token boolean">false</span><span class="token punctuation">;</span>
-    <span class="token punctuation">&#125;</span>
-    <span class="token comment">// ...</span>
-<span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre></div>
-<p>因此又回到 <a target="_blank" rel="noopener" href="https://github.com/apache/hive/blob/release-1.2.1/ql/src/java/org/apache/hadoop/hive/ql/exec/FunctionRegistry.java">FunctionRegistry.java</a>文件, 其中 <code>getCommonClass</code> 函数调用 <code>getCommonCategory</code> 函数, 关键隐形转换代码如下</p>
-<div class="code-wrapper"><pre class="line-numbers language-java" data-language="java"><code class="language-java"><span class="token keyword">public</span> <span class="token keyword">static</span> <span class="token class-name">PrimitiveCategory</span> <span class="token function">getCommonCategory</span><span class="token punctuation">(</span><span class="token class-name">TypeInfo</span> a<span class="token punctuation">,</span> <span class="token class-name">TypeInfo</span> b<span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
-    <span class="token class-name">Integer</span> ai <span class="token operator">=</span> numericTypes<span class="token punctuation">.</span><span class="token function">get</span><span class="token punctuation">(</span>pcA<span class="token punctuation">)</span><span class="token punctuation">;</span>
-    <span class="token class-name">Integer</span> bi <span class="token operator">=</span> numericTypes<span class="token punctuation">.</span><span class="token function">get</span><span class="token punctuation">(</span>pcB<span class="token punctuation">)</span><span class="token punctuation">;</span>
-    <span class="token keyword">if</span> <span class="token punctuation">(</span>ai <span class="token operator">==</span> <span class="token keyword">null</span> <span class="token operator">||</span> bi <span class="token operator">==</span> <span class="token keyword">null</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
-        <span class="token comment">// If either is not a numeric type, return null.</span>
-        <span class="token keyword">return</span> <span class="token keyword">null</span><span class="token punctuation">;</span>
-    <span class="token punctuation">&#125;</span>
-
-    <span class="token keyword">return</span> <span class="token punctuation">(</span>ai <span class="token operator">></span> bi<span class="token punctuation">)</span> <span class="token operator">?</span> pcA <span class="token operator">:</span> pcB<span class="token punctuation">;</span>
-<span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre></div>
-<p>可以看出与比较的隐形转换相比, 该部分采用正常的向上优先级转换的情况.</p>
-<h2 id="总结"><a class="markdownIt-Anchor" href="#总结"></a> 总结</h2>
-<p>针对 <code>HIVE 1.2.1</code> 实际上存在三种隐形转换:</p>
+<h3 id="特点"><a class="markdownIt-Anchor" href="#特点"></a> 特点</h3>
+<blockquote>
+<p>该部分来源自官网描述, 此时最新版本 <code>2.4.2</code></p>
+</blockquote>
 <ul>
-<li><code>getCommonClass</code>: 采用正常的优先级排序比较, 非比较类型基本均为该逻辑</li>
-<li><code>getCommonClassForComparison</code>: 在针对同族情况无效时, 采用向下比较优先级的方式(为防止用户使用出现异常错误), 非比较类型基本均为该逻辑</li>
-<li><code>getCommonClassForUnionAll</code>: 在存在一方非 String族 情况下, 无法实现相互转化情况下, 则采用数值向下比较优先级的方式(为防止用户使用出现异常错误)</li>
+<li>线性和模块化可扩展性</li>
+<li>针对读写具备严格一致性</li>
+<li>针对表可自动和可配置分片</li>
+<li>区域服务器之间的自动故障转移支持</li>
+<li>方便的基类(用于通过Apache HBase表备份Hadoop MapReduce作业)</li>
+<li>易于使用的<code>Java API</code>用于客户端访问</li>
+<li>块缓存和布隆过滤器用于实时查询.</li>
+<li>通过服务器端过滤器查询谓词下推</li>
+<li><code>Thrift</code> 网关和 <code>RESTful</code> Web服务,支持 <code>XML</code>,<code>Protobuf</code> 和二进制数据编码选项</li>
+<li>可扩展的基于 <code>Jruby</code> 的(<code>JIRB</code>)外壳</li>
+<li>支持通过 <code>Hadoop</code> 指标子系统将指标导出到文件、 <code>Ganglia</code>或通过<code>JMX</code></li>
 </ul>
-<h2 id="参考资料"><a class="markdownIt-Anchor" href="#参考资料"></a> 参考资料</h2>
+<h3 id="对比hdfs"><a class="markdownIt-Anchor" href="#对比hdfs"></a> 对比HDFS</h3>
+<table>
+<thead>
+<tr>
+<th style="text-align:center">HBase</th>
+<th style="text-align:center">HDFS</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">HBase是建立在HDFS之上的数据库.</td>
+<td style="text-align:center">HDFS是适于存储大容量文件的分布式文件系统.</td>
+</tr>
+<tr>
+<td style="text-align:center">HBase提供在较大的表快速查找</td>
+<td style="text-align:center">HDFS不支持快速单独记录查找.</td>
+</tr>
+<tr>
+<td style="text-align:center">它提供了数十亿条记录低延迟访问单个行记录(随机存取).</td>
+<td style="text-align:center">它提供了高延迟批量处理;没有批处理概念.</td>
+</tr>
+<tr>
+<td style="text-align:center">HBase内部使用哈希表和提供随机接入,并且其存储索引,可将在HDFS文件中的数据进行快速查找.</td>
+<td style="text-align:center">它提供的数据只能顺序访问.</td>
+</tr>
+</tbody>
+</table>
+<h2 id="逻辑架构"><a class="markdownIt-Anchor" href="#逻辑架构"></a> 逻辑架构</h2>
+<h3 id="术语解释"><a class="markdownIt-Anchor" href="#术语解释"></a> 术语解释</h3>
 <ul>
-<li><a target="_blank" rel="noopener" href="http://lanhuajian.tech/hive/hive_type_convert_not_equal.html">Hive类型转换表现不一致的坑</a></li>
+<li><code>Name Space</code>: 命名空间,类似于关系型数据库的 <code>DatabBase</code> 概念,每个命名空间下有多个表.<code>HBase</code> 有两个自带的命名空间,分别是 <code>hbase</code> 和 <code>default</code>. <code>hbase</code> 中存放的是 <code>HBase</code> 内置的表, <code>default</code> 表是用户默认使用的命名空间.</li>
+<li><code>Region</code>: 类似于关系型数据库的表概念.不同的是,HBase 定义表时只需要声明列族即可,不需要声明具体的列.这意味着,往 <code>HBase</code> 写入数据时,字段可以动态、按需指定.因此,和关系型数据库相比,HBase 能够轻松应对字段变更的场景.</li>
+<li><code>Row</code>: <code>HBase</code> 表中的每行数据都由一个 <code>RowKey</code> 和多个 <code>Column</code> 组成,数据是按照 <code>RowKey</code> 的 <strong>字典顺序</strong> 存储的,并且查询数据时只能根据 <code>RowKey</code> 进行检索,所以 <code>RowKey</code> 的设计十分重要.
+<ul>
+<li><code>Row key</code>: 主键是用来检索记录的主键,访问 <code>HBase table</code> 中的行.</li>
 </ul>
+</li>
+<li><code>Column</code>: <code>HBase</code> 中的每个列都由 <code>Column Family</code>和 <code>Column Qualifier</code> 进行限定,例如 <code>info:name</code>,<code>info:age</code>.建表时,只需指明列族,而列限定符无需预先定义.
+<ul>
+<li><code>Column Family</code>: Table 在水平方向有一个或多个的<code>Column Family</code>, 而一个<code>Column Family</code>是有任意多个 <code>Column</code> 组成.</li>
+<li><code>Column Family</code> 支持动态扩展, 无需预先定义 Column 的数量和数据类型,所有 Column 均以二进制的格式存储.</li>
+</ul>
+</li>
+<li><code>Time Stamp</code>: 用于标识数据的不同版本(version),每条数据写入时,如果不指定时间戳,系统会自动为其加上该字段,其值为写入 <code>HBase</code> 的时间.</li>
+<li><code>Cell</code>: 由 <code>&#123;rowkey, column Family:column Qualifier, time Stamp&#125;</code> 唯一确定的单元.<code>cell</code> 中的数 据是没有类型的,全部是字节码形式存贮.</li>
+</ul>
+<h3 id="逻辑结构"><a class="markdownIt-Anchor" href="#逻辑结构"></a> 逻辑结构</h3>
+<blockquote>
+<p>逻辑结构并非真实存储结构形式</p>
+</blockquote>
+<p><img src="/img/2021-04-11/16181301180230.jpg" srcset="/img/loading.gif" lazyload alt="HBase 逻辑结构" /></p>
+<h3 id="物理存储结构"><a class="markdownIt-Anchor" href="#物理存储结构"></a> 物理存储结构</h3>
+<p><img src="/img/2021-04-11/16181301560285.jpg" srcset="/img/loading.gif" lazyload alt="物理存储结构" /></p>
+<h3 id="架构结构"><a class="markdownIt-Anchor" href="#架构结构"></a> 架构结构</h3>
+<ul>
+<li><code>Region Server</code>: <code>Region</code> 的管理者,其实现类为 <code>HRegionServer</code>
+<ul>
+<li>对于数据的操作: <code>get</code>, <code>put</code>, <code>delete</code></li>
+<li>对于 <code>Region</code> 的操作: <code>splitRegion</code>、<code>compactRegion</code></li>
+</ul>
+</li>
+<li><code>Master</code>: 所有 <code>Region Server</code> 的管理者,其实现类为 <code>HMaster</code>
+<ul>
+<li>对于表的操作: <code>create</code>, <code>delete</code>, <code>alter</code></li>
+<li>对于 <code>Region Server</code> 的操作: 分配 <code>regions</code> 到每个 <code>RegionServer</code>,监控每个 <code>RegionServer</code> 的状态,负载均衡和故障转移.</li>
+</ul>
+</li>
+<li><code>Zookeeper</code>: <code>HBase</code> 通过 <code>Zookeeper</code> 来做 <code>Master</code> 的高可用、<code>RegionServer</code> 的监控、元数据的入口以及集群配置的维护等工作.</li>
+<li><code>HDFS</code>: <code>HBase</code> 提供最终的底层数据存储服务,同时为 <code>HBase</code> 提供高可用的支持</li>
+</ul>
+<h2 id="基本操作"><a class="markdownIt-Anchor" href="#基本操作"></a> 基本操作</h2>
+<h3 id="启停操作"><a class="markdownIt-Anchor" href="#启停操作"></a> 启停操作</h3>
+<div class="code-wrapper"><pre class="line-numbers language-shell" data-language="shell"><code class="language-shell"><span class="token comment"># 注意各个 Server 时间相同</span>
+bin/start-hbase.sh
+bin/stop-hbase.sh<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre></div>
+<p>注: <code>ClockOutOfSyncException</code>异常为集群之间的节点时间不同步.解决方法: 同步时间或修改 <code>hbase.master.maxclockskew</code></p>
+<h3 id="shell-操作"><a class="markdownIt-Anchor" href="#shell-操作"></a> Shell 操作</h3>
+<div class="code-wrapper"><pre class="line-numbers language-shell" data-language="shell"><code class="language-shell"><span class="token comment"># 进入 shell</span>
+bin/hbase shell
+<span class="token comment"># 如下为 shell 中操作</span>
+<span class="token comment">## 命令帮助</span>
+<span class="token builtin class-name">help</span>
+<span class="token comment">## 列举数据表</span>
+list
+<span class="token comment">## 创建数据表</span>
+<span class="token comment">### student: 表名</span>
+<span class="token comment">### info: 列族, 必须有</span>
+create <span class="token string">'student'</span>,<span class="token string">'info'</span>
+<span class="token comment">## 插入数据</span>
+<span class="token comment">### 1001: ROW KEY</span>
+<span class="token comment">### info:sex: 动态扩展列族为info的一列为 Sex</span>
+<span class="token comment">### male: 该ROW:COLUMN的值新增 'male'</span>
+put <span class="token string">'student'</span>,<span class="token string">'1001'</span>,<span class="token string">'info:sex'</span>,<span class="token string">'male'</span>
+put <span class="token string">'student'</span>,<span class="token string">'1001'</span>,<span class="token string">'info:age'</span>,<span class="token string">'18'</span>
+<span class="token comment">## 查看表结构</span>
+describe <span class="token string">'student'</span>
+<span class="token comment">## 更新数据</span>
+<span class="token comment">### 逻辑上代表直接针对上述插入的 18 覆盖为 20, 实际上可能在存储上有所延迟</span>
+put <span class="token string">'student'</span>,<span class="token string">'1001'</span>,<span class="token string">'info:age'</span>,<span class="token string">'20'</span>
+<span class="token comment">## 查看数据</span>
+get <span class="token string">'student'</span>,<span class="token string">'1001'</span>
+get <span class="token string">'student'</span>,<span class="token string">'1001'</span>,<span class="token string">'info:age'</span>
+<span class="token comment">## 统计表数据行数</span>
+count <span class="token string">'student'</span>
+<span class="token comment">## 删除数据</span>
+<span class="token comment">### 删除 ROW KEY = 1001 的全部数据</span>
+deleteall <span class="token string">'student'</span>,<span class="token string">'1001'</span>
+<span class="token comment">### 删除 ROW KEY = 1001 column = info:sex 的那一个数据</span>
+delete <span class="token string">'student'</span>,<span class="token string">'1002'</span>,<span class="token string">'info:sex'</span>
+<span class="token comment">## 清空表数据</span>
+truncate <span class="token string">'student'</span>
+<span class="token comment">## 删除表</span>
+<span class="token comment">### 需要先下线该表才能进行删除操作</span>
+disable <span class="token string">'student'</span>
+drop <span class="token string">'student'</span>
+<span class="token comment">## 变更表信息</span>
+<span class="token comment">### 针对 info 列族可以存储 3 个版本</span>
+alter <span class="token string">'student'</span>,<span class="token punctuation">&#123;</span>NAME<span class="token operator">=</span><span class="token operator">></span><span class="token string">'info'</span>,VERSIONS<span class="token operator">=</span><span class="token operator">></span><span class="token number">3</span><span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre></div>
+<h2 id="架构原理"><a class="markdownIt-Anchor" href="#架构原理"></a> 架构原理</h2>
+<p><img src="/img/2021-04-11/16181507815590.jpg" srcset="/img/loading.gif" lazyload alt="架构原理" /></p>
+<ul>
+<li><code>StoreFile</code>: 保存实际数据的物理文件,<code>StoreFile</code> 以 <code>HFile</code> 的形式存储在 <code>HDFS</code> 上.每个 <code>Store</code> 会有一个或多个 <code>StoreFile</code> (HFile),数据在每个 <code>StoreFile</code> 中都是有序的.</li>
+<li><code>MemStore</code>: 写缓存,由于 <code>HFile</code> 中的数据要求是有序的,所以数据是先存储在 <code>MemStore</code> 中,排好序后,等到达刷写时机才会刷写到 <code>HFile</code>,每次刷写都会形成一个新的 <code>HFile</code>.</li>
+<li><code>WAL</code>: 由于数据要经 <code>MemStore</code> 排序后才能刷写到 <code>HFile</code>,但把数据保存在内存中会有很高的概率导致数据丢失,为了解决这个问题,数据会先写在一个叫做 <code>Write-Ahead logfile</code> 的文件 中,然后再写入 <code>MemStore</code> 中.所以在系统出现故障的时候,数据可以通过这个日志文件重建.</li>
+</ul>
+<h3 id="写流程"><a class="markdownIt-Anchor" href="#写流程"></a> 写流程</h3>
+<p><img src="/img/2021-04-11/16181509689463.jpg" srcset="/img/loading.gif" lazyload alt="写流程" /></p>
+<ol>
+<li><code>Client</code> 先访问 <code>zookeeper</code>,获取 <code>hbase:meta</code> 表位于哪个 <code>Region Server</code>.</li>
+<li>访问对应的 <code>Region Server</code>,获取 <code>hbase:meta</code> 表,根据读请求的 <code>namespace:table/rowkey</code>,查询出目标数据位于哪个 <code>Region Server</code> 中的哪个 <code>Region</code> 中.并将该 <code>table</code> 的 <code>region</code> 信息以及 <code>meta</code> 表的位置信息缓存在客户端的 <code>meta cache</code>,方便下次访问.</li>
+<li>与目标 <code>Region Server</code> 进行通讯;</li>
+<li>将数据顺序写入(追加)到 <code>WAL</code>;</li>
+<li>将数据写入对应的 <code>MemStore</code>,数据会在 <code>MemStore</code> 进行排序;</li>
+<li>向客户端发送 <code>ack</code>;</li>
+<li>等达到 <code>MemStore</code> 的刷写时机后,将数据刷写到 <code>HFile</code>.</li>
+</ol>
 
             </div>
             <hr>
@@ -394,7 +442,7 @@
                   <div class="post-meta">
                     <i class="iconfont icon-tags"></i>
                     
-                      <a class="hover-with-bg" href="/tags/Hive/">Hive</a>
+                      <a class="hover-with-bg" href="/tags/HBase/">HBase</a>
                     
                   </div>
                 
@@ -411,12 +459,18 @@
                   <article class="post-prev col-6">
                     
                     
+                      <a href="/4195862106.html">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">Redis 学习笔记</span>
+                        <span class="visible-mobile">上一篇</span>
+                      </a>
+                    
                   </article>
                   <article class="post-next col-6">
                     
                     
-                      <a href="/0.html">
-                        <span class="hidden-mobile"></span>
+                      <a href="/2131573533.html">
+                        <span class="hidden-mobile">(2021年年度计划-个人管理方面) GTD 时间管理法则 与 OKR 目标管理法则</span>
                         <span class="visible-mobile">下一篇</span>
                         <i class="iconfont icon-arrowright"></i>
                       </a>
@@ -645,13 +699,6 @@
 
 
 
-
-  
-
-  
-    <!-- KaTeX -->
-    <link  rel="stylesheet" href="https://cdn.staticfile.org/KaTeX/0.12.0/katex.min.css" />
-  
 
 
 

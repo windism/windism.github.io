@@ -206,7 +206,7 @@
     
     <span class="post-meta mr-2">
       <i class="iconfont icon-chart"></i>
-      1.7k 字
+      1.8k 字
     </span>
   
 
@@ -216,7 +216,7 @@
       <i class="iconfont icon-clock-fill"></i>
       
       
-      20
+      21
        分钟
     </span>
   
@@ -361,52 +361,52 @@
 </ul>
 <h2 id="基本操作"><a class="markdownIt-Anchor" href="#基本操作"></a> 基本操作</h2>
 <h3 id="启停操作"><a class="markdownIt-Anchor" href="#启停操作"></a> 启停操作</h3>
-<div class="code-wrapper"><pre class="line-numbers language-shell" data-language="shell"><code class="language-shell"><span class="token comment"># 注意各个 Server 时间相同</span>
-bin/start-hbase.sh
-bin/stop-hbase.sh<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre></div>
+<div class="code-wrapper"><pre class="line-numbers language-shell" data-language="shell"><code class="language-shell"># 注意各个 Server 时间相同
+bin&#x2F;start-hbase.sh
+bin&#x2F;stop-hbase.sh<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre></div>
 <p>注: <code>ClockOutOfSyncException</code>异常为集群之间的节点时间不同步.解决方法: 同步时间或修改 <code>hbase.master.maxclockskew</code></p>
 <h3 id="shell-操作"><a class="markdownIt-Anchor" href="#shell-操作"></a> Shell 操作</h3>
-<div class="code-wrapper"><pre class="line-numbers language-shell" data-language="shell"><code class="language-shell"><span class="token comment"># 进入 shell</span>
-bin/hbase shell
-<span class="token comment"># 如下为 shell 中操作</span>
-<span class="token comment">## 命令帮助</span>
-<span class="token builtin class-name">help</span>
-<span class="token comment">## 列举数据表</span>
+<div class="code-wrapper"><pre class="line-numbers language-shell" data-language="shell"><code class="language-shell"># 进入 shell
+bin&#x2F;hbase shell
+# 如下为 shell 中操作
+## 命令帮助
+help
+## 列举数据表
 list
-<span class="token comment">## 创建数据表</span>
-<span class="token comment">### student: 表名</span>
-<span class="token comment">### info: 列族, 必须有</span>
-create <span class="token string">'student'</span>,<span class="token string">'info'</span>
-<span class="token comment">## 插入数据</span>
-<span class="token comment">### 1001: ROW KEY</span>
-<span class="token comment">### info:sex: 动态扩展列族为info的一列为 Sex</span>
-<span class="token comment">### male: 该ROW:COLUMN的值新增 'male'</span>
-put <span class="token string">'student'</span>,<span class="token string">'1001'</span>,<span class="token string">'info:sex'</span>,<span class="token string">'male'</span>
-put <span class="token string">'student'</span>,<span class="token string">'1001'</span>,<span class="token string">'info:age'</span>,<span class="token string">'18'</span>
-<span class="token comment">## 查看表结构</span>
-describe <span class="token string">'student'</span>
-<span class="token comment">## 更新数据</span>
-<span class="token comment">### 逻辑上代表直接针对上述插入的 18 覆盖为 20, 实际上可能在存储上有所延迟</span>
-put <span class="token string">'student'</span>,<span class="token string">'1001'</span>,<span class="token string">'info:age'</span>,<span class="token string">'20'</span>
-<span class="token comment">## 查看数据</span>
-get <span class="token string">'student'</span>,<span class="token string">'1001'</span>
-get <span class="token string">'student'</span>,<span class="token string">'1001'</span>,<span class="token string">'info:age'</span>
-<span class="token comment">## 统计表数据行数</span>
-count <span class="token string">'student'</span>
-<span class="token comment">## 删除数据</span>
-<span class="token comment">### 删除 ROW KEY = 1001 的全部数据</span>
-deleteall <span class="token string">'student'</span>,<span class="token string">'1001'</span>
-<span class="token comment">### 删除 ROW KEY = 1001 column = info:sex 的那一个数据</span>
-delete <span class="token string">'student'</span>,<span class="token string">'1002'</span>,<span class="token string">'info:sex'</span>
-<span class="token comment">## 清空表数据</span>
-truncate <span class="token string">'student'</span>
-<span class="token comment">## 删除表</span>
-<span class="token comment">### 需要先下线该表才能进行删除操作</span>
-disable <span class="token string">'student'</span>
-drop <span class="token string">'student'</span>
-<span class="token comment">## 变更表信息</span>
-<span class="token comment">### 针对 info 列族可以存储 3 个版本</span>
-alter <span class="token string">'student'</span>,<span class="token punctuation">&#123;</span>NAME<span class="token operator">=</span><span class="token operator">></span><span class="token string">'info'</span>,VERSIONS<span class="token operator">=</span><span class="token operator">></span><span class="token number">3</span><span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre></div>
+## 创建数据表
+### student: 表名
+### info: 列族, 必须有
+create &#39;student&#39;,&#39;info&#39;
+## 插入数据
+### 1001: ROW KEY
+### info:sex: 动态扩展列族为info的一列为 Sex
+### male: 该ROW:COLUMN的值新增 &#39;male&#39;
+put &#39;student&#39;,&#39;1001&#39;,&#39;info:sex&#39;,&#39;male&#39;
+put &#39;student&#39;,&#39;1001&#39;,&#39;info:age&#39;,&#39;18&#39;
+## 查看表结构
+describe &#39;student&#39;
+## 更新数据
+### 逻辑上代表直接针对上述插入的 18 覆盖为 20, 实际上可能在存储上有所延迟
+put &#39;student&#39;,&#39;1001&#39;,&#39;info:age&#39;,&#39;20&#39;
+## 查看数据
+get &#39;student&#39;,&#39;1001&#39;
+get &#39;student&#39;,&#39;1001&#39;,&#39;info:age&#39;
+## 统计表数据行数
+count &#39;student&#39;
+## 删除数据
+### 删除 ROW KEY &#x3D; 1001 的全部数据
+deleteall &#39;student&#39;,&#39;1001&#39;
+### 删除 ROW KEY &#x3D; 1001 column &#x3D; info:sex 的那一个数据
+delete &#39;student&#39;,&#39;1002&#39;,&#39;info:sex&#39;
+## 清空表数据
+truncate &#39;student&#39;
+## 删除表
+### 需要先下线该表才能进行删除操作
+disable &#39;student&#39;
+drop &#39;student&#39;
+## 变更表信息
+### 针对 info 列族可以存储 3 个版本
+alter &#39;student&#39;,&#123;NAME&#x3D;&gt;&#39;info&#39;,VERSIONS&#x3D;&gt;3&#125;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre></div>
 <h2 id="架构原理"><a class="markdownIt-Anchor" href="#架构原理"></a> 架构原理</h2>
 <p><img src="/img/2021-04-11/16181507815590.jpg" srcset="/img/loading.gif" lazyload alt="架构原理" /></p>
 <ul>

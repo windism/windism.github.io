@@ -258,7 +258,7 @@
             
               <p class="note note-info">
                 
-                  本文最后更新于：2021年5月8日 下午
+                  本文最后更新于：2021年5月24日 下午
                 
               </p>
             
@@ -353,7 +353,7 @@ hive<span class="token punctuation">.</span>groupby<span class="token punctuatio
 <p>执行类似如下操作的时候</p>
 <div class="code-wrapper"><pre class="line-numbers language-sql" data-language="sql"><code class="language-sql"><span class="token keyword">SELECT</span> <span class="token operator">*</span><span class="token punctuation">,</span>Rank<span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token keyword">Over</span><span class="token punctuation">(</span><span class="token keyword">Partition</span> <span class="token keyword">BY</span><span class="token punctuation">)</span>
 <span class="token keyword">FROM</span> tblTable
-Distribute <span class="token keyword">By</span> FieldA 
+Distribute <span class="token keyword">By</span> FieldA
 Sort <span class="token keyword">By</span> FieldA<span class="token punctuation">,</span> MetricA <span class="token keyword">DESC</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre></div>
 <p>可采用 predicate pushdown (PPD) 在存储级别执行过滤</p>
 <blockquote>
@@ -382,7 +382,7 @@ Sort <span class="token keyword">By</span> FieldA<span class="token punctuation"
 <p>若有大量小文件(小于128M),会产生多个map,处理方法是:</p>
  <div class="code-wrapper"><pre class="line-numbers language-sql" data-language="sql"><code class="language-sql"><span class="token keyword">set</span> mapred<span class="token punctuation">.</span>max<span class="token punctuation">.</span>split<span class="token punctuation">.</span>size<span class="token operator">=</span><span class="token number">100000000</span><span class="token punctuation">;</span>
 <span class="token keyword">set</span> mapred<span class="token punctuation">.</span>min<span class="token punctuation">.</span>split<span class="token punctuation">.</span>size<span class="token punctuation">.</span>per<span class="token punctuation">.</span>node<span class="token operator">=</span><span class="token number">100000000</span><span class="token punctuation">;</span>
-<span class="token keyword">set</span> mapred<span class="token punctuation">.</span>min<span class="token punctuation">.</span>split<span class="token punctuation">.</span>size<span class="token punctuation">.</span>per<span class="token punctuation">.</span>rack<span class="token operator">=</span><span class="token number">100000000</span><span class="token punctuation">;</span>  <span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre></div>
+<span class="token keyword">set</span> mapred<span class="token punctuation">.</span>min<span class="token punctuation">.</span>split<span class="token punctuation">.</span>size<span class="token punctuation">.</span>per<span class="token punctuation">.</span>rack<span class="token operator">=</span><span class="token number">100000000</span><span class="token punctuation">;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre></div>
 <p>前面三个参数确定合并文件块的大小,大于文件块大小128m的,按照128m来分隔,小于128m,大于100m的,按照100m来分隔,把那些小于100m的(包括小文件和分隔大文件剩下的)进行合并.</p>
  <div class="code-wrapper"><pre class="line-numbers language-sql" data-language="sql"><code class="language-sql"><span class="token keyword">set</span> hive<span class="token punctuation">.</span>input<span class="token punctuation">.</span>format<span class="token operator">=</span>org<span class="token punctuation">.</span>apache<span class="token punctuation">.</span>hadoop<span class="token punctuation">.</span>hive<span class="token punctuation">.</span>ql<span class="token punctuation">.</span>io<span class="token punctuation">.</span>CombineHiveInputFormat<span class="token punctuation">;</span> <span class="token comment">-- 执行前进行小文件合并.</span><span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre></div>
 </li>

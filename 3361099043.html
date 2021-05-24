@@ -18,7 +18,7 @@
   <meta name="author" content="windism">
   <meta name="keywords" content="Hive,隐形转换,getCommonClass,getCommonClassForComparison,getCommonClassForUnionAll">
   
-  <title>Hive 隐形转换笔记 - 风扬</title>
+  <title>Hive 隐形转换 BUG 分析 - 风扬</title>
 
   <link  rel="stylesheet" href="https://cdn.staticfile.org/twitter-bootstrap/4.5.3/css/bootstrap.min.css" />
 
@@ -184,7 +184,7 @@
       <div class="full-bg-img">
         <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
           <div class="page-header text-center fade-in-up">
-            <span class="h2" id="subtitle" title="Hive 隐形转换笔记">
+            <span class="h2" id="subtitle" title="Hive 隐形转换 BUG 分析">
               
             </span>
 
@@ -254,11 +254,11 @@
         <div class="py-5" id="board">
           <article class="post-content mx-auto">
             <!-- SEO header -->
-            <h1 style="display: none">Hive 隐形转换笔记</h1>
+            <h1 style="display: none">Hive 隐形转换 BUG 分析</h1>
             
               <p class="note note-info">
                 
-                  本文最后更新于：2021年5月8日 下午
+                  本文最后更新于：2021年5月24日 下午
                 
               </p>
             
@@ -287,8 +287,8 @@
 </ul>
 <p>仍需要向上追溯 <a target="_blank" rel="noopener" href="https://github.com/apache/hive/blob/release-1.2.1/ql/src/java/org/apache/hadoop/hive/ql/exec/FunctionRegistry.java">FunctionRegistry.java</a>, 可以找到最终的默认隐形转换代码:</p>
 <div class="code-wrapper"><pre class="line-numbers language-java" data-language="java"><code class="language-java"><span class="token keyword">public</span> <span class="token keyword">static</span> <span class="token class-name">TypeInfo</span> <span class="token function">getCommonClassForComparison</span><span class="token punctuation">(</span><span class="token class-name">TypeInfo</span> a<span class="token punctuation">,</span> <span class="token class-name">TypeInfo</span> b<span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
-    <span class="token comment">// 前面基本逻辑: 若均为 String 族, 则使用 String 比较; 若互相为数值族和时间戳, 则采用 double 比较 </span>
-    <span class="token comment">// </span>
+    <span class="token comment">// 前面基本逻辑: 若均为 String 族, 则使用 String 比较; 若互相为数值族和时间戳, 则采用 double 比较</span>
+    <span class="token comment">//</span>
     <span class="token keyword">for</span> <span class="token punctuation">(</span><span class="token class-name">PrimitiveCategory</span> t <span class="token operator">:</span> numericTypeList<span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
         <span class="token keyword">if</span> <span class="token punctuation">(</span><span class="token class-name">FunctionRegistry</span><span class="token punctuation">.</span><span class="token function">implicitConvertible</span><span class="token punctuation">(</span>pcA<span class="token punctuation">,</span> t<span class="token punctuation">)</span>
             <span class="token operator">&amp;&amp;</span> <span class="token class-name">FunctionRegistry</span><span class="token punctuation">.</span><span class="token function">implicitConvertible</span><span class="token punctuation">(</span>pcB<span class="token punctuation">,</span> t<span class="token punctuation">)</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
@@ -299,7 +299,7 @@
 <span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre></div>
 <p>该部分则利用 <code>implicitConvertible</code> 判断若两者均可转为统一数值类型, 则进行该类型的转换(其中比较两者之间的优先级)</p>
 <div class="code-wrapper"><pre class="line-numbers language-java" data-language="java"><code class="language-java"><span class="token keyword">public</span> <span class="token keyword">static</span> <span class="token keyword">boolean</span> <span class="token function">implicitConvertible</span><span class="token punctuation">(</span><span class="token class-name">PrimitiveCategory</span> from<span class="token punctuation">,</span> <span class="token class-name">PrimitiveCategory</span> <span class="token keyword">to</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
-    <span class="token comment">// 前面基本逻辑: </span>
+    <span class="token comment">// 前面基本逻辑:</span>
     <span class="token comment">// 允许从 String 转 Double, Decimal, Date</span>
     <span class="token comment">// 允许数值族 转 String族</span>
 

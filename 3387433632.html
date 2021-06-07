@@ -206,7 +206,7 @@
     
     <span class="post-meta mr-2">
       <i class="iconfont icon-chart"></i>
-      747 字
+      992 字
     </span>
   
 
@@ -216,7 +216,7 @@
       <i class="iconfont icon-clock-fill"></i>
       
       
-      11
+      15
        分钟
     </span>
   
@@ -258,7 +258,7 @@
             
               <p class="note note-info">
                 
-                  本文最后更新于：2021年6月7日 下午
+                  本文最后更新于：2021年6月7日 晚上
                 
               </p>
             
@@ -296,12 +296,12 @@ hadoop fs -ls -R cannot_read_table_path | awk &#39;&#123;print $8&#125;&#39; | a
 <div class="code-wrapper"><pre class="line-numbers language-sql" data-language="sql"><code class="language-sql"><span class="token keyword">SET</span> hive<span class="token punctuation">.</span>mapred<span class="token punctuation">.</span>supports<span class="token punctuation">.</span>subdirectories<span class="token operator">=</span><span class="token boolean">true</span><span class="token punctuation">;</span>
 <span class="token keyword">SET</span> mapred<span class="token punctuation">.</span>input<span class="token punctuation">.</span>dir<span class="token punctuation">.</span>recursive<span class="token operator">=</span><span class="token boolean">true</span><span class="token punctuation">;</span>
 <span class="token keyword">SET</span> mapreduce<span class="token punctuation">.</span>input<span class="token punctuation">.</span>fileinputformat<span class="token punctuation">.</span>input<span class="token punctuation">.</span>dir<span class="token punctuation">.</span>recursive<span class="token operator">=</span><span class="token boolean">true</span><span class="token punctuation">;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre></div>
-<p>但是不管用, 但是针对 Hive 是起作用的(因为系统本身 Hive 已经设置如上参数啦~).</p>
+<p>但是不管用, 针对 Hive 是起作用的(因为系统本身 Hive 已经设置如上参数啦~).</p>
 <ol start="3">
 <li>分析 Spark 2.1.1 到 Spark 2.4.X 之间针对 Hive 部分的改造</li>
 </ol>
 <blockquote>
-<p>分析原因在于两个 Spark 基本上共用同一份 Hive 和 Spark 设置, 并处于同一 Yarn 平台上</p>
+<p>分析原因在于两个 Spark 基本上共用同一份 Hive 和 Spark 设置, 并处于同一 Yarn 平台上, 两者 DIFF 情况应当在于 Spark 高版本的某些优化导致的</p>
 </blockquote>
 <p>通过对更新日志和Spark JIRA搜索, 定位问题可能是由于spark.sql.hive.convertMetastoreOrc参数默认值的变化</p>
 <ul>
@@ -314,6 +314,43 @@ Since Spark 2.0, Spark converts Parquet Hive tables by default for better perfor
 <blockquote>
 <p>更新记录含义: Spark 2.4 以后, Spark将采用自身的 SerDe 而非采用 Hive 的SerDe 处理 Hive 的 ORC 数据表(SerDe是Serialize/Deserilize的简称，目的是用于序列化和反序列化)</p>
 </blockquote>
+<ol start="4">
+<li>定位 Spark 源码</li>
+</ol>
+<p>根源代码在于: <a target="_blank" rel="noopener" href="https://github.com/apache/spark/blob/v2.4.6/sql/hive/src/main/scala/org/apache/spark/sql/hive/HiveStrategies.scala">HiveStrategies.scala</a>中 <code>RelationConversions</code> 类, 可以看到根据配置不同, 对于 ORC 文件采用 <code>org.apache.spark.sql.execution.datasources.orc.OrcFileFormat</code> 或 <code>org.apache.spark.sql.hive.orc.OrcFileFormat</code> 处理方式, 其中采用 <code>org.apache.spark.sql.execution.datasources.orc.OrcFileFormat</code> 会导致如上问题. 并未对比两个的区别, 有兴趣的同学可以查看一下~</p>
+<div class="code-wrapper"><pre class="line-numbers language-scala" data-language="scala"><code class="language-scala"><span class="token keyword">case</span> <span class="token keyword">class</span> RelationConversions<span class="token punctuation">(</span>
+    conf<span class="token operator">:</span> SQLConf<span class="token punctuation">,</span>
+    sessionCatalog<span class="token operator">:</span> HiveSessionCatalog<span class="token punctuation">)</span> <span class="token keyword">extends</span> Rule<span class="token punctuation">[</span>LogicalPlan<span class="token punctuation">]</span> <span class="token punctuation">&#123;</span>
+  <span class="token keyword">private</span> <span class="token keyword">def</span> convert<span class="token punctuation">(</span>relation<span class="token operator">:</span> HiveTableRelation<span class="token punctuation">)</span><span class="token operator">:</span> LogicalRelation <span class="token operator">=</span> <span class="token punctuation">&#123;</span>
+    <span class="token keyword">val</span> serde <span class="token operator">=</span> relation<span class="token punctuation">.</span>tableMeta<span class="token punctuation">.</span>storage<span class="token punctuation">.</span>serde<span class="token punctuation">.</span>getOrElse<span class="token punctuation">(</span><span class="token string">""</span><span class="token punctuation">)</span><span class="token punctuation">.</span>toLowerCase<span class="token punctuation">(</span>Locale<span class="token punctuation">.</span>ROOT<span class="token punctuation">)</span>
+
+    <span class="token comment">// Consider table and storage properties. For properties existing in both sides, storage</span>
+    <span class="token comment">// properties will supersede table properties.</span>
+    <span class="token keyword">if</span> <span class="token punctuation">(</span>serde<span class="token punctuation">.</span>contains<span class="token punctuation">(</span><span class="token string">"parquet"</span><span class="token punctuation">)</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+      <span class="token keyword">val</span> options <span class="token operator">=</span> relation<span class="token punctuation">.</span>tableMeta<span class="token punctuation">.</span>properties<span class="token punctuation">.</span>filterKeys<span class="token punctuation">(</span>isParquetProperty<span class="token punctuation">)</span> <span class="token operator">++</span>
+        relation<span class="token punctuation">.</span>tableMeta<span class="token punctuation">.</span>storage<span class="token punctuation">.</span>properties <span class="token operator">+</span> <span class="token punctuation">(</span>ParquetOptions<span class="token punctuation">.</span>MERGE_SCHEMA <span class="token operator">-></span>
+        conf<span class="token punctuation">.</span>getConf<span class="token punctuation">(</span>HiveUtils<span class="token punctuation">.</span>CONVERT_METASTORE_PARQUET_WITH_SCHEMA_MERGING<span class="token punctuation">)</span><span class="token punctuation">.</span>toString<span class="token punctuation">)</span>
+      sessionCatalog<span class="token punctuation">.</span>metastoreCatalog
+        <span class="token punctuation">.</span>convertToLogicalRelation<span class="token punctuation">(</span>relation<span class="token punctuation">,</span> options<span class="token punctuation">,</span> classOf<span class="token punctuation">[</span>ParquetFileFormat<span class="token punctuation">]</span><span class="token punctuation">,</span> <span class="token string">"parquet"</span><span class="token punctuation">)</span>
+    <span class="token punctuation">&#125;</span> <span class="token keyword">else</span> <span class="token punctuation">&#123;</span>
+      <span class="token keyword">val</span> options <span class="token operator">=</span> relation<span class="token punctuation">.</span>tableMeta<span class="token punctuation">.</span>properties<span class="token punctuation">.</span>filterKeys<span class="token punctuation">(</span>isOrcProperty<span class="token punctuation">)</span> <span class="token operator">++</span>
+        relation<span class="token punctuation">.</span>tableMeta<span class="token punctuation">.</span>storage<span class="token punctuation">.</span>properties
+      <span class="token keyword">if</span> <span class="token punctuation">(</span>conf<span class="token punctuation">.</span>getConf<span class="token punctuation">(</span>SQLConf<span class="token punctuation">.</span>ORC_IMPLEMENTATION<span class="token punctuation">)</span> <span class="token operator">==</span> <span class="token string">"native"</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+        sessionCatalog<span class="token punctuation">.</span>metastoreCatalog<span class="token punctuation">.</span>convertToLogicalRelation<span class="token punctuation">(</span>
+          relation<span class="token punctuation">,</span>
+          options<span class="token punctuation">,</span>
+          classOf<span class="token punctuation">[</span>org<span class="token punctuation">.</span>apache<span class="token punctuation">.</span>spark<span class="token punctuation">.</span>sql<span class="token punctuation">.</span>execution<span class="token punctuation">.</span>datasources<span class="token punctuation">.</span>orc<span class="token punctuation">.</span>OrcFileFormat<span class="token punctuation">]</span><span class="token punctuation">,</span>
+          <span class="token string">"orc"</span><span class="token punctuation">)</span>
+      <span class="token punctuation">&#125;</span> <span class="token keyword">else</span> <span class="token punctuation">&#123;</span>
+        sessionCatalog<span class="token punctuation">.</span>metastoreCatalog<span class="token punctuation">.</span>convertToLogicalRelation<span class="token punctuation">(</span>
+          relation<span class="token punctuation">,</span>
+          options<span class="token punctuation">,</span>
+          classOf<span class="token punctuation">[</span>org<span class="token punctuation">.</span>apache<span class="token punctuation">.</span>spark<span class="token punctuation">.</span>sql<span class="token punctuation">.</span>hive<span class="token punctuation">.</span>orc<span class="token punctuation">.</span>OrcFileFormat<span class="token punctuation">]</span><span class="token punctuation">,</span>
+          <span class="token string">"orc"</span><span class="token punctuation">)</span>
+      <span class="token punctuation">&#125;</span>
+    <span class="token punctuation">&#125;</span>
+  <span class="token punctuation">&#125;</span>
+<span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre></div>
 <p>总结: 在 Spark 2.3 以后, Spark 增加 <code>spark.sql.hive.convertMetastoreOrc</code> 参数, 设定 ORC 文件使用采用向量化 Reader, 但是会引申由于 Spark SQL 无法与 Hive SQL 采用同一 SerDe 从而对 Parquet/Hive 数据表产生处理上的不同, 因此需要限定如下参数从而让 Spark 使用 Hive 的SerDe.</p>
 <div class="code-wrapper"><pre class="line-numbers language-sql" data-language="sql"><code class="language-sql"><span class="token keyword">SET</span> spark<span class="token punctuation">.</span><span class="token keyword">sql</span><span class="token punctuation">.</span>hive<span class="token punctuation">.</span>convertMetastoreOrc<span class="token operator">=</span><span class="token boolean">false</span><span class="token punctuation">;</span>
 <span class="token keyword">SET</span> spark<span class="token punctuation">.</span><span class="token keyword">sql</span><span class="token punctuation">.</span>hive<span class="token punctuation">.</span>convertMetastoreParquet<span class="token operator">=</span><span class="token boolean">false</span><span class="token punctuation">;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre></div>

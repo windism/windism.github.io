@@ -16,9 +16,9 @@
   <meta name="theme-color" content="#2f4154">
   <meta name="description" content="记录自己的每一步">
   <meta name="author" content="windism">
-  <meta name="keywords" content="特征分箱,特征工程,等距分箱,等频分箱,卡方分箱,KS">
+  <meta name="keywords" content="Spark">
   
-  <title>特征分箱方法 - 风扬</title>
+  <title>Spark 使用过程中的BUG总结 - 风扬</title>
 
   <link  rel="stylesheet" href="https://cdn.staticfile.org/twitter-bootstrap/4.5.3/css/bootstrap.min.css" />
 
@@ -184,7 +184,7 @@
       <div class="full-bg-img">
         <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
           <div class="page-header text-center fade-in-up">
-            <span class="h2" id="subtitle" title="特征分箱方法">
+            <span class="h2" id="subtitle" title="Spark 使用过程中的BUG总结">
               
             </span>
 
@@ -194,8 +194,8 @@
   
     <span class="post-meta">
       <i class="iconfont icon-date-fill" aria-hidden="true"></i>
-      <time datetime="2021-03-16 21:13" pubdate>
-        2021年3月16日 晚上
+      <time datetime="2021-06-07 16:53" pubdate>
+        2021年6月7日 下午
       </time>
     </span>
   
@@ -206,7 +206,7 @@
     
     <span class="post-meta mr-2">
       <i class="iconfont icon-chart"></i>
-      1.4k 字
+      747 字
     </span>
   
 
@@ -216,7 +216,7 @@
       <i class="iconfont icon-clock-fill"></i>
       
       
-      15
+      11
        分钟
     </span>
   
@@ -254,128 +254,69 @@
         <div class="py-5" id="board">
           <article class="post-content mx-auto">
             <!-- SEO header -->
-            <h1 style="display: none">特征分箱方法</h1>
+            <h1 style="display: none">Spark 使用过程中的BUG总结</h1>
             
               <p class="note note-info">
                 
-                  本文最后更新于：2021年5月24日 下午
+                  本文最后更新于：2021年6月7日 下午
                 
               </p>
             
             <div class="markdown-body">
-              <p>在 评分卡等模型中, 一般需要对连续特征离散化, 从而增加模型的鲁棒性, 降低模型的过拟合风险, 而离散化一般采用分箱的方法.</p>
-<h2 id="分箱的优势"><a class="markdownIt-Anchor" href="#分箱的优势"></a> 分箱的优势</h2>
-<p>本部分来自于<a target="_blank" rel="noopener" href="https://www.zhihu.com/question/31989952/answer/54184582">严林的知乎回答</a>, 并根据评论区回复进行整理.该部分优势相互之间有所重复和耦合, 但是为保证完整, 全部保留.</p>
+              <h2 id="spark-24x-无法读取-hive-数据"><a class="markdownIt-Anchor" href="#spark-24x-无法读取-hive-数据"></a> Spark 2.4.X 无法读取 Hive 数据</h2>
+<p>场景分析: Hive 部分数据表存在数据, Spark 2.1.1 无法读取, 但是 Spark 2.4.X 无法读取</p>
+<p>分析过程:</p>
 <ol>
-<li>
-<p>离散特征的增加和减少都很容易,易于模型的快速迭代</p>
-<blockquote>
-<p>该部分不代表模型无需重新训练, 而是相较于连续特征其处理上较为简单</p>
-</blockquote>
-</li>
-<li>
-<p>稀疏向量内积乘法运算速度快,计算结果方便存储,容易扩展</p>
-</li>
-<li>
-<p>离散化后的特征对异常数据有很强的鲁棒性</p>
-<blockquote>
-<p>比如一个特征是 <code>age&gt;30</code> 是 <code>1</code>,否则 <code>0</code>.如果特征没有离散化,一个异常数据 <code>age = 300</code>会给模型造成很大的干扰</p>
-</blockquote>
-</li>
-<li>
-<p>LR属于广义线性模型,表达能力受限; 单变量离散化为 <code>N</code>个后,每个变量有单独的权重,相当于为模型引入了非线性,能够提升模型表达能力,加大拟合</p>
-<blockquote>
-<p>对于特征的分箱后, 可以将 类似于 肌肉强度-年龄 这种类似单调增后单调减的情况以分段形式, 从而为前期和后期减少权重, 中期增加权重, 模拟非线性</p>
-</blockquote>
-</li>
-<li>
-<p>离散化后可以进行特征交叉,由 <code>M+N</code> 个变量变为 <code>M*N</code>个变量,进一步引入非线性,提升表达能力</p>
-</li>
-<li>
-<p>特征离散化后,模型会更稳定</p>
-<blockquote>
-<p>注意: 对于 <code>age</code> 特征, 可能增加一岁就会大的变化, 但是离散就会减弱该变化, 但是处于两个区间之间可能增大该区别</p>
-</blockquote>
-</li>
-<li>
-<p>特征离散化以后,起到了简化了逻辑回归模型的作用,降低了模型过拟合的风险</p>
-</li>
+<li>针对可读取数据表和不可读取数据表进行分析</li>
 </ol>
-<h2 id="无监督分箱"><a class="markdownIt-Anchor" href="#无监督分箱"></a> 无监督分箱</h2>
-<p>无监督分箱: 无需利用标签数据, 即可进行分箱.</p>
-<p>构建评估数据</p>
-<div class="code-wrapper"><pre class="line-numbers language-python" data-language="python"><code class="language-python"><span class="token keyword">import</span> numpy <span class="token keyword">as</span> np
-
-np<span class="token punctuation">.</span>random<span class="token punctuation">.</span>seed<span class="token punctuation">(</span><span class="token number">0</span><span class="token punctuation">)</span>
-data <span class="token operator">=</span> np<span class="token punctuation">.</span>random<span class="token punctuation">.</span>randn<span class="token punctuation">(</span><span class="token number">100</span><span class="token punctuation">)</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre></div>
-<h3 id="等距分箱"><a class="markdownIt-Anchor" href="#等距分箱"></a> 等距分箱</h3>
-<p>等距分箱:  从最小值到最大值之间, 均分为 <code>N</code> 等份, 构建对应的区间.每个区间的样本数量不等且容易受到异常最大最小值影响.</p>
-<div class="code-wrapper"><pre class="line-numbers language-python" data-language="python"><code class="language-python"><span class="token keyword">import</span> pandas <span class="token keyword">as</span> pd
-data_bins <span class="token operator">=</span> pd<span class="token punctuation">.</span>cut<span class="token punctuation">(</span>data<span class="token punctuation">,</span> bins<span class="token operator">=</span><span class="token number">5</span><span class="token punctuation">)</span>
-<span class="token keyword">print</span><span class="token punctuation">(</span>data_bins<span class="token punctuation">.</span>value_counts<span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span>
-<span class="token comment"># (-2.558, -1.588]     6</span>
-<span class="token comment"># (-1.588, -0.624]    20</span>
-<span class="token comment"># (-0.624, 0.341]     35</span>
-<span class="token comment"># (0.341, 1.305]      27</span>
-<span class="token comment"># (1.305, 2.27]       12</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre></div>
-<h3 id="等频分箱"><a class="markdownIt-Anchor" href="#等频分箱"></a> 等频分箱</h3>
-<p>等频分箱: 分箱时每个箱内的样本量相等</p>
-<div class="code-wrapper"><pre class="line-numbers language-python" data-language="python"><code class="language-python"><span class="token keyword">import</span> pandas <span class="token keyword">as</span> pd
-data_bins <span class="token operator">=</span> pd<span class="token punctuation">.</span>qcut<span class="token punctuation">(</span>data<span class="token punctuation">,</span> q<span class="token operator">=</span><span class="token number">5</span><span class="token punctuation">)</span>
-<span class="token keyword">print</span><span class="token punctuation">(</span>data_bins<span class="token punctuation">.</span>value_counts<span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span>
-<span class="token comment"># (-2.554, -0.857]    20</span>
-<span class="token comment"># (-0.857, -0.194]    20</span>
-<span class="token comment"># (-0.194, 0.321]     20</span>
-<span class="token comment"># (0.321, 0.955]      20</span>
-<span class="token comment"># (0.955, 2.27]       20</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre></div>
-<h2 id="有监督分箱"><a class="markdownIt-Anchor" href="#有监督分箱"></a> 有监督分箱</h2>
-<h3 id="决策树分箱"><a class="markdownIt-Anchor" href="#决策树分箱"></a> 决策树分箱</h3>
-<p>决策树分箱: 利用决策树度单变量拟合目标变量, 使用内部及诶点的阈值作为分箱的切点.</p>
-<h3 id="best-ks分箱"><a class="markdownIt-Anchor" href="#best-ks分箱"></a> best-ks分箱</h3>
+<div class="code-wrapper"><pre class="line-numbers language-text" data-language="text"><code class="language-text">hadoop fs -ls -R can_read_table_path | awk &#39;&#123;print $8&#125;&#39; | awk -F&#x2F; &#39;&#123;printf &quot; |-&quot;;for(i&#x3D;3;i&lt;NF;i++)&#123;printf &quot;--&quot;&#125; print $NF&#125;&#39;
+ |---------------000000_0
+ |---------------000001_0
+ |---------------000002_0
+hadoop fs -ls -R cannot_read_table_path | awk &#39;&#123;print $8&#125;&#39; | awk -F&#x2F; &#39;&#123;printf &quot; |-&quot;;for(i&#x3D;3;i&lt;NF;i++)&#123;printf &quot;--&quot;&#125; print $NF&#125;&#39;
+ |-------------HIVE_UNION_SUBDIR_1
+ |---------------000000_0
+ |---------------000001_0
+ |---------------000002_0
+ |-------------HIVE_UNION_SUBDIR_2
+ |---------------000000_0
+ |---------------000001_0
+ |---------------000002_0<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre></div>
 <blockquote>
-<p>KS(<code>Kolmogorov Smirnov</code>): 用于模型风险区分能力进行评估,指标衡量的是好坏样本累计部分之间的差距.KS值越大,表示该变量越能将正,负客户的区分程度越大.通常来说,<code>KS&gt;0.2</code> 即表示特征有较好的准确率.</p>
+<p>此时可以看出两者的文件目录结构不同, 估计该部分是两个数据在不同版本无法读取的主要原因, 即高版本 Spark 并未设置递归读</p>
 </blockquote>
-<p>原理: 让分享后组别的分布的差异最大化</p>
-<p>步骤:</p>
-<ol>
-<li>将特征值值进行从小到大的排序.</li>
-<li>计算出 <code>KS</code> 最大的那个值,即为切点,记为 <code>D</code>.然后把数据切分成两部分.</li>
-<li>重复步骤2,进行递归,<code>D</code>左右的数据进一步切割.直到KS的箱体数达到我们的预设阈值即可.</li>
+<ol start="2">
+<li>针对 Spark 2.4.X 进行参数设置(Google)</li>
 </ol>
-<p>特点:</p>
 <ul>
-<li>连续型变量:  分箱后的 <code>KS</code> 值&lt;=分箱前的 <code>KS</code> 值</li>
-<li>分箱过程中,决定分箱后的 <code>KS</code> 值是某一个切点,而不是多个切点的共同作用.这个切点的位置是原始 <code>KS</code> 值最大的位置.</li>
+<li><a target="_blank" rel="noopener" href="https://stackoverflow.com/questions/20756561/how-to-pick-up-all-data-into-hive-from-subdirectories">How to pick up all data into hive from subdirectories</a></li>
+<li><a target="_blank" rel="noopener" href="https://blog.csdn.net/myg821561935/article/details/78071014">Hive on tez的insert union 子目录的问题</a></li>
 </ul>
-<p>代码暂时可以参考<a target="_blank" rel="noopener" href="https://www.cnblogs.com/wqbin/p/10549683.html">特征工程之分箱–Best-KS分箱</a>或<a target="_blank" rel="noopener" href="https://www.pythonheidong.com/blog/article/550929/cbf363d99072bc1d54e4/">特征工程之特征分箱(决策树分箱、卡方分箱、bestks以及评价标准WOE和IV)</a></p>
-<p>TODO: Best-KS代码</p>
-<h3 id="卡方分箱"><a class="markdownIt-Anchor" href="#卡方分箱"></a> 卡方分箱</h3>
-<p>卡方分箱(ChiMerge): 由 <code>Kerber</code> 于1992提出; 依赖于卡方检验的分箱方法,在统计指标上选择卡方统计量(<code>chi-Square</code>)进行判别.</p>
-<p>主要包括两个阶段: 初始化阶段和自底向上的合并阶段:</p>
-<ol>
-<li>初始化阶段:
-<ol>
-<li>首先按照属性值的大小进行排序(对于非连续特征,需要先做数值转换,比如转为坏人率,然后排序),然后每个属性值单独作为一组.</li>
+<p>通过上述资料, 可以知道需要设置如下参数:</p>
+<div class="code-wrapper"><pre class="line-numbers language-sql" data-language="sql"><code class="language-sql"><span class="token keyword">SET</span> hive<span class="token punctuation">.</span>mapred<span class="token punctuation">.</span>supports<span class="token punctuation">.</span>subdirectories<span class="token operator">=</span><span class="token boolean">true</span><span class="token punctuation">;</span>
+<span class="token keyword">SET</span> mapred<span class="token punctuation">.</span>input<span class="token punctuation">.</span>dir<span class="token punctuation">.</span>recursive<span class="token operator">=</span><span class="token boolean">true</span><span class="token punctuation">;</span>
+<span class="token keyword">SET</span> mapreduce<span class="token punctuation">.</span>input<span class="token punctuation">.</span>fileinputformat<span class="token punctuation">.</span>input<span class="token punctuation">.</span>dir<span class="token punctuation">.</span>recursive<span class="token operator">=</span><span class="token boolean">true</span><span class="token punctuation">;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre></div>
+<p>但是不管用, 但是针对 Hive 是起作用的(因为系统本身 Hive 已经设置如上参数啦~).</p>
+<ol start="3">
+<li>分析 Spark 2.1.1 到 Spark 2.4.X 之间针对 Hive 部分的改造</li>
 </ol>
-</li>
-<li>合并阶段:
-<ol>
-<li>对每一对相邻的组,计算卡方值</li>
-<li>根据计算的卡方值,对其中最小的一对邻组合并为一组</li>
-<li>不断重复 &lt;1&gt;, &lt;2&gt; 直到计算出的卡方值都不低于事先设定的阈值,或者分组数达到一定的条件(如最小分组数5,最大分组数8).</li>
-</ol>
-</li>
-</ol>
-<p>代码暂时可以参考<a target="_blank" rel="noopener" href="https://cloud.tencent.com/developer/article/1530232">一文介绍特征工程里的卡方分箱,附代码实现</a></p>
-<p>TODO: 卡方分箱</p>
-<h2 id="参考资料"><a class="markdownIt-Anchor" href="#参考资料"></a> 参考资料</h2>
-<ol>
-<li><a target="_blank" rel="noopener" href="https://blog.csdn.net/Pylady/article/details/78882220">特征工程之分箱</a></li>
-<li><a target="_blank" rel="noopener" href="https://www.zhihu.com/question/31989952/answer/54184582">严林的知乎回答</a></li>
-<li><a target="_blank" rel="noopener" href="https://www.cnblogs.com/wqbin/p/10549683.html">特征工程之分箱–Best-KS分箱</a></li>
-<li><a target="_blank" rel="noopener" href="https://www.pythonheidong.com/blog/article/550929/cbf363d99072bc1d54e4/">特征工程之特征分箱(决策树分箱、卡方分箱、bestks以及评价标准WOE和IV)</a></li>
-<li><a target="_blank" rel="noopener" href="https://cloud.tencent.com/developer/article/1530232">一文介绍特征工程里的卡方分箱,附代码实现</a></li>
-</ol>
+<blockquote>
+<p>分析原因在于两个 Spark 基本上共用同一份 Hive 和 Spark 设置, 并处于同一 Yarn 平台上</p>
+</blockquote>
+<p>通过对更新日志和Spark JIRA搜索, 定位问题可能是由于spark.sql.hive.convertMetastoreOrc参数默认值的变化</p>
+<ul>
+<li><a target="_blank" rel="noopener" href="https://spark.apache.org/docs/2.4.0/sql-migration-guide-upgrade.html">Spark SQL Upgrading Guide</a></li>
+<li><a target="_blank" rel="noopener" href="https://issues.apache.org/jira/browse/SPARK-28098">SPARK-28098</a></li>
+</ul>
+<div class="code-wrapper"><pre class="line-numbers language-text" data-language="text"><code class="language-text">In version 2.3 and earlier, Spark converts Parquet Hive tables by default but ignores table properties like . This happens for ORC Hive table properties like in case of , too. Since Spark 2.4, Spark respects Parquet&#x2F;ORC specific table properties while converting Parquet&#x2F;ORC Hive tables. As an example, would generate Snappy parquet files during insertion in Spark 2.3, and in Spark 2.4, the result would be uncompressed parquet files.TBLPROPERTIES (parquet.compression &#39;NONE&#39;)TBLPROPERTIES (orc.compress &#39;NONE&#39;)spark.sql.hive.convertMetastoreOrc&#x3D;trueCREATE TABLE t(id int) STORED AS PARQUET TBLPROPERTIES (parquet.compression &#39;NONE&#39;)
+
+Since Spark 2.0, Spark converts Parquet Hive tables by default for better performance. Since Spark 2.4, Spark converts ORC Hive tables by default, too. It means Spark uses its own ORC support by default instead of Hive SerDe. As an example, would be handled with Hive SerDe in Spark 2.3, and in Spark 2.4, it would be converted into Spark’s ORC data source table and ORC vectorization would be applied. To set to restores the previous behavior.CREATE TABLE t(id int) STORED AS ORCfalsespark.sql.hive.convertMetastoreOrc<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre></div>
+<blockquote>
+<p>更新记录含义: Spark 2.4 以后, Spark将采用自身的 SerDe 而非采用 Hive 的SerDe 处理 Hive 的 ORC 数据表(SerDe是Serialize/Deserilize的简称，目的是用于序列化和反序列化)</p>
+</blockquote>
+<p>总结: 在 Spark 2.3 以后, Spark 增加 <code>spark.sql.hive.convertMetastoreOrc</code> 参数, 设定 ORC 文件使用采用向量化 Reader, 但是会引申由于 Spark SQL 无法与 Hive SQL 采用同一 SerDe 从而对 Parquet/Hive 数据表产生处理上的不同, 因此需要限定如下参数从而让 Spark 使用 Hive 的SerDe.</p>
+<div class="code-wrapper"><pre class="line-numbers language-sql" data-language="sql"><code class="language-sql"><span class="token keyword">SET</span> spark<span class="token punctuation">.</span><span class="token keyword">sql</span><span class="token punctuation">.</span>hive<span class="token punctuation">.</span>convertMetastoreOrc<span class="token operator">=</span><span class="token boolean">false</span><span class="token punctuation">;</span>
+<span class="token keyword">SET</span> spark<span class="token punctuation">.</span><span class="token keyword">sql</span><span class="token punctuation">.</span>hive<span class="token punctuation">.</span>convertMetastoreParquet<span class="token operator">=</span><span class="token boolean">false</span><span class="token punctuation">;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre></div>
 
             </div>
             <hr>
@@ -385,7 +326,7 @@ data_bins <span class="token operator">=</span> pd<span class="token punctuation
                   <div class="post-meta mr-3">
                     <i class="iconfont icon-category"></i>
                     
-                      <a class="hover-with-bg" href="/categories/%E7%89%B9%E5%BE%81%E5%B7%A5%E7%A8%8B/">特征工程</a>
+                      <a class="hover-with-bg" href="/categories/%E5%A4%A7%E6%95%B0%E6%8D%AE%E6%8A%80%E8%83%BD%E8%B7%AF%E7%BA%BF/">大数据技能路线</a>
                     
                   </div>
                 
@@ -393,7 +334,7 @@ data_bins <span class="token operator">=</span> pd<span class="token punctuation
                   <div class="post-meta">
                     <i class="iconfont icon-tags"></i>
                     
-                      <a class="hover-with-bg" href="/tags/%E7%89%B9%E5%BE%81%E5%B7%A5%E7%A8%8B/">特征工程</a>
+                      <a class="hover-with-bg" href="/tags/Spark/">Spark</a>
                     
                   </div>
                 
@@ -410,18 +351,12 @@ data_bins <span class="token operator">=</span> pd<span class="token punctuation
                   <article class="post-prev col-6">
                     
                     
-                      <a href="/2131573533.html">
-                        <i class="iconfont icon-arrowleft"></i>
-                        <span class="hidden-mobile">(2021年年度计划-个人管理方面) GTD 时间管理法则 与 OKR 目标管理法则</span>
-                        <span class="visible-mobile">上一篇</span>
-                      </a>
-                    
                   </article>
                   <article class="post-next col-6">
                     
                     
-                      <a href="/1048667507.html">
-                        <span class="hidden-mobile">特征筛选方法</span>
+                      <a href="/2620520385.html">
+                        <span class="hidden-mobile">(聚类算法) 均值漂移算法 Mean Shift.md</span>
                         <span class="visible-mobile">下一篇</span>
                         <i class="iconfont icon-arrowright"></i>
                       </a>
@@ -449,7 +384,7 @@ data_bins <span class="token operator">=</span> pd<span class="token punctuation
           repo: 'windism.github.io',
           owner: 'windism',
           admin: ["windism"],
-          id: '9718e43c8ac322a6c22145e6a614b325',
+          id: '5bb31928d69665ee8cc67ac9c99dcdaa',
           language: 'zh-CN',
           labels: ["Gitalk"],
           perPage: 10,

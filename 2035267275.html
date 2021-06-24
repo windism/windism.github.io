@@ -206,7 +206,7 @@
     
     <span class="post-meta mr-2">
       <i class="iconfont icon-chart"></i>
-      490 字
+      444 字
     </span>
   
 
@@ -216,7 +216,7 @@
       <i class="iconfont icon-clock-fill"></i>
       
       
-      7
+      6
        分钟
     </span>
   
@@ -258,7 +258,7 @@
             
               <p class="note note-info">
                 
-                  本文最后更新于：2020年12月30日 晚上
+                  本文最后更新于：2021年6月15日 中午
                 
               </p>
             
@@ -270,30 +270,30 @@
 <h2 id="historyserver-临时配置"><a class="markdownIt-Anchor" href="#historyserver-临时配置"></a> HistoryServer 临时配置</h2>
 <h3 id="historyserver记录"><a class="markdownIt-Anchor" href="#historyserver记录"></a> HistoryServer记录</h3>
 <p>如果是临时的使用,可以直接使用下面配置进行设置</p>
-<div class="code-wrapper"><pre class="line-numbers language-shell" data-language="shell"><code class="language-shell">spark.eventLog.enabled          true                    # 是否采用日志记录
-spark.eventLog.dir              hdfs:&#x2F;&#x2F;tmp&#x2F;spark-logs   # 日志记录位置
-spark.eventLog.compress         true                    # 是否启动压缩记录, 默认使用snappy<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre></div>
+<div class="code-wrapper"><pre class="line-numbers language-shell" data-language="shell"><code class="language-shell">spark.eventLog.enabled          <span class="token boolean">true</span>                    <span class="token comment"># 是否采用日志记录</span>
+spark.eventLog.dir              hdfs://tmp/spark-logs   <span class="token comment"># 日志记录位置</span>
+spark.eventLog.compress         <span class="token boolean">true</span>                    <span class="token comment"># 是否启动压缩记录, 默认使用snappy</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre></div>
 <p>如下即为示例</p>
-<div class="code-wrapper"><pre class="line-numbers language-shell" data-language="shell"><code class="language-shell">spark-submit \
---master yarn \
---deploy-mode cluster \
---executor-memory 1G \
---total-executor-cores 2 \
---class org.apache.spark.examples.SparkPi \
---conf spark.eventLog.enabled&#x3D;true \
---conf spark.eventLog.dir&#x3D;hdfs:&#x2F;&#x2F;tmp&#x2F;spark-logs \
-$&#123;SPARK_HOME&#125;&#x2F;examples&#x2F;jars&#x2F;spark-examples_2.11-2.4.6.jar \
-100<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre></div>
+<div class="code-wrapper"><pre class="line-numbers language-shell" data-language="shell"><code class="language-shell">spark-submit <span class="token punctuation">\</span>
+--master <span class="token function">yarn</span> <span class="token punctuation">\</span>
+--deploy-mode cluster <span class="token punctuation">\</span>
+--executor-memory 1G <span class="token punctuation">\</span>
+--total-executor-cores <span class="token number">2</span> <span class="token punctuation">\</span>
+--class org.apache.spark.examples.SparkPi <span class="token punctuation">\</span>
+--conf spark.eventLog.enabled<span class="token operator">=</span>true <span class="token punctuation">\</span>
+--conf spark.eventLog.dir<span class="token operator">=</span>hdfs://tmp/spark-logs <span class="token punctuation">\</span>
+<span class="token variable">$&#123;SPARK_HOME&#125;</span>/examples/jars/spark-examples_2.11-2.4.6.jar <span class="token punctuation">\</span>
+<span class="token number">100</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre></div>
 <h3 id="historyserver读取"><a class="markdownIt-Anchor" href="#historyserver读取"></a> HistoryServer读取</h3>
-<div class="code-wrapper"><pre class="line-numbers language-shell" data-language="shell"><code class="language-shell">export SPARK_HISTORY_OPTS&#x3D;&quot;-Dspark.history.ui.port&#x3D;18080 -Dspark.history.retainedApplications&#x3D;3 -Dspark.history.fs.logDirectory&#x3D;hdfs:&#x2F;&#x2F;tmp&#x2F;spark-logs&quot;       # 配置日志位置等信息
-$&#123;SPARK_HOME&#125;&#x2F;sbin&#x2F;start-history-server.sh          # 启动 HistoryServer
-$&#123;SPARK_HOME&#125;&#x2F;sbin&#x2F;stop-history-server.sh           # 关闭 HistoryServer<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre></div>
+<div class="code-wrapper"><pre class="line-numbers language-shell" data-language="shell"><code class="language-shell"><span class="token builtin class-name">export</span> <span class="token assign-left variable">SPARK_HISTORY_OPTS</span><span class="token operator">=</span><span class="token string">"-Dspark.history.ui.port=2929 -Dspark.history.retainedApplications=3 -Dspark.history.fs.logDirectory=hdfs://tmp/SparkHistoryLog"</span>       <span class="token comment"># 配置日志位置等信息</span>
+<span class="token variable">$&#123;SPARK_HOME&#125;</span>/sbin/start-history-server.sh          <span class="token comment"># 启动 HistoryServer</span>
+<span class="token variable">$&#123;SPARK_HOME&#125;</span>/sbin/stop-history-server.sh           <span class="token comment"># 关闭 HistoryServer</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre></div>
 <p>如上启动的实际命令为</p>
-<div class="code-wrapper"><pre class="line-numbers language-shell" data-language="shell"><code class="language-shell">java \
--cp $&#123;SPARK_HOME&#125;&#x2F;conf&#x2F;:&#x2F;$&#123;SPARK_HOME&#125;&#x2F;jars&#x2F;* \
--Dspark.history.ui.port&#x3D;18080 \
--Dspark.history.retainedApplications&#x3D;3 \
--Dspark.history.fs.logDirectory&#x3D;hdfs:&#x2F;&#x2F;tmp&#x2F;spark-logs \
+<div class="code-wrapper"><pre class="line-numbers language-shell" data-language="shell"><code class="language-shell">java <span class="token punctuation">\</span>
+-cp <span class="token variable">$&#123;SPARK_HOME&#125;</span>/conf/:/<span class="token variable">$&#123;SPARK_HOME&#125;</span>/jars/* <span class="token punctuation">\</span>
+-Dspark.history.ui.port<span class="token operator">=</span><span class="token number">18080</span> <span class="token punctuation">\</span>
+-Dspark.history.retainedApplications<span class="token operator">=</span><span class="token number">3</span> <span class="token punctuation">\</span>
+-Dspark.history.fs.logDirectory<span class="token operator">=</span>hdfs://tmp/spark-logs <span class="token punctuation">\</span>
 -Xmx1g org.apache.spark.deploy.history.HistoryServer<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre></div>
 <p>此时访问 <code>http://&lt;server-url&gt;:18080</code> 即可查看</p>
 <h2 id="historyserver-常驻配置"><a class="markdownIt-Anchor" href="#historyserver-常驻配置"></a> HistoryServer 常驻配置</h2>
@@ -308,7 +308,7 @@ spark.yarn.historyServer.address    HadoopServer1:18080<span aria-hidden="true" 
 <li>配置 <code>spark-env.sh</code></li>
 </ol>
 <p>在 <code>$&#123;SPARK_HOME&#125;/conf</code> 目录下的 <code>spark-env.sh</code> 配置文件中新增如下配置:</p>
-<div class="code-wrapper"><pre class="line-numbers language-shell" data-language="shell"><code class="language-shell">export SPARK_HISTORY_OPTS&#x3D;&quot;-Dspark.history.ui.port&#x3D;18080 -Dspark.history.fs.logDirectory&#x3D;hdfs:&#x2F;&#x2F;hadoopSvr1:8020&#x2F;tmp&#x2F;spark-logs -Dspark.history.fs.cleaner.enabled&#x3D;true&quot;<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre></div>
+<div class="code-wrapper"><pre class="line-numbers language-shell" data-language="shell"><code class="language-shell"><span class="token builtin class-name">export</span> <span class="token assign-left variable">SPARK_HISTORY_OPTS</span><span class="token operator">=</span><span class="token string">"-Dspark.history.ui.port=18080 -Dspark.history.fs.logDirectory=hdfs://hadoopSvr1:8020/tmp/spark-logs -Dspark.history.fs.cleaner.enabled=true"</span><span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre></div>
 
             </div>
             <hr>

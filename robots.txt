@@ -1,0 +1,14 @@
+User-agent: *
+Allow: /
+Allow: /archives/
+Allow: /categories/
+Allow: /tags/ 
+Allow: /resources/ 
+
+Disallow: /css/
+Disallow: /js/
+Disallow: /xml/
+Disallow: /img/
+
+Sitemap: https://www.windism.space/sitemap.xml
+Sitemap: https://www.windism.space/baidusitemap.xml

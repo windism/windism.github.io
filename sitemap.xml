@@ -92,14 +92,14 @@
 
   
   <url>
-    <loc>https://www.windism.space/tags/Shap/</loc>
+    <loc>https://www.windism.space/tags/Hexo/</loc>
     <lastmod>2023-10-20</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
-    <loc>https://www.windism.space/tags/Hexo/</loc>
+    <loc>https://www.windism.space/tags/Shap/</loc>
     <lastmod>2023-10-20</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
@@ -122,14 +122,14 @@
 
   
   <url>
-    <loc>https://www.windism.space/categories/Model-Explainable/</loc>
+    <loc>https://www.windism.space/categories/Server-Build/</loc>
     <lastmod>2023-10-20</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
-    <loc>https://www.windism.space/categories/Server-Build/</loc>
+    <loc>https://www.windism.space/categories/Model-Explainable/</loc>
     <lastmod>2023-10-20</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>

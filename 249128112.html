@@ -16,26 +16,26 @@
   
   <meta name="theme-color" content="#2f4154">
   <meta name="author" content="windism">
-  <meta name="keywords" content="Label Propagation Algorithm">
+  <meta name="keywords" content="risk control,feature,location,gps,风控,特征,地址,经纬度">
   
-    <meta name="description" content="简介 Label Propagation Algorithm 标签传播算法(LPA)由Raghavan等人于2007提出.  论文: 《Near linear time algorithm to detect community structures in large-scale networks》. 思想: 节点标签完全由其直接邻居决定; 典型基于标签传播的局部社区发现算法.  算法实现 算法步">
+    <meta name="description" content="引言 在大多数业务场景中, 地址类信息相对而言获取难度较低, 如多数场景需要填写的工作地址、家庭地址等, 但该类信息通常在风控行业处理较为粗糙; 实际上地址涵盖诸多隐藏信息. 地址信息概述 地址分类  家庭地址: 用户住宅地址; 注意: 可能为自有住宅, 也可能是租用住宅 单位地址: 用户工作地址; 注意: 通常地址模糊, 如XX大厦, XX路X号 户籍地址: 户口本&#x2F;身份证的地址; 注意: 通常">
 <meta property="og:type" content="article">
-<meta property="og:title" content="【社区发现算法】LPA算法">
-<meta property="og:url" content="https://www.windism.space/1876331716.html">
+<meta property="og:title" content="风控特征之文本地址信息">
+<meta property="og:url" content="https://www.windism.space/249128112.html">
 <meta property="og:site_name" content="风扬技术站">
-<meta property="og:description" content="简介 Label Propagation Algorithm 标签传播算法(LPA)由Raghavan等人于2007提出.  论文: 《Near linear time algorithm to detect community structures in large-scale networks》. 思想: 节点标签完全由其直接邻居决定; 典型基于标签传播的局部社区发现算法.  算法实现 算法步">
+<meta property="og:description" content="引言 在大多数业务场景中, 地址类信息相对而言获取难度较低, 如多数场景需要填写的工作地址、家庭地址等, 但该类信息通常在风控行业处理较为粗糙; 实际上地址涵盖诸多隐藏信息. 地址信息概述 地址分类  家庭地址: 用户住宅地址; 注意: 可能为自有住宅, 也可能是租用住宅 单位地址: 用户工作地址; 注意: 通常地址模糊, 如XX大厦, XX路X号 户籍地址: 户口本&#x2F;身份证的地址; 注意: 通常">
 <meta property="og:locale" content="zh_CN">
-<meta property="article:published_time" content="2023-10-19T10:20:00.000Z">
-<meta property="article:modified_time" content="2023-10-29T14:11:14.263Z">
+<meta property="article:published_time" content="2023-10-27T10:57:52.000Z">
+<meta property="article:modified_time" content="2023-10-30T02:38:07.862Z">
 <meta property="article:author" content="windism">
-<meta property="article:tag" content="Community Detection">
+<meta property="article:tag" content="risk control">
 <meta name="twitter:card" content="summary_large_image">
   
   
     <meta name="referrer" content="no-referrer-when-downgrade">
   
   
-  <title>【社区发现算法】LPA算法 - 风扬技术站</title>
+  <title>风控特征之文本地址信息 - 风扬技术站</title>
 
   <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
 
@@ -247,7 +247,7 @@
       <div class="banner-text text-center fade-in-up">
         <div class="h2">
           
-            <span id="subtitle" data-typed-text="【社区发现算法】LPA算法"></span>
+            <span id="subtitle" data-typed-text="风控特征之文本地址信息"></span>
           
         </div>
 
@@ -258,8 +258,8 @@
     
       <span class="post-meta">
         <i class="iconfont icon-date-fill" aria-hidden="true"></i>
-        <time datetime="2023-10-19 18:20" pubdate>
-          2023年10月19日 晚上
+        <time datetime="2023-10-27 18:57" pubdate>
+          2023年10月27日 晚上
         </time>
       </span>
     
@@ -270,7 +270,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          1.9k 字
+          2.5k 字
         
       </span>
     
@@ -281,7 +281,7 @@
         
         
         
-          16 分钟
+          21 分钟
         
       </span>
     
@@ -326,67 +326,162 @@
       <div class="container nopadding-x-md" id="board-ctn">
         <div id="board">
           <article class="post-content mx-auto">
-            <h1 id="seo-header">【社区发现算法】LPA算法</h1>
+            <h1 id="seo-header">风控特征之文本地址信息</h1>
             
             
               <div class="markdown-body">
                 
-                <h2 id="简介">简介</h2>
-<p><code>Label Propagation Algorithm</code> 标签传播算法(LPA)由<code>Raghavan</code>等人于2007提出.</p>
+                <h2 id="引言">引言</h2>
+<p>在大多数业务场景中, 地址类信息相对而言获取难度较低, 如多数场景需要填写的工作地址、家庭地址等, 但该类信息通常在风控行业处理较为粗糙; 实际上地址涵盖诸多隐藏信息.</p>
+<h2 id="地址信息概述">地址信息概述</h2>
+<h3 id="地址分类">地址分类</h3>
 <ul>
-<li>论文: <a target="_blank" rel="noopener" href="https://arxiv.org/abs/0709.2938">《Near linear time algorithm to detect community structures in large-scale networks》</a>.</li>
-<li>思想: 节点标签完全由其直接邻居决定; 典型基于标签传播的局部社区发现算法.</li>
+<li><strong>家庭地址</strong>: 用户住宅地址; 注意: 可能为自有住宅, 也可能是租用住宅</li>
+<li><strong>单位地址</strong>: 用户工作地址; 注意: 通常地址模糊, 如XX大厦, XX路X号</li>
+<li><strong>户籍地址</strong>: 户口本/身份证的地址; 注意: 通常从身份证上OCR获取, 另外通过身份证编码, 可以提取原始户籍地</li>
+<li><strong>收货地址</strong>: 快递/外卖等行业的收货地址; 注意: 其地址存在 酒店(出差), 住宅(租赁/自有), 商厦(临时/公司)等情况</li>
+<li><strong>基站地址</strong>: 根据手机信号基站信息定位获取</li>
+<li><strong>定位地址</strong>: 根据经纬度信息定位获取; 注意: 可以通过地图等服务获取具体所在地</li>
+<li><strong>业务地址</strong>: 其他业务所触发地址; 如保险场景的车祸地址</li>
 </ul>
-<h2 id="算法实现">算法实现</h2>
-<h3 id="算法步骤">算法步骤</h3>
-<ol>
-<li>初始化图中节点标签; 即节点<code>i</code>对应标签<code>i</code></li>
-<li>遍历图节点, 针对单个节点,获取其邻居标签,找到出现次数最大的标签, 若出现最多标签不止一个, 则随机选择一个标签替换成该节点标签</li>
-<li>重复步骤2, 直至节点标签不再变化或者达到最大迭代次数</li>
-</ol>
-<h3 id="GraphX调用">GraphX调用</h3>
-<p>参考代码<a target="_blank" rel="noopener" href="https://github.com/apache/spark/blob/v3.4.0/graphx/src/main/scala/org/apache/spark/graphx/lib/LabelPropagation.scala">LabelPropagation.scala</a>, 源码解读:</p>
-<figure><div class="code-wrapper"><pre class="line-numbers language-scala" data-language="scala"><code class="language-scala"><span class="token keyword">def</span> run<span class="token punctuation">[</span>VD<span class="token punctuation">,</span> ED<span class="token operator">:</span> ClassTag<span class="token punctuation">]</span><span class="token punctuation">(</span>graph<span class="token operator">:</span> Graph<span class="token punctuation">[</span>VD<span class="token punctuation">,</span> ED<span class="token punctuation">]</span><span class="token punctuation">,</span> maxSteps<span class="token operator">:</span> <span class="token builtin">Int</span><span class="token punctuation">)</span><span class="token operator">:</span> Graph<span class="token punctuation">[</span>VertexId<span class="token punctuation">,</span> ED<span class="token punctuation">]</span> <span class="token operator">=</span> <span class="token punctuation">&#123;</span>
-  require<span class="token punctuation">(</span>maxSteps <span class="token operator">></span> <span class="token number">0</span><span class="token punctuation">,</span> <span class="token string-interpolation"><span class="token id function">s</span><span class="token string">"Maximum of steps must be greater than 0, but got </span><span class="token interpolation"><span class="token punctuation">$&#123;</span><span class="token expression">maxSteps</span><span class="token punctuation">&#125;</span></span><span class="token string">"</span></span><span class="token punctuation">)</span>
-  <span class="token comment">// Step 1: 初始化图, 重设节点属性(标签)为其ID</span>
-  <span class="token keyword">val</span> lpaGraph <span class="token operator">=</span> graph<span class="token punctuation">.</span>mapVertices <span class="token punctuation">&#123;</span> <span class="token keyword">case</span> <span class="token punctuation">(</span>vid<span class="token punctuation">,</span> _<span class="token punctuation">)</span> <span class="token keyword">=></span> vid <span class="token punctuation">&#125;</span>
-  <span class="token comment">// Step 2.1: 双向发送消息: 标签->1(可改成权重)</span>
-  <span class="token keyword">def</span> sendMessage<span class="token punctuation">(</span>e<span class="token operator">:</span> EdgeTriplet<span class="token punctuation">[</span>VertexId<span class="token punctuation">,</span> ED<span class="token punctuation">]</span><span class="token punctuation">)</span><span class="token operator">:</span> Iterator<span class="token punctuation">[</span><span class="token punctuation">(</span>VertexId<span class="token punctuation">,</span> Map<span class="token punctuation">[</span>VertexId<span class="token punctuation">,</span> <span class="token builtin">Long</span><span class="token punctuation">]</span><span class="token punctuation">)</span><span class="token punctuation">]</span> <span class="token operator">=</span> <span class="token punctuation">&#123;</span>
-    Iterator<span class="token punctuation">(</span><span class="token punctuation">(</span>e<span class="token punctuation">.</span>srcId<span class="token punctuation">,</span> Map<span class="token punctuation">(</span>e<span class="token punctuation">.</span>dstAttr <span class="token operator">-></span> <span class="token number">1L</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">,</span> <span class="token punctuation">(</span>e<span class="token punctuation">.</span>dstId<span class="token punctuation">,</span> Map<span class="token punctuation">(</span>e<span class="token punctuation">.</span>srcAttr <span class="token operator">-></span> <span class="token number">1L</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">)</span>
-  <span class="token punctuation">&#125;</span>
-  <span class="token comment">// Step 2.2: 合并接受消息: 将收到信息进行聚合, 形成 标签->数量 的字典结构</span>
-  <span class="token keyword">def</span> mergeMessage<span class="token punctuation">(</span>count1<span class="token operator">:</span> Map<span class="token punctuation">[</span>VertexId<span class="token punctuation">,</span> <span class="token builtin">Long</span><span class="token punctuation">]</span><span class="token punctuation">,</span> count2<span class="token operator">:</span> Map<span class="token punctuation">[</span>VertexId<span class="token punctuation">,</span> <span class="token builtin">Long</span><span class="token punctuation">]</span><span class="token punctuation">)</span>
-    <span class="token operator">:</span> Map<span class="token punctuation">[</span>VertexId<span class="token punctuation">,</span> <span class="token builtin">Long</span><span class="token punctuation">]</span> <span class="token operator">=</span> <span class="token punctuation">&#123;</span>
-    <span class="token keyword">val</span> map <span class="token operator">=</span> mutable<span class="token punctuation">.</span>Map<span class="token punctuation">[</span>VertexId<span class="token punctuation">,</span> <span class="token builtin">Long</span><span class="token punctuation">]</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
-    <span class="token punctuation">(</span>count1<span class="token punctuation">.</span>keySet <span class="token operator">++</span> count2<span class="token punctuation">.</span>keySet<span class="token punctuation">)</span><span class="token punctuation">.</span>foreach <span class="token punctuation">&#123;</span> i <span class="token keyword">=></span>
-      <span class="token keyword">val</span> count1Val <span class="token operator">=</span> count1<span class="token punctuation">.</span>getOrElse<span class="token punctuation">(</span>i<span class="token punctuation">,</span> <span class="token number">0L</span><span class="token punctuation">)</span>
-      <span class="token keyword">val</span> count2Val <span class="token operator">=</span> count2<span class="token punctuation">.</span>getOrElse<span class="token punctuation">(</span>i<span class="token punctuation">,</span> <span class="token number">0L</span><span class="token punctuation">)</span>
-      map<span class="token punctuation">.</span>put<span class="token punctuation">(</span>i<span class="token punctuation">,</span> count1Val <span class="token operator">+</span> count2Val<span class="token punctuation">)</span>
-    <span class="token punctuation">&#125;</span>
-    map
-  <span class="token punctuation">&#125;</span>
-  <span class="token comment">// Step 2.3: 重设节点标签属性: 当存在邻居节点则设为其最大数量的标签, 否则不变</span>
-  <span class="token keyword">def</span> vertexProgram<span class="token punctuation">(</span>vid<span class="token operator">:</span> VertexId<span class="token punctuation">,</span> attr<span class="token operator">:</span> <span class="token builtin">Long</span><span class="token punctuation">,</span> message<span class="token operator">:</span> Map<span class="token punctuation">[</span>VertexId<span class="token punctuation">,</span> <span class="token builtin">Long</span><span class="token punctuation">]</span><span class="token punctuation">)</span><span class="token operator">:</span> VertexId <span class="token operator">=</span> <span class="token punctuation">&#123;</span>
-    <span class="token keyword">if</span> <span class="token punctuation">(</span>message<span class="token punctuation">.</span>isEmpty<span class="token punctuation">)</span> attr <span class="token keyword">else</span> message<span class="token punctuation">.</span>maxBy<span class="token punctuation">(</span>_<span class="token punctuation">.</span>_2<span class="token punctuation">)</span><span class="token punctuation">.</span>_1
-  <span class="token punctuation">&#125;</span>
-  <span class="token keyword">val</span> initialMessage <span class="token operator">=</span> Map<span class="token punctuation">[</span>VertexId<span class="token punctuation">,</span> <span class="token builtin">Long</span><span class="token punctuation">]</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
-  <span class="token comment">// Step 2: 利用 Pregel 函数实际调用算法</span>
-  Pregel<span class="token punctuation">(</span>lpaGraph<span class="token punctuation">,</span> initialMessage<span class="token punctuation">,</span> maxIterations <span class="token operator">=</span> maxSteps<span class="token punctuation">)</span><span class="token punctuation">(</span>
-    vprog <span class="token operator">=</span> vertexProgram<span class="token punctuation">,</span>
-    sendMsg <span class="token operator">=</span> sendMessage<span class="token punctuation">,</span>
-    mergeMsg <span class="token operator">=</span> mergeMessage<span class="token punctuation">)</span>
-<span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre></div></figure>
-<h3 id="算法优化">算法优化</h3>
-<p>由于对于无权图, 其邻居很可能多个最大标签, 此时随机选择, 则可能造成较大传播误差; 实际生产环境大多是带权图, 如果可利用边权进行传播则相对稳定.</p>
-<figure><div class="code-wrapper"><pre class="line-numbers language-scala" data-language="scala"><code class="language-scala"><span class="token comment">// 直接将边权作为数值传递</span>
-<span class="token keyword">def</span> sendMessage<span class="token punctuation">(</span>e<span class="token operator">:</span> EdgeTriplet<span class="token punctuation">[</span>VertexId<span class="token punctuation">,</span> ED<span class="token punctuation">]</span><span class="token punctuation">)</span><span class="token operator">:</span> Iterator<span class="token punctuation">[</span><span class="token punctuation">(</span>VertexId<span class="token punctuation">,</span> Map<span class="token punctuation">[</span>VertexId<span class="token punctuation">,</span> <span class="token builtin">Long</span><span class="token punctuation">]</span><span class="token punctuation">)</span><span class="token punctuation">]</span> <span class="token operator">=</span> <span class="token punctuation">&#123;</span>
-  Iterator<span class="token punctuation">(</span><span class="token punctuation">(</span>e<span class="token punctuation">.</span>srcId<span class="token punctuation">,</span> Map<span class="token punctuation">(</span>e<span class="token punctuation">.</span>dstAttr <span class="token operator">-></span> e<span class="token punctuation">.</span>attr<span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">,</span> <span class="token punctuation">(</span>e<span class="token punctuation">.</span>dstId<span class="token punctuation">,</span> Map<span class="token punctuation">(</span>e<span class="token punctuation">.</span>srcAttr <span class="token operator">-></span> e<span class="token punctuation">.</span>attr<span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">)</span>
-<span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre></div></figure>
-<p>除此以外, 针对风控等场景通过专家规则等可获得部分正样本(黑样本), 此时调用算法则是想传播该部分标签, 可在初始化时不使用 <code>VertexId</code> 作为标签类型, 而是直接标记 正负样本 <code>Long&#123;0, 1&#125;</code>.</p>
+<h3 id="地址获取方式">地址获取方式</h3>
+<ul>
+<li><strong>主动</strong>: 客户/员工主动填写, 存在恶意伪造情况</li>
+<li><strong>被动</strong>:
+<ul>
+<li>定位技术: 如GPS、基站等定位获取, 存在伪造情况, 但成本相较于主动情况要高些</li>
+<li>系统标识: 如某个公司营销柜台下单, 伪造情况较低</li>
+</ul>
+</li>
+</ul>
+<h3 id="黑产欺诈情况">黑产欺诈情况</h3>
+<ul>
+<li><strong>真实地址</strong>: 通过欺诈中介包装, 将地址设定成中介提供地址, 其地址公司资质均在, 但具备成立时间短、规模小、信息有限等情况, 审核人员难以有效区分.</li>
+<li><strong>虚假地址</strong>: 提供虚假地址信息, 如刷单等情况, 与外卖商家/网店商家合作, 将商品下单到多个虚假地址, 备注&quot;无需配送&quot;等, 进行补贴骗取</li>
+<li><strong>模糊地址</strong>: 提供宽泛地址信息, 如提供欺诈常驻地较近的商场、广场等, 备注&quot;到后电话联系&quot;等, 进行地址信息隐藏</li>
+<li><strong>特殊符号</strong>: 提供谐音、繁体、变体等多种类型特殊符号, 防止风控对地址信息聚类等挖掘黑产团伙</li>
+<li><strong>地址变更</strong>: 首先提供虚假地址通过业务风控, 但由于需要获取该商品等情况, 联系客服进行地址变更到欺诈地址</li>
+</ul>
+<h2 id="文本地址信息挖掘">文本地址信息挖掘</h2>
+<h3 id="地址标准化">地址标准化</h3>
+<p>文本是较难处理的信息, 例如 <code>北京东燕郊</code> 和 <code>廊坊市燕郊</code> 是同一个地方, 快递员基本可分辨, 但对于机器而言, 则处理逻辑较为困难, 因为城市上有所区别. 因此如何对文本地址进行标准化非常关键, 博主根据参考资料整理部分标准化方法, 提供给读者:</p>
+<ul>
+<li><code>缺失信息补全</code>: 文本地址通常最多 <code>省-市-区-街道</code> 四级进行选择框, 该四级结构变化情况较少, 部分数据可能缺失四级结构需要补全, 便于后续处理.</li>
+<li><code>错误信息修正</code>: 针对本节引言 <code>燕郊</code> 问题 北京市 和 廊坊市 均可正常送达, 但是实际上正常地址应当为 <code>廊坊市燕郊</code> 否则会对 <code>燕郊</code> 数据聚出两个中心.</li>
+<li><code>特殊字符替换</code>: 特殊字符包括正常字符, 如 <code>()</code> 等括号, 此类通常需要删除; 也包括, 如象形文字等用来替换正常文字, 此类则较为复杂, 可以替换等.</li>
+<li><code>同音错别字替换</code>: 针对非特殊字符的替换正常文字情况, 可以转化成拼音进行处理.</li>
+</ul>
+<h3 id="文本信息标签">文本信息标签</h3>
+<p>在将地址标准化后, 可以根据地址挖掘更多信息, 最终形成对用户的画像, 从而判断用户风险/价值等.</p>
+<ul>
+<li><code>家庭地址</code>:
+<ul>
+<li>房屋价值(房价/租价-相对市/区均值比率)</li>
+<li>相较公司地址距离: 推断通勤情况</li>
+</ul>
+</li>
+<li><code>公司地址</code>:
+<ul>
+<li>公司实力: 公司信息/办公租金(相对市/区平均水平)</li>
+<li>信息匹配: 与公司信息匹配, 与职位属性匹配, 与征信等外部信息匹配</li>
+<li>行业信息: 金融区/IT区/政府办公区等</li>
+</ul>
+</li>
+<li><code>户籍地址</code>:
+<ul>
+<li>户口类型: 农业/非农业 个人/集体</li>
+<li>信息匹配: 交叉比对公司地址, 判断是否外来务工</li>
+</ul>
+</li>
+<li><code>业务地址</code>/<code>定位地址</code>:
+<ul>
+<li>信息匹配: 信息是否吻合</li>
+</ul>
+</li>
+</ul>
+<h2 id="文本地址聚类">文本地址聚类</h2>
+<blockquote>
+<p>本部分采用 <code>风控小伍哥</code> 数据总结, 详细内容和代码可见<code>参考资料1-3</code>, 本文仅概述思路.</p>
+</blockquote>
+<p>欺诈地址通常存在聚集等特性, 因此如何针对欺诈地处理聚类十分关键, 如下即为一批聚集的欺诈地点.</p>
+<table>
+<thead>
+<tr>
+<th style="text-align:center"><strong>公司名称</strong></th>
+<th style="text-align:center"><strong>公司地址</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">昆明纪资馨百货商行</td>
+<td style="text-align:center">云南省昆明市盘龙区茨坝街道白杨路233号附1-PL</td>
+</tr>
+<tr>
+<td style="text-align:center">昆明可嘉雅百货商行</td>
+<td style="text-align:center">云南省昆明市盘龙区茨坝街道白杨路2011号附1-PL</td>
+</tr>
+<tr>
+<td style="text-align:center">昆明湾悦蓝百货商行</td>
+<td style="text-align:center">云南省昆明市盘龙区茨坝街道白杨路114号附1-PL</td>
+</tr>
+<tr>
+<td style="text-align:center">昆明露泓锦百货商行</td>
+<td style="text-align:center">云南省昆明市盘龙区茨坝街道白杨路355号附1-PL</td>
+</tr>
+<tr>
+<td style="text-align:center">昆明鑫敏凡百货商行</td>
+<td style="text-align:center">云南省昆明市盘龙区茨坝街道白杨路395号附1-PL</td>
+</tr>
+</tbody>
+</table>
+<p><strong>专家规则</strong>:</p>
+<p>首先根据该信息, 通过 <code>专家规则</code>(主要人工去盘), 可以发现剔除非文本字符后基本相同, 因此可采用如下代码处理:</p>
+<figure><div class="code-wrapper"><pre class="line-numbers language-python" data-language="python"><code class="language-python"><span class="token triple-quoted-string string">'''
+构建正则处理函数
+我们要剔除数字字母以及- 很多地址中间带着-
+'''</span>
+<span class="token keyword">import</span> re
+<span class="token keyword">def</span> <span class="token function">replace_address</span><span class="token punctuation">(</span>text<span class="token punctuation">)</span><span class="token punctuation">:</span>
+    <span class="token keyword">return</span> re<span class="token punctuation">.</span>sub<span class="token punctuation">(</span><span class="token string">'[A-Za-z0-9-]'</span><span class="token punctuation">,</span><span class="token string">''</span><span class="token punctuation">,</span>text<span class="token punctuation">)</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre></div></figure>
+<p><strong>分词工具</strong>:</p>
+<p>可以根据地址中的分词情况, 进行关键词的KNN聚类.</p>
+<figure><div class="code-wrapper"><pre class="line-numbers language-python" data-language="python"><code class="language-python"><span class="token comment"># 结巴分词-测试</span>
+<span class="token keyword">import</span> jieba
+jieba<span class="token punctuation">.</span>lcut<span class="token punctuation">(</span><span class="token string">'云南省昆明市盘龙区茨坝街道白杨路233号附1-PL'</span><span class="token punctuation">)</span>
+
+<span class="token comment"># 分词及向量化</span>
+df <span class="token operator">=</span> df<span class="token punctuation">[</span><span class="token string">'公司地址'</span><span class="token punctuation">]</span><span class="token punctuation">.</span><span class="token builtin">apply</span><span class="token punctuation">(</span><span class="token keyword">lambda</span> x<span class="token punctuation">:</span><span class="token string">' '</span><span class="token punctuation">.</span>join<span class="token punctuation">(</span>jieba<span class="token punctuation">.</span>lcut<span class="token punctuation">(</span>x<span class="token punctuation">)</span><span class="token punctuation">)</span> <span class="token punctuation">)</span>
+vectorizer_word <span class="token operator">=</span> TfidfVectorizer<span class="token punctuation">(</span>
+  max_features<span class="token operator">=</span><span class="token number">20000</span><span class="token punctuation">,</span>
+  token_pattern<span class="token operator">=</span><span class="token string">r"(?u)\b\w+\b"</span><span class="token punctuation">,</span>
+  min_df <span class="token operator">=</span> <span class="token number">1</span><span class="token punctuation">,</span>
+  analyzer<span class="token operator">=</span><span class="token string">'word'</span><span class="token punctuation">,</span>
+  ngram_range<span class="token operator">=</span><span class="token punctuation">(</span><span class="token number">1</span><span class="token punctuation">,</span><span class="token number">2</span><span class="token punctuation">)</span>
+<span class="token punctuation">)</span>
+vectorizer_word <span class="token operator">=</span> vectorizer_word<span class="token punctuation">.</span>fit<span class="token punctuation">(</span>df<span class="token punctuation">[</span><span class="token punctuation">[</span><span class="token string">'公司地址'</span><span class="token punctuation">]</span><span class="token punctuation">]</span><span class="token punctuation">)</span>
+tfidf_matrix    <span class="token operator">=</span> vectorizer_word<span class="token punctuation">.</span>transform<span class="token punctuation">(</span>df<span class="token punctuation">[</span><span class="token punctuation">[</span><span class="token string">'公司地址'</span><span class="token punctuation">]</span><span class="token punctuation">]</span><span class="token punctuation">)</span>
+
+<span class="token keyword">from</span> sklearn<span class="token punctuation">.</span>neighbors <span class="token keyword">import</span> radius_neighbors_graph
+<span class="token comment"># 聚类处理</span>
+A <span class="token operator">=</span> radius_neighbors_graph<span class="token punctuation">(</span>
+  tfidf_matrix<span class="token punctuation">,</span>
+  radius <span class="token operator">=</span> <span class="token number">0.99</span><span class="token punctuation">,</span>
+  mode <span class="token operator">=</span><span class="token string">'connectivity'</span><span class="token punctuation">,</span> 
+  include_self<span class="token operator">=</span><span class="token boolean">False</span>       
+<span class="token punctuation">)</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre></div></figure>
+<blockquote>
+<p>注意: 通常地址在标准化后, 可以具备 <code>省-市-区-街道</code> 级别, 因此聚类和分词处理, 可以在该级别内进行处理, 以降低计算和聚类成本.</p>
+</blockquote>
 <h2 id="参考资料">参考资料</h2>
 <ul>
-<li><a target="_blank" rel="noopener" href="https://www.cnblogs.com/LittleHann/p/10699988.html">标签传播算法(Label Propagation Algorithm, LPA)初探</a></li>
-<li><a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/511796578">社区发现之标签传播算法</a></li>
+<li><a target="_blank" rel="noopener" href="https://mp.weixin.qq.com/s/Fo8dxTSvyv9_WP_nH_Ecbg">风控中的地址处理之-简单粗暴有效的正则替换</a></li>
+<li><a target="_blank" rel="noopener" href="https://mp.weixin.qq.com/s/UpHrJaqJIkQB8Id-rnCWKA">风控中的地址处理之-简单准确有效的多标签聚类</a></li>
+<li><a target="_blank" rel="noopener" href="https://mp.weixin.qq.com/s/ZeMizEb8JVdnrdTAt0JA4w">风控中的地址处理之-KNN限制半径近邻图聚类</a></li>
+<li><a target="_blank" rel="noopener" href="https://mp.weixin.qq.com/s/1B6xFCmY4hujXkBz6z-5fQ">风控场景的中地址信息的处理和使用-上 | DataVisor技术讲解</a></li>
+<li><a target="_blank" rel="noopener" href="https://mp.weixin.qq.com/s/LQexmM1ZJK1WdQP2DttuSg">风控场景的中地址信息的处理和使用-下 | DataVisor技术讲解</a></li>
+<li><a target="_blank" rel="noopener" href="https://mp.weixin.qq.com/s/TFhmrrZyHRvucOpmR7LncQ">高校地址信息的有效识别及其风控应用</a></li>
+<li><a target="_blank" rel="noopener" href="https://mp.weixin.qq.com/s/K7SYvBzEeA7ycKrMkO9A9A">实操干货 | 众安风控宝典:收货地址风险识别</a></li>
+<li><a target="_blank" rel="noopener" href="https://mp.weixin.qq.com/s/xl2YxUYLg9sIZcPrGoGZtw">风控的泪之地址反欺诈</a></li>
 </ul>
 
                 
@@ -406,7 +501,7 @@
     
       <span class="category-chain">
         
-  <a href="/categories/Community-Detection/" class="category-chain-item">Community Detection</a>
+  <a href="/categories/risk-control/" class="category-chain-item">risk control</a>
   
   
 
@@ -421,7 +516,7 @@
     <div class="post-meta">
       <i class="iconfont icon-tags"></i>
       
-        <a href="/tags/Community-Detection/" class="print-no-link">#Community Detection</a>
+        <a href="/tags/risk-control/" class="print-no-link">#risk control</a>
       
     </div>
   
@@ -433,8 +528,8 @@
 
   <div class="license-box my-3">
     <div class="license-title">
-      <div>【社区发现算法】LPA算法</div>
-      <div>https://www.windism.space/1876331716.html</div>
+      <div>风控特征之文本地址信息</div>
+      <div>https://www.windism.space/249128112.html</div>
     </div>
     <div class="license-meta">
       
@@ -446,7 +541,7 @@
       
         <div class="license-meta-item license-meta-date">
           <div>发布于</div>
-          <div>2023年10月19日</div>
+          <div>2023年10月27日</div>
         </div>
       
       
@@ -490,18 +585,12 @@
                   <article class="post-prev col-6">
                     
                     
-                      <a href="/116063852.html" title="【社区发现算法】Louvain算法">
-                        <i class="iconfont icon-arrowleft"></i>
-                        <span class="hidden-mobile">【社区发现算法】Louvain算法</span>
-                        <span class="visible-mobile">上一篇</span>
-                      </a>
-                    
                   </article>
                   <article class="post-next col-6">
                     
                     
-                      <a href="/1053869063.html" title="【社区发现算法】GN算法">
-                        <span class="hidden-mobile">【社区发现算法】GN算法</span>
+                      <a href="/116063852.html" title="【社区发现算法】Louvain算法">
+                        <span class="hidden-mobile">【社区发现算法】Louvain算法</span>
                         <span class="visible-mobile">下一篇</span>
                         <i class="iconfont icon-arrowright"></i>
                       </a>

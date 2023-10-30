@@ -18,15 +18,15 @@
   <meta name="author" content="windism">
   <meta name="keywords" content="Community Detection,Girvan-Newman,betweenness centrality,介数中心性">
   
-    <meta name="description" content="引言在社会生活中, 图的概念无处不在, 如社交网络, 即自然人作为节点, 而人与人之间的社交关系则是边, 人与人之间的团体即为社区。上述是比较直观的描述, 如下则是更加具体的定义:  社区(community): 社区是图的一个子图，相比于图的其他部分，其中包含着密集的节点.  而如何查找图中的社区则是社区发现的内容, 在2004年, Newman 和 Girvan的论文中提出了利用介数中心性(b">
+    <meta name="description" content="引言 在社会生活中, 图的概念无处不在, 如社交网络, 即自然人作为节点, 而人与人之间的社交关系则是边, 人与人之间的团体即为社区。上述是比较直观的描述, 如下则是更加具体的定义:  社区(community): 社区是图的一个子图,相比于图的其他部分,其中包含着密集的节点.  而如何查找图中的社区则是社区发现的内容, 在2004年, Newman 和 Girvan的论文中提出了利用介数中心性(">
 <meta property="og:type" content="article">
 <meta property="og:title" content="【社区发现算法】GN算法">
 <meta property="og:url" content="https://www.windism.space/1053869063.html">
-<meta property="og:site_name" content="风扬">
-<meta property="og:description" content="引言在社会生活中, 图的概念无处不在, 如社交网络, 即自然人作为节点, 而人与人之间的社交关系则是边, 人与人之间的团体即为社区。上述是比较直观的描述, 如下则是更加具体的定义:  社区(community): 社区是图的一个子图，相比于图的其他部分，其中包含着密集的节点.  而如何查找图中的社区则是社区发现的内容, 在2004年, Newman 和 Girvan的论文中提出了利用介数中心性(b">
+<meta property="og:site_name" content="风扬技术站">
+<meta property="og:description" content="引言 在社会生活中, 图的概念无处不在, 如社交网络, 即自然人作为节点, 而人与人之间的社交关系则是边, 人与人之间的团体即为社区。上述是比较直观的描述, 如下则是更加具体的定义:  社区(community): 社区是图的一个子图,相比于图的其他部分,其中包含着密集的节点.  而如何查找图中的社区则是社区发现的内容, 在2004年, Newman 和 Girvan的论文中提出了利用介数中心性(">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2023-10-19T10:00:00.000Z">
-<meta property="article:modified_time" content="2023-10-20T02:53:15.014Z">
+<meta property="article:modified_time" content="2023-10-29T14:11:14.269Z">
 <meta property="article:author" content="windism">
 <meta property="article:tag" content="Community Detection">
 <meta name="twitter:card" content="summary_large_image">
@@ -35,7 +35,7 @@
     <meta name="referrer" content="no-referrer-when-downgrade">
   
   
-  <title>【社区发现算法】GN算法 - 风扬</title>
+  <title>【社区发现算法】GN算法 - 风扬技术站</title>
 
   <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
 
@@ -48,6 +48,8 @@
   <link  rel="stylesheet" href="https://lib.baomitu.com/prism/1.29.0/plugins/line-numbers/prism-line-numbers.min.css" />
 
   <link  rel="stylesheet" href="https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/KaTeX/0.16.2/katex.min.css" />
 
 
 
@@ -75,7 +77,7 @@
   <script id="fluid-configs">
     var Fluid = window.Fluid || {};
     Fluid.ctx = Object.assign({}, Fluid.ctx)
-    var CONFIG = {"hostname":"www.windism.space","root":"/","version":"1.9.5-a","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":true,"follow_dnt":true,"baidu":"2eac19870ffb3538ed048a88632c0e62","google":{"measurement_id":351361875},"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false}},"search_path":"/local-search.xml","include_content_in_search":true};
+    var CONFIG = {"hostname":"www.windism.space","root":"/","version":"1.9.5-a","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":true,"follow_dnt":true,"baidu":"2eac19870ffb3538ed048a88632c0e62","google":{"measurement_id":6308973056},"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false}},"search_path":"/local-search.xml","include_content_in_search":true};
 
     if (CONFIG.web_analytics.follow_dnt) {
       var dntVal = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
@@ -105,13 +107,13 @@
     <!-- Google tag (gtag.js) -->
     <script async>
       if (!Fluid.ctx.dnt) {
-        Fluid.utils.createScript("https://www.googletagmanager.com/gtag/js?id=351361875", function() {
+        Fluid.utils.createScript("https://www.googletagmanager.com/gtag/js?id=6308973056", function() {
           window.dataLayer = window.dataLayer || [];
           function gtag() {
             dataLayer.push(arguments);
           }
           gtag('js', new Date());
-          gtag('config', '351361875');
+          gtag('config', '6308973056');
         });
       }
     </script>
@@ -127,8 +129,9 @@
 
 
 
-  
-<meta name="generator" content="Hexo 6.3.0"><link rel="alternate" href="/atom.xml" title="风扬" type="application/atom+xml">
+  <meta name="google-adsense-account" content="ca-pub-1519148638782253"><meta name="shenma-site-verification" content="9c1151ad90b55afaa55272b2fb7faa68_1698068804"></meta>
+<meta name="generator" content="Hexo 6.3.0"><link rel="alternate" href="/atom.xml" title="风扬技术站" type="application/atom+xml">
+<link rel="alternate" href="/rss2.xml" title="风扬技术站" type="application/rss+xml">
 </head>
 
 
@@ -142,7 +145,7 @@
   <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
   <div class="container">
     <a class="navbar-brand" href="/">
-      <strong>风扬</strong>
+      <strong>风扬技术站</strong>
     </a>
 
     <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
@@ -267,7 +270,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          942 字
+          1k 字
         
       </span>
     
@@ -278,12 +281,20 @@
         
         
         
-          8 分钟
+          9 分钟
         
       </span>
     
 
     
+    
+      
+        <span id="busuanzi_container_page_pv" style="display: none">
+          <i class="iconfont icon-eye" aria-hidden="true"></i>
+          <span id="busuanzi_value_page_pv"></span> 次
+        </span>
+        
+      
     
   </div>
 
@@ -320,31 +331,37 @@
             
               <div class="markdown-body">
                 
-                <h2 id="引言"><a href="#引言" class="headerlink" title="引言"></a>引言</h2><p>在社会生活中, 图的概念无处不在, 如社交网络, 即自然人作为节点, 而人与人之间的社交关系则是边, 人与人之间的团体即为社区。上述是比较直观的描述, 如下则是更加具体的定义:</p>
+                <h2 id="引言">引言</h2>
+<p>在社会生活中, 图的概念无处不在, 如社交网络, 即自然人作为节点, 而人与人之间的社交关系则是边, 人与人之间的团体即为社区。上述是比较直观的描述, 如下则是更加具体的定义:</p>
 <ul>
-<li>社区(<code>community</code>): 社区是图的一个子图，相比于图的其他部分，其中包含着密集的节点.</li>
+<li>社区(<code>community</code>): 社区是图的一个子图,相比于图的其他部分,其中包含着密集的节点.</li>
 </ul>
-<p>而如何查找图中的社区则是社区发现的内容, 在2004年, Newman 和 Girvan的论文中提出了利用介数中心性(betweenness centrality)的方法，称之为 <code>Girvan-Newman</code> 算法.</p>
-<h2 id="基本定义"><a href="#基本定义" class="headerlink" title="基本定义"></a>基本定义</h2><p>介数中心性(<code>betweenness centrality</code>): 基于最短路径的图的中心的度量方法</p>
-<p>$$<br>C_{B}(v) &#x3D; \sum_{s \ne v \ne t \in V} \frac{\sigma_{st}(v)}{\sigma_{st}}<br>$$</p>
+<p>而如何查找图中的社区则是社区发现的内容, 在2004年, Newman 和 Girvan的论文中提出了利用介数中心性(betweenness centrality)的方法,称之为 <code>Girvan-Newman</code> 算法.</p>
+<h2 id="基本定义">基本定义</h2>
+<p>介数中心性(<code>betweenness centrality</code>): 基于最短路径的图的中心的度量方法</p>
+<p class="katex-block "><span class="katex-display"><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><semantics><mrow><msub><mi>C</mi><mi>B</mi></msub><mo stretchy="false">(</mo><mi>v</mi><mo stretchy="false">)</mo><mo>=</mo><munder><mo>∑</mo><mrow><mi>s</mi><mo mathvariant="normal">≠</mo><mi>v</mi><mo mathvariant="normal">≠</mo><mi>t</mi><mo>∈</mo><mi>V</mi></mrow></munder><mfrac><mrow><msub><mi>σ</mi><mrow><mi>s</mi><mi>t</mi></mrow></msub><mo stretchy="false">(</mo><mi>v</mi><mo stretchy="false">)</mo></mrow><msub><mi>σ</mi><mrow><mi>s</mi><mi>t</mi></mrow></msub></mfrac></mrow><annotation encoding="application/x-tex">C_{B}(v) = \sum_{s \ne v \ne t \in V} \frac{\sigma_{st}(v)}{\sigma_{st}}
+</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord"><span class="mord mathnormal" style="margin-right:0.07153em;">C</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.3283em;"><span style="top:-2.55em;margin-left:-0.0715em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathnormal mtight" style="margin-right:0.05017em;">B</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mopen">(</span><span class="mord mathnormal" style="margin-right:0.03588em;">v</span><span class="mclose">)</span><span class="mspace" style="margin-right:0.2778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2778em;"></span></span><span class="base"><span class="strut" style="height:2.8652em;vertical-align:-1.4382em;"></span><span class="mop op-limits"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:1.05em;"><span style="top:-1.8479em;margin-left:0em;"><span class="pstrut" style="height:3.05em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathnormal mtight">s</span><span class="mrel mtight"><span class="mrel mtight"><span class="mord vbox mtight"><span class="thinbox mtight"><span class="rlap mtight"><span class="strut" style="height:0.8889em;vertical-align:-0.1944em;"></span><span class="inner"><span class="mord mtight"><span class="mrel mtight"></span></span></span><span class="fix"></span></span></span></span></span><span class="mrel mtight">=</span></span><span class="mord mathnormal mtight" style="margin-right:0.03588em;">v</span><span class="mrel mtight"><span class="mrel mtight"><span class="mord vbox mtight"><span class="thinbox mtight"><span class="rlap mtight"><span class="strut" style="height:0.8889em;vertical-align:-0.1944em;"></span><span class="inner"><span class="mord mtight"><span class="mrel mtight"></span></span></span><span class="fix"></span></span></span></span></span><span class="mrel mtight">=</span></span><span class="mord mathnormal mtight">t</span><span class="mrel mtight">∈</span><span class="mord mathnormal mtight" style="margin-right:0.22222em;">V</span></span></span></span><span style="top:-3.05em;"><span class="pstrut" style="height:3.05em;"></span><span><span class="mop op-symbol large-op">∑</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:1.4382em;"><span></span></span></span></span></span><span class="mspace" style="margin-right:0.1667em;"></span><span class="mord"><span class="mopen nulldelimiter"></span><span class="mfrac"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:1.427em;"><span style="top:-2.314em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mord"><span class="mord mathnormal" style="margin-right:0.03588em;">σ</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.2806em;"><span style="top:-2.55em;margin-left:-0.0359em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathnormal mtight">s</span><span class="mord mathnormal mtight">t</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span></span></span><span style="top:-3.23em;"><span class="pstrut" style="height:3em;"></span><span class="frac-line" style="border-bottom-width:0.04em;"></span></span><span style="top:-3.677em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mord"><span class="mord mathnormal" style="margin-right:0.03588em;">σ</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.2806em;"><span style="top:-2.55em;margin-left:-0.0359em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathnormal mtight">s</span><span class="mord mathnormal mtight">t</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mopen">(</span><span class="mord mathnormal" style="margin-right:0.03588em;">v</span><span class="mclose">)</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.836em;"><span></span></span></span></span></span><span class="mclose nulldelimiter"></span></span></span></span></span></span></p>
 <ul>
-<li>其中 $\sigma_{st}$ 代表节点 <code>s-&gt;t</code> 的最短路径数, $\sigma_{st}(v)$ 代表节点 <code>s-&gt;t</code> 且经过节点 <code>v</code> 的最短路径数</li>
+<li>其中 <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>σ</mi><mrow><mi>s</mi><mi>t</mi></mrow></msub></mrow><annotation encoding="application/x-tex">\sigma_{st}</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.5806em;vertical-align:-0.15em;"></span><span class="mord"><span class="mord mathnormal" style="margin-right:0.03588em;">σ</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.2806em;"><span style="top:-2.55em;margin-left:-0.0359em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathnormal mtight">s</span><span class="mord mathnormal mtight">t</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span></span></span></span> 代表节点 <code>s-&gt;t</code> 的最短路径数, <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>σ</mi><mrow><mi>s</mi><mi>t</mi></mrow></msub><mo stretchy="false">(</mo><mi>v</mi><mo stretchy="false">)</mo></mrow><annotation encoding="application/x-tex">\sigma_{st}(v)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord"><span class="mord mathnormal" style="margin-right:0.03588em;">σ</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.2806em;"><span style="top:-2.55em;margin-left:-0.0359em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathnormal mtight">s</span><span class="mord mathnormal mtight">t</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mopen">(</span><span class="mord mathnormal" style="margin-right:0.03588em;">v</span><span class="mclose">)</span></span></span></span> 代表节点 <code>s-&gt;t</code> 且经过节点 <code>v</code> 的最短路径数</li>
 </ul>
-<p>根据公式, 社区之间的边，值更大; 社区内部的边, 值更小. 若将节点 <code>v</code> 剔除, 则可以将两个社区分割.</p>
-<p>上述公式给予社区发现过程中 <code>社区之间的边</code> 的选择方法, 将其切割即可拆分社区, 但拆分成几个社区, 则需要新的指标进行评估. 即模块度函数 $Q$ 来定量的衡量社区划分的结果.</p>
-<p>假设已经发现复杂网络的社区结构, $M$ 为已发现的社区个数, $L$ 为网络中的边数, $l_s$ 是社区 <code>s</code> 中节点相互连接的数目, $d_s$ 是社区 <code>s</code> 中所有节点相互连接数目的和。则 $Q$ 的函数表达式如下所示:</p>
-<p>$$<br>Q &#x3D; \sum_{s}^{M} \lbrack \frac{l_s}{L} - (\frac{d_s}{2L})^2 \rbrack<br>$$</p>
+<p>根据公式, 社区之间的边,值更大; 社区内部的边, 值更小. 若将节点 <code>v</code> 剔除, 则可以将两个社区分割.</p>
+<p>上述公式给予社区发现过程中 <code>社区之间的边</code> 的选择方法, 将其切割即可拆分社区, 但拆分成几个社区, 则需要新的指标进行评估. 即模块度函数 <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>Q</mi></mrow><annotation encoding="application/x-tex">Q</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.8778em;vertical-align:-0.1944em;"></span><span class="mord mathnormal">Q</span></span></span></span> 来定量的衡量社区划分的结果.</p>
+<p>假设已经发现复杂网络的社区结构, <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>M</mi></mrow><annotation encoding="application/x-tex">M</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.6833em;"></span><span class="mord mathnormal" style="margin-right:0.10903em;">M</span></span></span></span> 为已发现的社区个数, <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>L</mi></mrow><annotation encoding="application/x-tex">L</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.6833em;"></span><span class="mord mathnormal">L</span></span></span></span> 为网络中的边数, <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>l</mi><mi>s</mi></msub></mrow><annotation encoding="application/x-tex">l_s</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.8444em;vertical-align:-0.15em;"></span><span class="mord"><span class="mord mathnormal" style="margin-right:0.01968em;">l</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.1514em;"><span style="top:-2.55em;margin-left:-0.0197em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight">s</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span></span></span></span> 是社区 <code>s</code> 中节点相互连接的数目, <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>d</mi><mi>s</mi></msub></mrow><annotation encoding="application/x-tex">d_s</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.8444em;vertical-align:-0.15em;"></span><span class="mord"><span class="mord mathnormal">d</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.1514em;"><span style="top:-2.55em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight">s</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span></span></span></span> 是社区 <code>s</code> 中所有节点相互连接数目的和。则 <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>Q</mi></mrow><annotation encoding="application/x-tex">Q</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.8778em;vertical-align:-0.1944em;"></span><span class="mord mathnormal">Q</span></span></span></span> 的函数表达式如下所示:</p>
+<p class="katex-block "><span class="katex-display"><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><semantics><mrow><mi>Q</mi><mo>=</mo><munderover><mo>∑</mo><mi>s</mi><mi>M</mi></munderover><mo stretchy="false">[</mo><mfrac><msub><mi>l</mi><mi>s</mi></msub><mi>L</mi></mfrac><mo>−</mo><mo stretchy="false">(</mo><mfrac><msub><mi>d</mi><mi>s</mi></msub><mrow><mn>2</mn><mi>L</mi></mrow></mfrac><msup><mo stretchy="false">)</mo><mn>2</mn></msup><mo stretchy="false">]</mo></mrow><annotation encoding="application/x-tex">Q = \sum_{s}^{M} \lbrack \frac{l_s}{L} - (\frac{d_s}{2L})^2 \rbrack
+</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.8778em;vertical-align:-0.1944em;"></span><span class="mord mathnormal">Q</span><span class="mspace" style="margin-right:0.2778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2778em;"></span></span><span class="base"><span class="strut" style="height:3.0783em;vertical-align:-1.25em;"></span><span class="mop op-limits"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:1.8283em;"><span style="top:-1.9em;margin-left:0em;"><span class="pstrut" style="height:3.05em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathnormal mtight">s</span></span></span></span><span style="top:-3.05em;"><span class="pstrut" style="height:3.05em;"></span><span><span class="mop op-symbol large-op">∑</span></span></span><span style="top:-4.3em;margin-left:0em;"><span class="pstrut" style="height:3.05em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathnormal mtight" style="margin-right:0.10903em;">M</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:1.25em;"><span></span></span></span></span></span><span class="mopen">[</span><span class="mord"><span class="mopen nulldelimiter"></span><span class="mfrac"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:1.3714em;"><span style="top:-2.314em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mord mathnormal">L</span></span></span><span style="top:-3.23em;"><span class="pstrut" style="height:3em;"></span><span class="frac-line" style="border-bottom-width:0.04em;"></span></span><span style="top:-3.677em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mord"><span class="mord mathnormal" style="margin-right:0.01968em;">l</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.1514em;"><span style="top:-2.55em;margin-left:-0.0197em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight">s</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.686em;"><span></span></span></span></span></span><span class="mclose nulldelimiter"></span></span><span class="mspace" style="margin-right:0.2222em;"></span><span class="mbin">−</span><span class="mspace" style="margin-right:0.2222em;"></span></span><span class="base"><span class="strut" style="height:2.0574em;vertical-align:-0.686em;"></span><span class="mopen">(</span><span class="mord"><span class="mopen nulldelimiter"></span><span class="mfrac"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:1.3714em;"><span style="top:-2.314em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mord">2</span><span class="mord mathnormal">L</span></span></span><span style="top:-3.23em;"><span class="pstrut" style="height:3em;"></span><span class="frac-line" style="border-bottom-width:0.04em;"></span></span><span style="top:-3.677em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mord"><span class="mord mathnormal">d</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.1514em;"><span style="top:-2.55em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight">s</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.686em;"><span></span></span></span></span></span><span class="mclose nulldelimiter"></span></span><span class="mclose"><span class="mclose">)</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.8641em;"><span style="top:-3.113em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight">2</span></span></span></span></span></span></span></span><span class="mclose">]</span></span></span></span></span></p>
 <blockquote>
 <p>物理意义: 网络中连接两个同种类型的节点的边(即社区内部边)比例, 减去在同样的社区结构下任意连接这两个节点的边的比例的期望值.</p>
 </blockquote>
-<h2 id="算法步骤"><a href="#算法步骤" class="headerlink" title="算法步骤"></a>算法步骤</h2><p><code>Girvan-Newman</code> 算法的基本流程如下:</p>
+<h2 id="算法步骤">算法步骤</h2>
+<p><code>Girvan-Newman</code> 算法的基本流程如下:</p>
 <ol>
 <li>计算网络中所有边的边介数</li>
 <li>找到边介数最高的边并将它从网络中移除</li>
 <li>重复步骤2, 直到每个节点成为一个独立的社区为止, 即网络中没有边存在.</li>
 </ol>
-<p>最终选择社区情况, 即通过遍历拆分成 <code>1-N</code> 社区的模块度 $Q_n$, 选择其中最大模块度的社区结果.</p>
-<h2 id="参考资料"><a href="#参考资料" class="headerlink" title="参考资料"></a>参考资料</h2><ul>
+<p>最终选择社区情况, 即通过遍历拆分成 <code>1-N</code> 社区的模块度 <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>Q</mi><mi>n</mi></msub></mrow><annotation encoding="application/x-tex">Q_n</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.8778em;vertical-align:-0.1944em;"></span><span class="mord"><span class="mord mathnormal">Q</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.1514em;"><span style="top:-2.55em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight">n</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span></span></span></span>, 选择其中最大模块度的社区结果.</p>
+<h2 id="参考资料">参考资料</h2>
+<ul>
 <li><a target="_blank" rel="noopener" href="https://sikasjc.github.io/2017/12/20/GN/">GN算法–复杂网络中社区发现与Python实现</a></li>
 </ul>
 
@@ -449,9 +466,9 @@
                   <article class="post-prev col-6">
                     
                     
-                      <a href="/1876331717.html" title="【社区发现算法】Walktrap算法">
+                      <a href="/1876331716.html" title="【社区发现算法】LPA算法">
                         <i class="iconfont icon-arrowleft"></i>
-                        <span class="hidden-mobile">【社区发现算法】Walktrap算法</span>
+                        <span class="hidden-mobile">【社区发现算法】LPA算法</span>
                         <span class="visible-mobile">上一篇</span>
                       </a>
                     
@@ -459,8 +476,8 @@
                   <article class="post-next col-6">
                     
                     
-                      <a href="/116063852.html" title="【社区发现算法】Louvain算法">
-                        <span class="hidden-mobile">【社区发现算法】Louvain算法</span>
+                      <a href="/3066150691.html" title="风控特征之应用列表信息">
+                        <span class="hidden-mobile">风控特征之应用列表信息</span>
                         <span class="visible-mobile">下一篇</span>
                         <i class="iconfont icon-arrowright"></i>
                       </a>
@@ -475,6 +492,30 @@
   
     <article id="comments" lazyload>
       
+  <div id="twikoo"></div>
+  <script type="text/javascript">
+    Fluid.utils.loadComments('#comments', function() {
+      Fluid.utils.createScript('https://lib.baomitu.com/twikoo/1.6.8/twikoo.all.min.js', function() {
+        var options = Object.assign(
+          {"envId":"http://twikoo.windism.space","region":null,"path":"window.location.pathname"},
+          {
+            el: '#twikoo',
+            path: 'window.location.pathname',
+            onCommentLoaded: function() {
+              Fluid.utils.listenDOMLoaded(function() {
+                var imgSelector = '#twikoo .tk-content img:not(.tk-owo-emotion)';
+                Fluid.plugins.imageCaption(imgSelector);
+                Fluid.plugins.fancyBox(imgSelector);
+              });
+            }
+          }
+        )
+        twikoo.init(options)
+      });
+    });
+  </script>
+  <noscript>Please enable JavaScript to view the comments</noscript>
+
 
     </article>
   
@@ -530,7 +571,6 @@
 
   
   
-
 
 
 
@@ -606,6 +646,17 @@
 </div>
 
   
+  
+    <!-- 备案信息 ICP for China -->
+    <div class="beian">
+  <span>
+    <a href="http://beian.miit.gov.cn/" target="_blank" rel="nofollow noopener">
+      京ICP备2023029279号
+    </a>
+  </span>
+  
+</div>
+
   
   
 </div>
@@ -751,49 +802,6 @@
 
 
   <script>Fluid.plugins.imageCaption();</script>
-
-  
-      <script>
-        if (!window.MathJax) {
-          window.MathJax = {
-            tex    : {
-              inlineMath: { '[+]': [['$', '$']] }
-            },
-            loader : {
-              load: ['ui/lazy']
-            },
-            options: {
-              renderActions: {
-                insertedScript: [200, () => {
-                  document.querySelectorAll('mjx-container').forEach(node => {
-                    let target = node.parentNode;
-                    if (target.nodeName.toLowerCase() === 'li') {
-                      target.parentNode.classList.add('has-jax');
-                    }
-                  });
-                }, '', false]
-              }
-            }
-          };
-        } else {
-          MathJax.startup.document.state(0);
-          MathJax.texReset();
-          MathJax.typeset();
-          MathJax.typesetPromise();
-        }
-
-        Fluid.events.registerRefreshCallback(function() {
-          if ('MathJax' in window && MathJax.startup.document && typeof MathJax.startup.document.state === 'function') {
-            MathJax.startup.document.state(0);
-            MathJax.texReset();
-            MathJax.typeset();
-            MathJax.typesetPromise();
-          }
-        });
-      </script>
-    
-
-  <script  src="https://lib.baomitu.com/mathjax/3.2.2/es5/tex-mml-chtml.js" ></script>
 
   <script  src="/js/local-search.js" ></script>
 

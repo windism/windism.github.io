@@ -1,0 +1,175 @@
+<?xml version="1.0" encoding="utf-8"?>
+<rss version="2.0"
+  xmlns:atom="http://www.w3.org/2005/Atom"
+  xmlns:content="http://purl.org/rss/1.0/modules/content/">
+  <channel>
+    <title>风扬技术站</title>
+    <link>https://www.windism.space/</link>
+    
+    <atom:link href="https://www.windism.space/rss2.xml" rel="self" type="application/rss+xml"/>
+    
+    <description></description>
+    <pubDate>Mon, 30 Oct 2023 02:38:07 GMT</pubDate>
+    <generator>http://hexo.io/</generator>
+    
+    <item>
+      <title>风控特征之文本地址信息</title>
+      <link>https://www.windism.space/249128112.html</link>
+      <guid>https://www.windism.space/249128112.html</guid>
+      <pubDate>Fri, 27 Oct 2023 10:57:52 GMT</pubDate>
+      
+        
+        
+          
+          
+      <description>&lt;h2 id=&quot;引言&quot;&gt;引言&lt;/h2&gt;
+&lt;p&gt;在大多数业务场景中, 地址类信息相对而言获取难度较低, 如多数场景需要填写的工作地址、家庭地址等, 但该类信息通常在风控行业处理较为粗糙; 实际上地址涵盖诸多隐藏信息.&lt;/p&gt;
+&lt;h2 id=&quot;地址信息概述&quot;&gt;地址信息概述&lt;/h2&gt;
+&lt;h3 id=&quot;地址分类&quot;&gt;地址分类&lt;/h3&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;家庭地址&lt;/strong&gt;: 用户住宅地址; 注意: 可能为自有住宅, 也可能是租用住宅&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;单位地址&lt;/strong&gt;: 用户工作地址; 注意: 通常地址模糊, 如XX大厦,</description>
+          
+        
+      
+      
+      
+      
+      <category domain="https://www.windism.space/categories/risk-control/">risk control</category>
+      
+      
+      <category domain="https://www.windism.space/tags/risk-control/">risk control</category>
+      
+      
+      <comments>https://www.windism.space/249128112.html#disqus_thread</comments>
+      
+    </item>
+    
+    <item>
+      <title>【社区发现算法】Louvain算法</title>
+      <link>https://www.windism.space/116063852.html</link>
+      <guid>https://www.windism.space/116063852.html</guid>
+      <pubDate>Thu, 19 Oct 2023 10:30:00 GMT</pubDate>
+      
+        
+        
+          
+          
+      <description>&lt;h2 id=&quot;简介&quot;&gt;简介&lt;/h2&gt;
+&lt;p&gt;Louvain算法是基于模块度的社区发现算法,能够发现层次性的社区结构,其优化目标是最大化整个社区网络的模块度。其算法论文发表自2008年,原文为&lt;a href=&quot;https://arxiv.org/abs/0803.0476&quot;&gt;Fast unfolding of communities in large networks&lt;/a&gt;。&lt;/p&gt;
+&lt;h2</description>
+          
+        
+      
+      
+      
+      
+      <category domain="https://www.windism.space/categories/Community-Detection/">Community Detection</category>
+      
+      
+      <category domain="https://www.windism.space/tags/Community-Detection/">Community Detection</category>
+      
+      
+      <comments>https://www.windism.space/116063852.html#disqus_thread</comments>
+      
+    </item>
+    
+    <item>
+      <title>【社区发现算法】LPA算法</title>
+      <link>https://www.windism.space/1876331716.html</link>
+      <guid>https://www.windism.space/1876331716.html</guid>
+      <pubDate>Thu, 19 Oct 2023 10:20:00 GMT</pubDate>
+      
+        
+        
+          
+          
+      <description>&lt;h2 id=&quot;简介&quot;&gt;简介&lt;/h2&gt;
+&lt;p&gt;&lt;code&gt;Label Propagation Algorithm&lt;/code&gt; 标签传播算法(LPA)由&lt;code&gt;Raghavan&lt;/code&gt;等人于2007提出.&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;论文: &lt;a href=&quot;https://arxiv.org/abs/0709.2938&quot;&gt;《Near linear time algorithm to detect community structures in large-scale networks》&lt;/a&gt;.&lt;/li&gt;
+&lt;li&gt;思想: 节点标签完全由其直接邻居决定;</description>
+          
+        
+      
+      
+      
+      
+      <category domain="https://www.windism.space/categories/Community-Detection/">Community Detection</category>
+      
+      
+      <category domain="https://www.windism.space/tags/Community-Detection/">Community Detection</category>
+      
+      
+      <comments>https://www.windism.space/1876331716.html#disqus_thread</comments>
+      
+    </item>
+    
+    <item>
+      <title>【社区发现算法】GN算法</title>
+      <link>https://www.windism.space/1053869063.html</link>
+      <guid>https://www.windism.space/1053869063.html</guid>
+      <pubDate>Thu, 19 Oct 2023 10:00:00 GMT</pubDate>
+      
+        
+        
+          
+          
+      <description>&lt;h2 id=&quot;引言&quot;&gt;引言&lt;/h2&gt;
+&lt;p&gt;在社会生活中, 图的概念无处不在, 如社交网络, 即自然人作为节点, 而人与人之间的社交关系则是边, 人与人之间的团体即为社区。上述是比较直观的描述, 如下则是更加具体的定义:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;社区(&lt;code&gt;community&lt;/code&gt;): 社区是图的一个子图,相比于图的其他部分,其中包含着密集的节点.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;而如何查找图中的社区则是社区发现的内容, 在2004年, Newman 和 Girvan的论文中提出了利用介数中心性(betweenness centrality)的方法,称之为</description>
+          
+        
+      
+      
+      
+      
+      <category domain="https://www.windism.space/categories/Community-Detection/">Community Detection</category>
+      
+      
+      <category domain="https://www.windism.space/tags/Community-Detection/">Community Detection</category>
+      
+      
+      <comments>https://www.windism.space/1053869063.html#disqus_thread</comments>
+      
+    </item>
+    
+    <item>
+      <title>风控特征之应用列表信息</title>
+      <link>https://www.windism.space/3066150691.html</link>
+      <guid>https://www.windism.space/3066150691.html</guid>
+      <pubDate>Mon, 16 Oct 2023 10:57:52 GMT</pubDate>
+      
+        
+        
+          
+          
+      <description>&lt;h2 id=&quot;引言&quot;&gt;引言&lt;/h2&gt;
+&lt;p&gt;在当前移动互联网的时代, 移动应用占据人们大量的时间, 该用户手机应用安装使用情况也可以反应其身份习惯, 如大量借贷软件的安装使用可能反应该用户存在欺诈风险. 对于风控从业人员, 如何处理应用列表信息也是必要的技能, 可以极大提升风控效果.&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;免责申明: 本文仅讨论相关技术问题, 针对隐私等相关问题, 请遵守相关法律.&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;h2 id=&quot;应用数据概述&quot;&gt;应用数据概述&lt;/h2&gt;
+&lt;h3 id=&quot;基础信息&quot;&gt;基础信息&lt;/h3&gt;
+&lt;p&gt;根据官方&lt;a</description>
+          
+        
+      
+      
+      
+      
+      <category domain="https://www.windism.space/categories/risk-control/">risk control</category>
+      
+      
+      <category domain="https://www.windism.space/tags/risk-control/">risk control</category>
+      
+      
+      <comments>https://www.windism.space/3066150691.html#disqus_thread</comments>
+      
+    </item>
+    
+  </channel>
+</rss>

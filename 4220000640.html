@@ -16,26 +16,26 @@
   
   <meta name="theme-color" content="#2f4154">
   <meta name="author" content="windism">
-  <meta name="keywords" content="Label Propagation Algorithm">
+  <meta name="keywords" content="FreshRSS,代理,Caddy">
   
-    <meta name="description" content="简介 Label Propagation Algorithm 标签传播算法(LPA)由Raghavan等人于2007提出.  论文: 《Near linear time algorithm to detect community structures in large-scale networks》. 思想: 节点标签完全由其直接邻居决定; 典型基于标签传播的局部社区发现算法.  算法实现 算法步">
+    <meta name="description" content="RSS 是最为简洁直接的信息获取手段, 可以防止各种低质量信息的轰炸. 在 即刻APP 陨落、Feedly 等封禁后, 博主开始了自搭建 RSS 平台的道路.  博主选择 FreshRSS 平台, 大家也可选择 TTRSS, 由于 Reeder 5 废弃 fever API 后, 因此 FreshRSS 较好. 安装 Docker 博主所用 VPS 为 Ubuntu 18.04 系统, 如下命令">
 <meta property="og:type" content="article">
-<meta property="og:title" content="【社区发现算法】LPA算法">
-<meta property="og:url" content="https://www.windism.space/1876331716.html">
+<meta property="og:title" content="FreshRSS 平台搭建">
+<meta property="og:url" content="https://www.windism.space/4220000640.html">
 <meta property="og:site_name" content="风扬技术站">
-<meta property="og:description" content="简介 Label Propagation Algorithm 标签传播算法(LPA)由Raghavan等人于2007提出.  论文: 《Near linear time algorithm to detect community structures in large-scale networks》. 思想: 节点标签完全由其直接邻居决定; 典型基于标签传播的局部社区发现算法.  算法实现 算法步">
+<meta property="og:description" content="RSS 是最为简洁直接的信息获取手段, 可以防止各种低质量信息的轰炸. 在 即刻APP 陨落、Feedly 等封禁后, 博主开始了自搭建 RSS 平台的道路.  博主选择 FreshRSS 平台, 大家也可选择 TTRSS, 由于 Reeder 5 废弃 fever API 后, 因此 FreshRSS 较好. 安装 Docker 博主所用 VPS 为 Ubuntu 18.04 系统, 如下命令">
 <meta property="og:locale" content="zh_CN">
-<meta property="article:published_time" content="2023-10-19T10:20:00.000Z">
-<meta property="article:modified_time" content="2023-10-29T14:11:14.263Z">
+<meta property="article:published_time" content="2021-08-10T09:33:32.000Z">
+<meta property="article:modified_time" content="2023-10-20T09:34:36.132Z">
 <meta property="article:author" content="windism">
-<meta property="article:tag" content="Community Detection">
+<meta property="article:tag" content="FreshRSS">
 <meta name="twitter:card" content="summary_large_image">
   
   
     <meta name="referrer" content="no-referrer-when-downgrade">
   
   
-  <title>【社区发现算法】LPA算法 - 风扬技术站</title>
+  <title>FreshRSS 平台搭建 - 风扬技术站</title>
 
   <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
 
@@ -247,7 +247,7 @@
       <div class="banner-text text-center fade-in-up">
         <div class="h2">
           
-            <span id="subtitle" data-typed-text="【社区发现算法】LPA算法"></span>
+            <span id="subtitle" data-typed-text="FreshRSS 平台搭建"></span>
           
         </div>
 
@@ -258,8 +258,8 @@
     
       <span class="post-meta">
         <i class="iconfont icon-date-fill" aria-hidden="true"></i>
-        <time datetime="2023-10-19 18:20" pubdate>
-          2023年10月19日 晚上
+        <time datetime="2021-08-10 17:33" pubdate>
+          2021年8月10日 下午
         </time>
       </span>
     
@@ -270,7 +270,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          1.9k 字
+          2.8k 字
         
       </span>
     
@@ -281,7 +281,7 @@
         
         
         
-          16 分钟
+          24 分钟
         
       </span>
     
@@ -326,67 +326,145 @@
       <div class="container nopadding-x-md" id="board-ctn">
         <div id="board">
           <article class="post-content mx-auto">
-            <h1 id="seo-header">【社区发现算法】LPA算法</h1>
+            <h1 id="seo-header">FreshRSS 平台搭建</h1>
             
             
               <div class="markdown-body">
                 
-                <h2 id="简介">简介</h2>
-<p><code>Label Propagation Algorithm</code> 标签传播算法(LPA)由<code>Raghavan</code>等人于2007提出.</p>
+                <blockquote>
+<p>RSS 是最为简洁直接的信息获取手段, 可以防止各种低质量信息的轰炸. 在 <code>即刻APP</code> 陨落、<code>Feedly</code> 等封禁后, 博主开始了自搭建 RSS 平台的道路.</p>
+</blockquote>
+<p>博主选择 <a target="_blank" rel="noopener" href="https://www.freshrss.org/">FreshRSS</a> 平台, 大家也可选择 <a target="_blank" rel="noopener" href="https://tt-rss.org/">TTRSS</a>, 由于 <code>Reeder 5</code> 废弃 <code>fever API</code> 后, 因此 <code>FreshRSS</code> 较好.</p>
+<h2 id="安装-Docker">安装 Docker</h2>
+<p>博主所用 VPS 为 <code>Ubuntu 18.04</code> 系统, 如下命令适用该系统.</p>
+<figure><div class="code-wrapper"><pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token comment"># 使用官方一键安装脚本</span>
+<span class="token function">sudo</span> <span class="token function">curl</span> <span class="token parameter variable">-fsSL</span> https://get.docker.com <span class="token operator">|</span> <span class="token function">sh</span>
+
+<span class="token comment"># 如果是非 Root 账户,将当前账户添加到 "docker" 组</span>
+<span class="token function">sudo</span> <span class="token function">usermod</span> <span class="token parameter variable">-aG</span> <span class="token function">docker</span> <span class="token operator">&lt;</span>your-user<span class="token operator">></span>
+
+<span class="token comment"># 从 GitHub 下载 docker-compose 到本地相应目录</span>
+<span class="token function">sudo</span> <span class="token function">curl</span> <span class="token parameter variable">-L</span> <span class="token string">"https://github.com/docker/compose/releases/download/1.29.2/docker-compose-<span class="token variable"><span class="token variable">$(</span><span class="token function">uname</span> <span class="token parameter variable">-s</span><span class="token variable">)</span></span>-<span class="token variable"><span class="token variable">$(</span><span class="token function">uname</span> <span class="token parameter variable">-m</span><span class="token variable">)</span></span>"</span> <span class="token parameter variable">-o</span> /usr/local/bin/docker-compose
+
+<span class="token comment"># 赋予 Docker Compose 目录相应权限</span>
+<span class="token function">sudo</span> <span class="token function">chmod</span> +x /usr/local/bin/docker-compose<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre></div></figure>
+<h2 id="FreshRSS">FreshRSS</h2>
+<h3 id="安装">安装</h3>
+<figure><div class="code-wrapper"><pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token comment"># 创建 FreshRSS 目录并进入</span>
+<span class="token function">mkdir</span> ~/freshrss <span class="token operator">&amp;&amp;</span> <span class="token builtin class-name">cd</span> ~/freshrss
+
+<span class="token comment"># 编辑文件</span>
+<span class="token function">vim</span> docker-compose.yml<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre></div></figure>
+<p><code>docker-compose.yml</code> 添加如下内容:</p>
+<figure><div class="code-wrapper"><pre class="line-numbers language-markup" data-language="markup"><code class="language-markup">version: "3"
+
+services:
+  freshrss-db:
+    image: postgres:latest
+    container_name: freshrss-db
+    hostname: freshrss-db
+    restart: unless-stopped
+    volumes:
+      - freshrss-db:/var/lib/postgresql/data
+    environment:
+      POSTGRES_USER: freshrss
+      POSTGRES_PASSWORD: freshrss
+      POSTGRES_DB: freshrss
+
+  freshrss-app:
+    image: freshrss/freshrss:latest
+    container_name: freshrss-app
+    hostname: freshrss-app
+    restart: unless-stopped
+    ports:
+      - "8080:80"
+    depends_on:
+      - freshrss-db
+    volumes:
+      - ./data:/var/www/FreshRSS/data
+      - ./extensions:/var/www/FreshRSS/extensions
+    environment:
+      CRON_MIN: '*/45'
+      TZ: Asia/Shanghai
+
+volumes:
+  freshrss-db:<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre></div></figure>
+<p>注:</p>
 <ul>
-<li>论文: <a target="_blank" rel="noopener" href="https://arxiv.org/abs/0709.2938">《Near linear time algorithm to detect community structures in large-scale networks》</a>.</li>
-<li>思想: 节点标签完全由其直接邻居决定; 典型基于标签传播的局部社区发现算法.</li>
+<li><code>freshrss-db</code> 的 <code>environment</code> 中用户密码等, 建议用户根据自身配置进行设定</li>
+<li><code>/45</code>: 代表每 45 分钟同步一次</li>
 </ul>
-<h2 id="算法实现">算法实现</h2>
-<h3 id="算法步骤">算法步骤</h3>
+<figure><div class="code-wrapper"><pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token comment"># 先前台执行观察输出</span>
+<span class="token function">docker-compose</span> up
+
+<span class="token comment"># 确认无误后后台持续运行</span>
+<span class="token function">docker-compose</span> up <span class="token parameter variable">-d</span>
+
+<span class="token comment"># 手动同步</span>
+<span class="token function">docker</span> <span class="token builtin class-name">exec</span> <span class="token parameter variable">-it</span> freshrss-app <span class="token function">su</span> www-data <span class="token parameter variable">-s</span> /bin/sh <span class="token parameter variable">-c</span> <span class="token string">'php /var/www/FreshRSS/app/actualize_script.php'</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre></div></figure>
+<h3 id="网站反向代理">网站反向代理</h3>
+<p>博主根据参考资料发现适用 <code>Docker</code> 版会出现无法获取对应证书的情况, 因此采用外部配置.</p>
+<p>安装过程参考<a target="_blank" rel="noopener" href="https://caddyserver.com/docs/install">官方文档</a>. <code>Caddy</code> 可自行申请 <code>https</code> 证书用于保护使用者的信息安全.</p>
+<figure><div class="code-wrapper"><pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token function">sudo</span> <span class="token function">apt</span> <span class="token function">install</span> <span class="token parameter variable">-y</span> debian-keyring debian-archive-keyring apt-transport-https
+<span class="token function">curl</span> <span class="token parameter variable">-1sLf</span> <span class="token string">'https://dl.cloudsmith.io/public/caddy/stable/gpg.key'</span> <span class="token operator">|</span> <span class="token function">sudo</span> <span class="token function">tee</span> /etc/apt/trusted.gpg.d/caddy-stable.asc
+<span class="token function">curl</span> <span class="token parameter variable">-1sLf</span> <span class="token string">'https://dl.cloudsmith.io/public/caddy/stable/debian.deb.txt'</span> <span class="token operator">|</span> <span class="token function">sudo</span> <span class="token function">tee</span> /etc/apt/sources.list.d/caddy-stable.list
+<span class="token function">sudo</span> <span class="token function">apt</span> update
+<span class="token function">sudo</span> <span class="token function">apt</span> <span class="token function">install</span> caddy
+
+<span class="token function">cat</span> <span class="token operator">></span> /etc/caddy/Caddyfile <span class="token operator">&lt;&lt;</span><span class="token string">EOF
+freshrss.example.net &#123;
+  tls your_email@example.net
+  reverse_proxy 127.0.0.1:8080
+&#125;
+EOF</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre></div></figure>
+<p>注:</p>
+<ul>
+<li><code>freshrss.example.net</code>: 替换为你的域名</li>
+<li><code>your_email@example.net</code>: 替换为你的邮箱</li>
+<li><code>127.0.0.1:8080</code>: 由于上方 <code>docker</code> 将 <code>freshrss</code> 的端口映射为宿主机的 <code>8080</code> 端口, 采用该配置.</li>
+</ul>
+<figure><div class="code-wrapper"><pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token comment"># 开机自启</span>
+systemctl <span class="token builtin class-name">enable</span> caddy
+<span class="token comment"># 开启服务</span>
+<span class="token function">service</span> caddy start
+<span class="token comment"># 停止服务</span>
+<span class="token function">service</span> caddy stop
+<span class="token comment"># 服务状态</span>
+<span class="token function">service</span> caddy status<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre></div></figure>
+<h3 id="配置">配置</h3>
 <ol>
-<li>初始化图中节点标签; 即节点<code>i</code>对应标签<code>i</code></li>
-<li>遍历图节点, 针对单个节点,获取其邻居标签,找到出现次数最大的标签, 若出现最多标签不止一个, 则随机选择一个标签替换成该节点标签</li>
-<li>重复步骤2, 直至节点标签不再变化或者达到最大迭代次数</li>
+<li>通过 <code>https://域名</code> 或 <code>服务器IP:8080</code> 访问服务页面;(注: 需要注意服务器是否开启对应端口访问限制)</li>
+<li>数据库配置时
+<ol>
+<li>采用用户密码与 <code>DockerFile</code> 配置相同;</li>
+<li>对于 <code>数据库IP</code>, 利用 <code>docker inspect freshrss-db</code> 找到 <code>IPAddress</code> 即为该位置填写结果;</li>
 </ol>
-<h3 id="GraphX调用">GraphX调用</h3>
-<p>参考代码<a target="_blank" rel="noopener" href="https://github.com/apache/spark/blob/v3.4.0/graphx/src/main/scala/org/apache/spark/graphx/lib/LabelPropagation.scala">LabelPropagation.scala</a>, 源码解读:</p>
-<figure><div class="code-wrapper"><pre class="line-numbers language-scala" data-language="scala"><code class="language-scala"><span class="token keyword">def</span> run<span class="token punctuation">[</span>VD<span class="token punctuation">,</span> ED<span class="token operator">:</span> ClassTag<span class="token punctuation">]</span><span class="token punctuation">(</span>graph<span class="token operator">:</span> Graph<span class="token punctuation">[</span>VD<span class="token punctuation">,</span> ED<span class="token punctuation">]</span><span class="token punctuation">,</span> maxSteps<span class="token operator">:</span> <span class="token builtin">Int</span><span class="token punctuation">)</span><span class="token operator">:</span> Graph<span class="token punctuation">[</span>VertexId<span class="token punctuation">,</span> ED<span class="token punctuation">]</span> <span class="token operator">=</span> <span class="token punctuation">&#123;</span>
-  require<span class="token punctuation">(</span>maxSteps <span class="token operator">></span> <span class="token number">0</span><span class="token punctuation">,</span> <span class="token string-interpolation"><span class="token id function">s</span><span class="token string">"Maximum of steps must be greater than 0, but got </span><span class="token interpolation"><span class="token punctuation">$&#123;</span><span class="token expression">maxSteps</span><span class="token punctuation">&#125;</span></span><span class="token string">"</span></span><span class="token punctuation">)</span>
-  <span class="token comment">// Step 1: 初始化图, 重设节点属性(标签)为其ID</span>
-  <span class="token keyword">val</span> lpaGraph <span class="token operator">=</span> graph<span class="token punctuation">.</span>mapVertices <span class="token punctuation">&#123;</span> <span class="token keyword">case</span> <span class="token punctuation">(</span>vid<span class="token punctuation">,</span> _<span class="token punctuation">)</span> <span class="token keyword">=></span> vid <span class="token punctuation">&#125;</span>
-  <span class="token comment">// Step 2.1: 双向发送消息: 标签->1(可改成权重)</span>
-  <span class="token keyword">def</span> sendMessage<span class="token punctuation">(</span>e<span class="token operator">:</span> EdgeTriplet<span class="token punctuation">[</span>VertexId<span class="token punctuation">,</span> ED<span class="token punctuation">]</span><span class="token punctuation">)</span><span class="token operator">:</span> Iterator<span class="token punctuation">[</span><span class="token punctuation">(</span>VertexId<span class="token punctuation">,</span> Map<span class="token punctuation">[</span>VertexId<span class="token punctuation">,</span> <span class="token builtin">Long</span><span class="token punctuation">]</span><span class="token punctuation">)</span><span class="token punctuation">]</span> <span class="token operator">=</span> <span class="token punctuation">&#123;</span>
-    Iterator<span class="token punctuation">(</span><span class="token punctuation">(</span>e<span class="token punctuation">.</span>srcId<span class="token punctuation">,</span> Map<span class="token punctuation">(</span>e<span class="token punctuation">.</span>dstAttr <span class="token operator">-></span> <span class="token number">1L</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">,</span> <span class="token punctuation">(</span>e<span class="token punctuation">.</span>dstId<span class="token punctuation">,</span> Map<span class="token punctuation">(</span>e<span class="token punctuation">.</span>srcAttr <span class="token operator">-></span> <span class="token number">1L</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">)</span>
-  <span class="token punctuation">&#125;</span>
-  <span class="token comment">// Step 2.2: 合并接受消息: 将收到信息进行聚合, 形成 标签->数量 的字典结构</span>
-  <span class="token keyword">def</span> mergeMessage<span class="token punctuation">(</span>count1<span class="token operator">:</span> Map<span class="token punctuation">[</span>VertexId<span class="token punctuation">,</span> <span class="token builtin">Long</span><span class="token punctuation">]</span><span class="token punctuation">,</span> count2<span class="token operator">:</span> Map<span class="token punctuation">[</span>VertexId<span class="token punctuation">,</span> <span class="token builtin">Long</span><span class="token punctuation">]</span><span class="token punctuation">)</span>
-    <span class="token operator">:</span> Map<span class="token punctuation">[</span>VertexId<span class="token punctuation">,</span> <span class="token builtin">Long</span><span class="token punctuation">]</span> <span class="token operator">=</span> <span class="token punctuation">&#123;</span>
-    <span class="token keyword">val</span> map <span class="token operator">=</span> mutable<span class="token punctuation">.</span>Map<span class="token punctuation">[</span>VertexId<span class="token punctuation">,</span> <span class="token builtin">Long</span><span class="token punctuation">]</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
-    <span class="token punctuation">(</span>count1<span class="token punctuation">.</span>keySet <span class="token operator">++</span> count2<span class="token punctuation">.</span>keySet<span class="token punctuation">)</span><span class="token punctuation">.</span>foreach <span class="token punctuation">&#123;</span> i <span class="token keyword">=></span>
-      <span class="token keyword">val</span> count1Val <span class="token operator">=</span> count1<span class="token punctuation">.</span>getOrElse<span class="token punctuation">(</span>i<span class="token punctuation">,</span> <span class="token number">0L</span><span class="token punctuation">)</span>
-      <span class="token keyword">val</span> count2Val <span class="token operator">=</span> count2<span class="token punctuation">.</span>getOrElse<span class="token punctuation">(</span>i<span class="token punctuation">,</span> <span class="token number">0L</span><span class="token punctuation">)</span>
-      map<span class="token punctuation">.</span>put<span class="token punctuation">(</span>i<span class="token punctuation">,</span> count1Val <span class="token operator">+</span> count2Val<span class="token punctuation">)</span>
-    <span class="token punctuation">&#125;</span>
-    map
-  <span class="token punctuation">&#125;</span>
-  <span class="token comment">// Step 2.3: 重设节点标签属性: 当存在邻居节点则设为其最大数量的标签, 否则不变</span>
-  <span class="token keyword">def</span> vertexProgram<span class="token punctuation">(</span>vid<span class="token operator">:</span> VertexId<span class="token punctuation">,</span> attr<span class="token operator">:</span> <span class="token builtin">Long</span><span class="token punctuation">,</span> message<span class="token operator">:</span> Map<span class="token punctuation">[</span>VertexId<span class="token punctuation">,</span> <span class="token builtin">Long</span><span class="token punctuation">]</span><span class="token punctuation">)</span><span class="token operator">:</span> VertexId <span class="token operator">=</span> <span class="token punctuation">&#123;</span>
-    <span class="token keyword">if</span> <span class="token punctuation">(</span>message<span class="token punctuation">.</span>isEmpty<span class="token punctuation">)</span> attr <span class="token keyword">else</span> message<span class="token punctuation">.</span>maxBy<span class="token punctuation">(</span>_<span class="token punctuation">.</span>_2<span class="token punctuation">)</span><span class="token punctuation">.</span>_1
-  <span class="token punctuation">&#125;</span>
-  <span class="token keyword">val</span> initialMessage <span class="token operator">=</span> Map<span class="token punctuation">[</span>VertexId<span class="token punctuation">,</span> <span class="token builtin">Long</span><span class="token punctuation">]</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
-  <span class="token comment">// Step 2: 利用 Pregel 函数实际调用算法</span>
-  Pregel<span class="token punctuation">(</span>lpaGraph<span class="token punctuation">,</span> initialMessage<span class="token punctuation">,</span> maxIterations <span class="token operator">=</span> maxSteps<span class="token punctuation">)</span><span class="token punctuation">(</span>
-    vprog <span class="token operator">=</span> vertexProgram<span class="token punctuation">,</span>
-    sendMsg <span class="token operator">=</span> sendMessage<span class="token punctuation">,</span>
-    mergeMsg <span class="token operator">=</span> mergeMessage<span class="token punctuation">)</span>
-<span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre></div></figure>
-<h3 id="算法优化">算法优化</h3>
-<p>由于对于无权图, 其邻居很可能多个最大标签, 此时随机选择, 则可能造成较大传播误差; 实际生产环境大多是带权图, 如果可利用边权进行传播则相对稳定.</p>
-<figure><div class="code-wrapper"><pre class="line-numbers language-scala" data-language="scala"><code class="language-scala"><span class="token comment">// 直接将边权作为数值传递</span>
-<span class="token keyword">def</span> sendMessage<span class="token punctuation">(</span>e<span class="token operator">:</span> EdgeTriplet<span class="token punctuation">[</span>VertexId<span class="token punctuation">,</span> ED<span class="token punctuation">]</span><span class="token punctuation">)</span><span class="token operator">:</span> Iterator<span class="token punctuation">[</span><span class="token punctuation">(</span>VertexId<span class="token punctuation">,</span> Map<span class="token punctuation">[</span>VertexId<span class="token punctuation">,</span> <span class="token builtin">Long</span><span class="token punctuation">]</span><span class="token punctuation">)</span><span class="token punctuation">]</span> <span class="token operator">=</span> <span class="token punctuation">&#123;</span>
-  Iterator<span class="token punctuation">(</span><span class="token punctuation">(</span>e<span class="token punctuation">.</span>srcId<span class="token punctuation">,</span> Map<span class="token punctuation">(</span>e<span class="token punctuation">.</span>dstAttr <span class="token operator">-></span> e<span class="token punctuation">.</span>attr<span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">,</span> <span class="token punctuation">(</span>e<span class="token punctuation">.</span>dstId<span class="token punctuation">,</span> Map<span class="token punctuation">(</span>e<span class="token punctuation">.</span>srcAttr <span class="token operator">-></span> e<span class="token punctuation">.</span>attr<span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">)</span>
-<span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre></div></figure>
-<p>除此以外, 针对风控等场景通过专家规则等可获得部分正样本(黑样本), 此时调用算法则是想传播该部分标签, 可在初始化时不使用 <code>VertexId</code> 作为标签类型, 而是直接标记 正负样本 <code>Long&#123;0, 1&#125;</code>.</p>
+</li>
+<li>完成配置</li>
+</ol>
+<blockquote>
+<p>博主通常采用 API 进行管理, 配置步骤为 a. <code>用户账号-API 管理-API 密码</code> 页面配置同步密码 b. <code>认证</code> 页面勾选 <code>允许 API 访问 (用于手机应用)</code></p>
+</blockquote>
+<h2 id="配置-Docker-代理">配置 Docker 代理</h2>
+<p>参考 <a target="_blank" rel="noopener" href="https://docs.docker.com/network/proxy/">官方文档</a> 进行配置:</p>
+<p>注意: 采用 <code>172.18.0.1</code> 为 <code>docker inspect freshrss-db</code> 获得的网关地址 <code>Gateway</code>. 如果存在多个 docker 服务可能存在不在一个子网的情况, 无法访问宿主机, 参考<a target="_blank" rel="noopener" href="https://docs.docker.com/docker-for-mac/networking/">官方建议</a> 可利用 <code>host.docker.internal</code> 代替.</p>
+<figure><div class="code-wrapper"><pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token function">mkdir</span> <span class="token parameter variable">-p</span> ~/.docker
+<span class="token function">cat</span> <span class="token operator">></span> ~/.docker/config.json <span class="token operator">&lt;&lt;</span><span class="token string">EOF
+&#123;
+ "proxies":
+ &#123;
+   "default":
+   &#123;
+     "httpProxy": "http://172.18.0.1:3128",
+     "httpsProxy": "http://172.18.0.1:3128",
+     "noProxy": "*.test.example.com,.example2.com,127.0.0.0/8"
+   &#125;
+ &#125;
+&#125;
+EOF</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre></div></figure>
 <h2 id="参考资料">参考资料</h2>
 <ul>
-<li><a target="_blank" rel="noopener" href="https://www.cnblogs.com/LittleHann/p/10699988.html">标签传播算法(Label Propagation Algorithm, LPA)初探</a></li>
-<li><a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/511796578">社区发现之标签传播算法</a></li>
+<li><a target="_blank" rel="noopener" href="https://blog.ichr.me/post/docker-freshrss-setup/">使用 Docker 部署 FreshRSS 自建专属 RSS 服务</a></li>
 </ul>
 
                 
@@ -406,7 +484,7 @@
     
       <span class="category-chain">
         
-  <a href="/categories/Community-Detection/" class="category-chain-item">Community Detection</a>
+  <a href="/categories/%E6%9C%8D%E5%8A%A1%E5%99%A8/" class="category-chain-item">服务器</a>
   
   
 
@@ -421,7 +499,7 @@
     <div class="post-meta">
       <i class="iconfont icon-tags"></i>
       
-        <a href="/tags/Community-Detection/" class="print-no-link">#Community Detection</a>
+        <a href="/tags/FreshRSS/" class="print-no-link">#FreshRSS</a>
       
     </div>
   
@@ -433,8 +511,8 @@
 
   <div class="license-box my-3">
     <div class="license-title">
-      <div>【社区发现算法】LPA算法</div>
-      <div>https://www.windism.space/1876331716.html</div>
+      <div>FreshRSS 平台搭建</div>
+      <div>https://www.windism.space/4220000640.html</div>
     </div>
     <div class="license-meta">
       
@@ -446,7 +524,7 @@
       
         <div class="license-meta-item license-meta-date">
           <div>发布于</div>
-          <div>2023年10月19日</div>
+          <div>2021年8月10日</div>
         </div>
       
       
@@ -490,9 +568,9 @@
                   <article class="post-prev col-6">
                     
                     
-                      <a href="/116063852.html" title="【社区发现算法】Louvain算法">
+                      <a href="/1116592221.html" title="【模型可解释】 Shap">
                         <i class="iconfont icon-arrowleft"></i>
-                        <span class="hidden-mobile">【社区发现算法】Louvain算法</span>
+                        <span class="hidden-mobile">【模型可解释】 Shap</span>
                         <span class="visible-mobile">上一篇</span>
                       </a>
                     
@@ -500,8 +578,8 @@
                   <article class="post-next col-6">
                     
                     
-                      <a href="/1053869063.html" title="【社区发现算法】GN算法">
-                        <span class="hidden-mobile">【社区发现算法】GN算法</span>
+                      <a href="/2273904557.html" title="Windows 开发工具配置">
+                        <span class="hidden-mobile">Windows 开发工具配置</span>
                         <span class="visible-mobile">下一篇</span>
                         <i class="iconfont icon-arrowright"></i>
                       </a>

@@ -18,15 +18,15 @@
   <meta name="author" content="windism">
   <meta name="keywords" content="risk control,feature,app list,风控,特征,应用列表">
   
-    <meta name="description" content="引言在当前移动互联网的时代, 移动应用占据人们大量的时间, 该用户手机应用安装使用情况也可以反应其身份习惯, 如大量借贷软件的安装使用可能反应该用户存在欺诈风险. 对于风控从业人员, 如何处理应用列表信息也是必要的技能, 可以极大提升风控效果.  免责申明: 本文仅讨论相关技术问题, 针对隐私等相关问题, 请遵守相关法律.  应用数据概述基础信息根据官方PackageManager相关接口, 在获">
+    <meta name="description" content="引言 在当前移动互联网的时代, 移动应用占据人们大量的时间, 该用户手机应用安装使用情况也可以反应其身份习惯, 如大量借贷软件的安装使用可能反应该用户存在欺诈风险. 对于风控从业人员, 如何处理应用列表信息也是必要的技能, 可以极大提升风控效果.  免责申明: 本文仅讨论相关技术问题, 针对隐私等相关问题, 请遵守相关法律.  应用数据概述 基础信息 根据官方PackageManager相关接口,">
 <meta property="og:type" content="article">
 <meta property="og:title" content="风控特征之应用列表信息">
 <meta property="og:url" content="https://www.windism.space/3066150691.html">
-<meta property="og:site_name" content="风扬">
-<meta property="og:description" content="引言在当前移动互联网的时代, 移动应用占据人们大量的时间, 该用户手机应用安装使用情况也可以反应其身份习惯, 如大量借贷软件的安装使用可能反应该用户存在欺诈风险. 对于风控从业人员, 如何处理应用列表信息也是必要的技能, 可以极大提升风控效果.  免责申明: 本文仅讨论相关技术问题, 针对隐私等相关问题, 请遵守相关法律.  应用数据概述基础信息根据官方PackageManager相关接口, 在获">
+<meta property="og:site_name" content="风扬技术站">
+<meta property="og:description" content="引言 在当前移动互联网的时代, 移动应用占据人们大量的时间, 该用户手机应用安装使用情况也可以反应其身份习惯, 如大量借贷软件的安装使用可能反应该用户存在欺诈风险. 对于风控从业人员, 如何处理应用列表信息也是必要的技能, 可以极大提升风控效果.  免责申明: 本文仅讨论相关技术问题, 针对隐私等相关问题, 请遵守相关法律.  应用数据概述 基础信息 根据官方PackageManager相关接口,">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2023-10-16T10:57:52.000Z">
-<meta property="article:modified_time" content="2023-10-20T02:53:15.009Z">
+<meta property="article:modified_time" content="2023-10-29T14:11:14.265Z">
 <meta property="article:author" content="windism">
 <meta property="article:tag" content="risk control">
 <meta name="twitter:card" content="summary_large_image">
@@ -35,7 +35,7 @@
     <meta name="referrer" content="no-referrer-when-downgrade">
   
   
-  <title>风控特征之应用列表信息 - 风扬</title>
+  <title>风控特征之应用列表信息 - 风扬技术站</title>
 
   <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
 
@@ -48,6 +48,8 @@
   <link  rel="stylesheet" href="https://lib.baomitu.com/prism/1.29.0/plugins/line-numbers/prism-line-numbers.min.css" />
 
   <link  rel="stylesheet" href="https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/KaTeX/0.16.2/katex.min.css" />
 
 
 
@@ -75,7 +77,7 @@
   <script id="fluid-configs">
     var Fluid = window.Fluid || {};
     Fluid.ctx = Object.assign({}, Fluid.ctx)
-    var CONFIG = {"hostname":"www.windism.space","root":"/","version":"1.9.5-a","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":true,"follow_dnt":true,"baidu":"2eac19870ffb3538ed048a88632c0e62","google":{"measurement_id":351361875},"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false}},"search_path":"/local-search.xml","include_content_in_search":true};
+    var CONFIG = {"hostname":"www.windism.space","root":"/","version":"1.9.5-a","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":true,"follow_dnt":true,"baidu":"2eac19870ffb3538ed048a88632c0e62","google":{"measurement_id":6308973056},"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false}},"search_path":"/local-search.xml","include_content_in_search":true};
 
     if (CONFIG.web_analytics.follow_dnt) {
       var dntVal = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
@@ -105,13 +107,13 @@
     <!-- Google tag (gtag.js) -->
     <script async>
       if (!Fluid.ctx.dnt) {
-        Fluid.utils.createScript("https://www.googletagmanager.com/gtag/js?id=351361875", function() {
+        Fluid.utils.createScript("https://www.googletagmanager.com/gtag/js?id=6308973056", function() {
           window.dataLayer = window.dataLayer || [];
           function gtag() {
             dataLayer.push(arguments);
           }
           gtag('js', new Date());
-          gtag('config', '351361875');
+          gtag('config', '6308973056');
         });
       }
     </script>
@@ -127,8 +129,9 @@
 
 
 
-  
-<meta name="generator" content="Hexo 6.3.0"><link rel="alternate" href="/atom.xml" title="风扬" type="application/atom+xml">
+  <meta name="google-adsense-account" content="ca-pub-1519148638782253"><meta name="shenma-site-verification" content="9c1151ad90b55afaa55272b2fb7faa68_1698068804"></meta>
+<meta name="generator" content="Hexo 6.3.0"><link rel="alternate" href="/atom.xml" title="风扬技术站" type="application/atom+xml">
+<link rel="alternate" href="/rss2.xml" title="风扬技术站" type="application/rss+xml">
 </head>
 
 
@@ -142,7 +145,7 @@
   <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
   <div class="container">
     <a class="navbar-brand" href="/">
-      <strong>风扬</strong>
+      <strong>风扬技术站</strong>
     </a>
 
     <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
@@ -267,7 +270,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          2.3k 字
+          2.2k 字
         
       </span>
     
@@ -284,6 +287,14 @@
     
 
     
+    
+      
+        <span id="busuanzi_container_page_pv" style="display: none">
+          <i class="iconfont icon-eye" aria-hidden="true"></i>
+          <span id="busuanzi_value_page_pv"></span> 次
+        </span>
+        
+      
     
   </div>
 
@@ -320,29 +331,35 @@
             
               <div class="markdown-body">
                 
-                <h2 id="引言"><a href="#引言" class="headerlink" title="引言"></a>引言</h2><p>在当前移动互联网的时代, 移动应用占据人们大量的时间, 该用户手机应用安装使用情况也可以反应其身份习惯, 如大量借贷软件的安装使用可能反应该用户存在欺诈风险. 对于风控从业人员, 如何处理应用列表信息也是必要的技能, 可以极大提升风控效果.</p>
+                <h2 id="引言">引言</h2>
+<p>在当前移动互联网的时代, 移动应用占据人们大量的时间, 该用户手机应用安装使用情况也可以反应其身份习惯, 如大量借贷软件的安装使用可能反应该用户存在欺诈风险. 对于风控从业人员, 如何处理应用列表信息也是必要的技能, 可以极大提升风控效果.</p>
 <blockquote>
 <p>免责申明: 本文仅讨论相关技术问题, 针对隐私等相关问题, 请遵守相关法律.</p>
 </blockquote>
-<h2 id="应用数据概述"><a href="#应用数据概述" class="headerlink" title="应用数据概述"></a>应用数据概述</h2><h3 id="基础信息"><a href="#基础信息" class="headerlink" title="基础信息"></a>基础信息</h3><p>根据官方<a target="_blank" rel="noopener" href="https://developer.android.com/reference/android/content/pm/PackageManager">PackageManager</a>相关接口, 在获取到相关权限后, 通过 <a target="_blank" rel="noopener" href="https://developer.android.com/reference/android/content/pm/PackageManager#getInstalledPackages(android.content.pm.PackageManager.PackageInfoFlags)">PackageManager.getInstalledPackages()</a> 获取 <code>PackageInfo</code> 相关信息, 可获取如下信息(以支付宝举例):</p>
+<h2 id="应用数据概述">应用数据概述</h2>
+<h3 id="基础信息">基础信息</h3>
+<p>根据官方<a target="_blank" rel="noopener" href="https://developer.android.com/reference/android/content/pm/PackageManager">PackageManager</a>相关接口, 在获取到相关权限后, 通过 <a target="_blank" rel="noopener" href="https://developer.android.com/reference/android/content/pm/PackageManager#getInstalledPackages(android.content.pm.PackageManager.PackageInfoFlags)">PackageManager.getInstalledPackages()</a> 获取 <code>PackageInfo</code> 相关信息, 可获取如下信息(以支付宝举例):</p>
 <ul>
-<li><code>pkg_name</code>: 应用包名, &#96;com.eg.android.AlipayGphone&#96;&#96;</li>
+<li><code>pkg_name</code>: 应用包名, `com.eg.android.AlipayGphone``</li>
 <li><code>app_name</code>: 应用名称, <code>支付宝</code></li>
 <li><code>app_version</code>: 应用版本, <code>10.5.28.8100</code></li>
 <li><code>is_system_app</code>: 是否系统应用</li>
 </ul>
 <p>如上数据根据相关权限可以获取成如下两种形式</p>
 <ul>
-<li><strong>应用安装列表(App List)</strong>: 该类型主要是设备上应用信息的聚合, 无时序信息, 因此无序, 侧重于反应当前用户的情况<ul>
+<li><strong>应用安装列表(App List)</strong>: 该类型主要是设备上应用信息的聚合, 无时序信息, 因此无序, 侧重于反应当前用户的情况
+<ul>
 <li><code>ARRAY(pkg_name, app_name, app_version)</code></li>
 </ul>
 </li>
-<li><strong>应用安装序列(App Seq)</strong>: 该类型相较于应用安装列表信息更全, 可涵盖设备应用的变化信息, 侧重于反应用户变化的情况<ul>
+<li><strong>应用安装序列(App Seq)</strong>: 该类型相较于应用安装列表信息更全, 可涵盖设备应用的变化信息, 侧重于反应用户变化的情况
+<ul>
 <li><code>ARRAY(pkg_name, app_name, action_time, action_type, app_version)</code></li>
 </ul>
 </li>
 </ul>
-<h3 id="辅助信息"><a href="#辅助信息" class="headerlink" title="辅助信息"></a>辅助信息</h3><p>以 <code>支付宝</code> 应用举例, 参考 <a target="_blank" rel="noopener" href="https://sj.qq.com/appdetail/com.eg.android.AlipayGphone">腾讯应用宝-支付宝</a>, 可通过应用商店等第三方获取应用的描述信息, 通常包括:</p>
+<h3 id="辅助信息">辅助信息</h3>
+<p>以 <code>支付宝</code> 应用举例, 参考 <a target="_blank" rel="noopener" href="https://sj.qq.com/appdetail/com.eg.android.AlipayGphone">腾讯应用宝-支付宝</a>, 可通过应用商店等第三方获取应用的描述信息, 通常包括:</p>
 <ul>
 <li><strong>应用分类</strong>: 如 <code>基金</code>, <code>支付</code> 等</li>
 <li><strong>下载量级</strong>: 如 <code>12亿</code></li>
@@ -351,16 +368,20 @@
 <blockquote>
 <p>除此以外通常还包含如评论评分等内容, 但由于受限于使用人, 且存在刷分等情况, 因此建议慎重使用.</p>
 </blockquote>
-<h2 id="应用数据应用"><a href="#应用数据应用" class="headerlink" title="应用数据应用"></a>应用数据应用</h2><h3 id="提取特征"><a href="#提取特征" class="headerlink" title="提取特征"></a>提取特征</h3><p>根据应用信息, 最基本的处理方法就是 <code>判断是否安装某个应用</code>, 举例 <code>用户是否安装Xposed框架</code>, 初级则是通过应用名称去匹配, 即 <code>app_name = &#39;Xposed Installer&#39;</code>, 但实际上根据安装渠道、系统设置等, 应用名称也会有所变化, 因此通常都是基于 <code>pkg_name = &#39;de.robv.android.xposed.installer&#39;</code> 进行处理, 该处理虽然简单, 但实际使用也比较有效, 可以作为基础策略使用.</p>
+<h2 id="应用数据应用">应用数据应用</h2>
+<h3 id="提取特征">提取特征</h3>
+<p>根据应用信息, 最基本的处理方法就是 <code>判断是否安装某个应用</code>, 举例 <code>用户是否安装Xposed框架</code>, 初级则是通过应用名称去匹配, 即 <code>app_name = 'Xposed Installer'</code>, 但实际上根据安装渠道、系统设置等, 应用名称也会有所变化, 因此通常都是基于 <code>pkg_name = 'de.robv.android.xposed.installer'</code> 进行处理, 该处理虽然简单, 但实际使用也比较有效, 可以作为基础策略使用.</p>
 <p>由于风控人力基本较为紧张, 无法穷举所有风险应用, 且风险应用在大量增加, 因此如何快速进行特征提取则尤为关键.</p>
 <ol>
-<li><p><code>pkg_name(de.robv.android.xposed.installer)</code> 特征提取</p>
+<li>
+<p><code>pkg_name(de.robv.android.xposed.installer)</code> 特征提取</p>
 <ul>
 <li><strong>应用类别</strong>: 通常是由 <strong>&lt;归属前缀&gt;.&lt;应用名称&gt;</strong>, 虽然该规范并非强制, 但可提取其前缀作为应用的属性信息, 通常提取前两段即可</li>
 <li><strong>关键词汇</strong>: <code>pkg_name</code> 由字母组成, 由此可以进行分词, 针对其中的信息进行提取, 如 <code>xposed</code> 词等; 但部分应用很难进行分析, 可以采用 <code>n-gram</code>切片的方式, 若 <code>N=3</code>, 示例可切成 <code>de.</code>, <code>e.r</code>等等</li>
 </ul>
 </li>
-<li><p><code>app_name(Xposed Installer)</code> 与描述信息 特征提取</p>
+<li>
+<p><code>app_name(Xposed Installer)</code> 与描述信息 特征提取</p>
 <ul>
 <li><strong>关键词汇</strong>: 可以进行中文分词, 然后进行关键词匹配, 如统计 <code>借</code>, <code>贷</code>, <code>花</code> 等关键词以反应金融欺诈风险</li>
 <li><strong>词汇向量</strong>: 将 <code>app_name</code> 看做单词, 可以根据 <strong>应用商店的分类信息</strong>, <strong>应用列表的共现信息</strong> 去训练词向量.</li>
@@ -372,31 +393,35 @@
 </blockquote>
 <p>获取到上述基础特征后, 通常具备如下加工的方式, 主要是统计特征:</p>
 <ul>
-<li><strong>现有情况</strong>: 统计该用户在时间窗口(7&#x2F;30&#x2F;90天等)内 <strong>安装特定或某类应用</strong> 的数量和占比</li>
-<li><strong>变化情况</strong>: 统计该用户在时间窗口(7&#x2F;30&#x2F;90天等)与上一个时间窗口在 <strong>安装特定或某类应用</strong> 的数量和占比的 <strong>变化趋势</strong></li>
+<li><strong>现有情况</strong>: 统计该用户在时间窗口(7/30/90天等)内 <strong>安装特定或某类应用</strong> 的数量和占比</li>
+<li><strong>变化情况</strong>: 统计该用户在时间窗口(7/30/90天等)与上一个时间窗口在 <strong>安装特定或某类应用</strong> 的数量和占比的 <strong>变化趋势</strong></li>
 </ul>
 <p>实际上很多风控部门无应用的标签, 其相应风险需要风控同学自己进行挖掘, 即风险应用或应用标签等, 如下提供一些较为实用的思路:</p>
 <ol>
-<li>基于应用语义: 即通过应用名、功能描述等，进行关键词查找定位筛选</li>
+<li>基于应用语义: 即通过应用名、功能描述等,进行关键词查找定位筛选</li>
 <li>基于安装规模: 即风险应用相对小众, 可以按照少量安装量进行筛选, 但注意如果场景作弊量大, 可能该方法效果较差, 而且通常会筛选出大量非风险应用(即黄暴类、游戏类)</li>
-<li>基于TF-IDF: 该类型需要有<strong>前置标签</strong>, 但是相较于 <strong>方法2</strong> 实际效果好很多<ul>
-<li>TF &#x3D; 安装某App的逾期用户数 &#x2F; 所有逾期用户数。用以衡量该App对于逾期风险的代表性</li>
-<li>IDF &#x3D; Log(所有用户数 &#x2F; 安装某App的用户数)。用以衡量该App安装的普遍性。</li>
+<li>基于TF-IDF: 该类型需要有<strong>前置标签</strong>, 但是相较于 <strong>方法2</strong> 实际效果好很多
+<ul>
+<li>TF = 安装某App的逾期用户数 / 所有逾期用户数。用以衡量该App对于逾期风险的代表性</li>
+<li>IDF = Log(所有用户数 / 安装某App的用户数)。用以衡量该App安装的普遍性。</li>
 </ul>
 </li>
-<li>基于规则分箱: 该方法主要应用于难以构建应用标签的场景<ul>
-<li>预装应用: 针对预装&#x2F;系统应用进行分箱, 可观测其设备是否与其品牌相符</li>
+<li>基于规则分箱: 该方法主要应用于难以构建应用标签的场景
+<ul>
+<li>预装应用: 针对预装/系统应用进行分箱, 可观测其设备是否与其品牌相符</li>
 <li>国民应用: 国民应用如微信等, 需要单独处理</li>
 <li>小众应用: 安装量极低, 其在TF-IDF等筛选上不稳定, 因此若量级较大, 可以先粗箱处理, 后语义等细箱</li>
 </ul>
 </li>
 </ol>
-<h3 id="向量模型"><a href="#向量模型" class="headerlink" title="向量模型"></a>向量模型</h3><p>如果风控同学所具备的应用数据较多, 可以考虑 <code>word2vec</code> 或 <code>item2vec</code> 等方式, 但主要进行一定的应用预筛. 除此外, 应用列表向量化具有<a target="_blank" rel="noopener" href="https://ieeexplore.ieee.org/document/7752297">App2Vec: Vector Modeling of Mobile Apps and Applications</a>模型</p>
-<h2 id="参考资料"><a href="#参考资料" class="headerlink" title="参考资料"></a>参考资料</h2><ul>
+<h3 id="向量模型">向量模型</h3>
+<p>如果风控同学所具备的应用数据较多, 可以考虑 <code>word2vec</code> 或 <code>item2vec</code> 等方式, 但主要进行一定的应用预筛. 除此外, 应用列表向量化具有<a target="_blank" rel="noopener" href="https://ieeexplore.ieee.org/document/7752297">App2Vec: Vector Modeling of Mobile Apps and Applications</a>模型</p>
+<h2 id="参考资料">参考资料</h2>
+<ul>
 <li><a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/78413058">风控数据—手机App数据挖掘实践思路</a></li>
 <li><a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/208931125">风控模型之APPList模型</a></li>
 <li><a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/506161408">APP设备数据的特征衍生与模型应用</a></li>
-<li><a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/362481702">事半功倍的手机APP特征工程，你会吗？</a></li>
+<li><a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/362481702">事半功倍的手机APP特征工程,你会吗？</a></li>
 <li><a target="_blank" rel="noopener" href="http://www.shazhao.net/papers/cccf.pdf">利用智能手机Apps的用户画像</a></li>
 <li><a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/463937728">APPlist介绍与挖掘思路</a></li>
 </ul>
@@ -502,9 +527,9 @@
                   <article class="post-prev col-6">
                     
                     
-                      <a href="/116063852.html" title="【社区发现算法】Louvain算法">
+                      <a href="/1053869063.html" title="【社区发现算法】GN算法">
                         <i class="iconfont icon-arrowleft"></i>
-                        <span class="hidden-mobile">【社区发现算法】Louvain算法</span>
+                        <span class="hidden-mobile">【社区发现算法】GN算法</span>
                         <span class="visible-mobile">上一篇</span>
                       </a>
                     
@@ -512,8 +537,8 @@
                   <article class="post-next col-6">
                     
                     
-                      <a href="/128448416.html" title="基于 Hexo 搭建个人博客网站">
-                        <span class="hidden-mobile">基于 Hexo 搭建个人博客网站</span>
+                      <a href="/1116592221.html" title="【模型可解释】 Shap">
+                        <span class="hidden-mobile">【模型可解释】 Shap</span>
                         <span class="visible-mobile">下一篇</span>
                         <i class="iconfont icon-arrowright"></i>
                       </a>
@@ -528,6 +553,30 @@
   
     <article id="comments" lazyload>
       
+  <div id="twikoo"></div>
+  <script type="text/javascript">
+    Fluid.utils.loadComments('#comments', function() {
+      Fluid.utils.createScript('https://lib.baomitu.com/twikoo/1.6.8/twikoo.all.min.js', function() {
+        var options = Object.assign(
+          {"envId":"http://twikoo.windism.space","region":null,"path":"window.location.pathname"},
+          {
+            el: '#twikoo',
+            path: 'window.location.pathname',
+            onCommentLoaded: function() {
+              Fluid.utils.listenDOMLoaded(function() {
+                var imgSelector = '#twikoo .tk-content img:not(.tk-owo-emotion)';
+                Fluid.plugins.imageCaption(imgSelector);
+                Fluid.plugins.fancyBox(imgSelector);
+              });
+            }
+          }
+        )
+        twikoo.init(options)
+      });
+    });
+  </script>
+  <noscript>Please enable JavaScript to view the comments</noscript>
+
 
     </article>
   
@@ -583,7 +632,6 @@
 
   
   
-
 
 
 
@@ -659,6 +707,17 @@
 </div>
 
   
+  
+    <!-- 备案信息 ICP for China -->
+    <div class="beian">
+  <span>
+    <a href="http://beian.miit.gov.cn/" target="_blank" rel="nofollow noopener">
+      京ICP备2023029279号
+    </a>
+  </span>
+  
+</div>
+
   
   
 </div>
@@ -804,49 +863,6 @@
 
 
   <script>Fluid.plugins.imageCaption();</script>
-
-  
-      <script>
-        if (!window.MathJax) {
-          window.MathJax = {
-            tex    : {
-              inlineMath: { '[+]': [['$', '$']] }
-            },
-            loader : {
-              load: ['ui/lazy']
-            },
-            options: {
-              renderActions: {
-                insertedScript: [200, () => {
-                  document.querySelectorAll('mjx-container').forEach(node => {
-                    let target = node.parentNode;
-                    if (target.nodeName.toLowerCase() === 'li') {
-                      target.parentNode.classList.add('has-jax');
-                    }
-                  });
-                }, '', false]
-              }
-            }
-          };
-        } else {
-          MathJax.startup.document.state(0);
-          MathJax.texReset();
-          MathJax.typeset();
-          MathJax.typesetPromise();
-        }
-
-        Fluid.events.registerRefreshCallback(function() {
-          if ('MathJax' in window && MathJax.startup.document && typeof MathJax.startup.document.state === 'function') {
-            MathJax.startup.document.state(0);
-            MathJax.texReset();
-            MathJax.typeset();
-            MathJax.typesetPromise();
-          }
-        });
-      </script>
-    
-
-  <script  src="https://lib.baomitu.com/mathjax/3.2.2/es5/tex-mml-chtml.js" ></script>
 
   <script  src="/js/local-search.js" ></script>
 

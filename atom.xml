@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <feed xmlns="http://www.w3.org/2005/Atom">
-  <title>风扬</title>
+  <title>风扬技术站</title>
   
   
   <link href="https://www.windism.space/atom.xml" rel="self"/>
   
   <link href="https://www.windism.space/"/>
-  <updated>2023-10-20T02:55:46.511Z</updated>
+  <updated>2023-10-30T02:38:07.862Z</updated>
   <id>https://www.windism.space/</id>
   
   <author>
@@ -17,12 +17,53 @@
   <generator uri="https://hexo.io/">Hexo</generator>
   
   <entry>
-    <title>【社区发现算法】Leiden算法</title>
-    <link href="https://www.windism.space/1876331718.html"/>
-    <id>https://www.windism.space/1876331718.html</id>
-    <published>2023-10-19T10:40:00.000Z</published>
-    <updated>2023-10-20T02:55:46.511Z</updated>
+    <title>风控特征之文本地址信息</title>
+    <link href="https://www.windism.space/249128112.html"/>
+    <id>https://www.windism.space/249128112.html</id>
+    <published>2023-10-27T10:57:52.000Z</published>
+    <updated>2023-10-30T02:38:07.862Z</updated>
     
+    
+      
+      
+        
+        
+    <summary type="html">&lt;h2 id=&quot;引言&quot;&gt;引言&lt;/h2&gt;
+&lt;p&gt;在大多数业务场景中, 地址类信息相对而言获取难度较低, 如多数场景需要填写的工作地址、家庭地址等, 但该类信息通常在风控行业处理较为粗糙; 实际上地址涵盖诸多隐藏信息.&lt;/p&gt;
+&lt;h2 id=&quot;地址信息概述&quot;&gt;地址信息概述&lt;/h2&gt;
+&lt;h3 id=&quot;地址分类&quot;&gt;地址分类&lt;/h3&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;家庭地址&lt;/strong&gt;: 用户住宅地址; 注意: 可能为自有住宅, 也可能是租用住宅&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;单位地址&lt;/strong&gt;: 用户工作地址; 注意: 通常地址模糊, 如XX大厦,</summary>
+        
+      
+    
+    
+    
+    <category term="risk control" scheme="https://www.windism.space/categories/risk-control/"/>
+    
+    
+    <category term="risk control" scheme="https://www.windism.space/tags/risk-control/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>【社区发现算法】Louvain算法</title>
+    <link href="https://www.windism.space/116063852.html"/>
+    <id>https://www.windism.space/116063852.html</id>
+    <published>2023-10-19T10:30:00.000Z</published>
+    <updated>2023-10-29T14:11:14.264Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;h2 id=&quot;简介&quot;&gt;简介&lt;/h2&gt;
+&lt;p&gt;Louvain算法是基于模块度的社区发现算法,能够发现层次性的社区结构,其优化目标是最大化整个社区网络的模块度。其算法论文发表自2008年,原文为&lt;a href=&quot;https://arxiv.org/abs/0803.0476&quot;&gt;Fast unfolding of communities in large networks&lt;/a&gt;。&lt;/p&gt;
+&lt;h2</summary>
+        
+      
     
     
     
@@ -38,32 +79,20 @@
     <link href="https://www.windism.space/1876331716.html"/>
     <id>https://www.windism.space/1876331716.html</id>
     <published>2023-10-19T10:20:00.000Z</published>
-    <updated>2023-10-20T02:55:40.629Z</updated>
-    
-    <content type="html"><![CDATA[<h2 id="简介"><a href="#简介" class="headerlink" title="简介"></a>简介</h2><p><code>Label Propagation Algorithm</code> 标签传播算法(LPA)由<code>Raghavan</code>等人于2007提出.</p><ul><li>论文: <a href="https://arxiv.org/abs/0709.2938">《Near linear time algorithm to detect community structures in large-scale networks》</a>.</li><li>思想: 节点标签完全由其直接邻居决定; 典型基于标签传播的局部社区发现算法.</li></ul><h2 id="算法实现"><a href="#算法实现" class="headerlink" title="算法实现"></a>算法实现</h2><h3 id="算法步骤"><a href="#算法步骤" class="headerlink" title="算法步骤"></a>算法步骤</h3><ol><li>初始化图中节点标签; 即节点<code>i</code>对应标签<code>i</code></li><li>遍历图节点, 针对单个节点，获取其邻居标签，找到出现次数最大的标签, 若出现最多标签不止一个, 则随机选择一个标签替换成该节点标签</li><li>重复步骤2, 直至节点标签不再变化或者达到最大迭代次数</li></ol><h3 id="GraphX调用"><a href="#GraphX调用" class="headerlink" title="GraphX调用"></a>GraphX调用</h3><p>参考代码<a href="https://github.com/apache/spark/blob/v3.4.0/graphx/src/main/scala/org/apache/spark/graphx/lib/LabelPropagation.scala">LabelPropagation.scala</a>, 源码解读:</p><figure><div class="code-wrapper"><pre class="line-numbers language-scala" data-language="scala"><code class="language-scala"><span class="token keyword">def</span> run<span class="token punctuation">[</span>VD<span class="token punctuation">,</span> ED<span class="token operator">:</span> ClassTag<span class="token punctuation">]</span><span class="token punctuation">(</span>graph<span class="token operator">:</span> Graph<span class="token punctuation">[</span>VD<span class="token punctuation">,</span> ED<span class="token punctuation">]</span><span class="token punctuation">,</span> maxSteps<span class="token operator">:</span> <span class="token builtin">Int</span><span class="token punctuation">)</span><span class="token operator">:</span> Graph<span class="token punctuation">[</span>VertexId<span class="token punctuation">,</span> ED<span class="token punctuation">]</span> <span class="token operator">=</span> <span class="token punctuation">&#123;</span>  require<span class="token punctuation">(</span>maxSteps <span class="token operator">></span> <span class="token number">0</span><span class="token punctuation">,</span> <span class="token string-interpolation"><span class="token id function">s</span><span class="token string">"Maximum of steps must be greater than 0, but got </span><span class="token interpolation"><span class="token punctuation">$&#123;</span><span class="token expression">maxSteps</span><span class="token punctuation">&#125;</span></span><span class="token string">"</span></span><span class="token punctuation">)</span>  <span class="token comment">// Step 1: 初始化图, 重设节点属性(标签)为其ID</span>  <span class="token keyword">val</span> lpaGraph <span class="token operator">=</span> graph<span class="token punctuation">.</span>mapVertices <span class="token punctuation">&#123;</span> <span class="token keyword">case</span> <span class="token punctuation">(</span>vid<span class="token punctuation">,</span> _<span class="token punctuation">)</span> <span class="token keyword">=></span> vid <span class="token punctuation">&#125;</span>  <span class="token comment">// Step 2.1: 双向发送消息: 标签->1(可改成权重)</span>  <span class="token keyword">def</span> sendMessage<span class="token punctuation">(</span>e<span class="token operator">:</span> EdgeTriplet<span class="token punctuation">[</span>VertexId<span class="token punctuation">,</span> ED<span class="token punctuation">]</span><span class="token punctuation">)</span><span class="token operator">:</span> Iterator<span class="token punctuation">[</span><span class="token punctuation">(</span>VertexId<span class="token punctuation">,</span> Map<span class="token punctuation">[</span>VertexId<span class="token punctuation">,</span> <span class="token builtin">Long</span><span class="token punctuation">]</span><span class="token punctuation">)</span><span class="token punctuation">]</span> <span class="token operator">=</span> <span class="token punctuation">&#123;</span>    Iterator<span class="token punctuation">(</span><span class="token punctuation">(</span>e<span class="token punctuation">.</span>srcId<span class="token punctuation">,</span> Map<span class="token punctuation">(</span>e<span class="token punctuation">.</span>dstAttr <span class="token operator">-></span> <span class="token number">1L</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">,</span> <span class="token punctuation">(</span>e<span class="token punctuation">.</span>dstId<span class="token punctuation">,</span> Map<span class="token punctuation">(</span>e<span class="token punctuation">.</span>srcAttr <span class="token operator">-></span> <span class="token number">1L</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">)</span>  <span class="token punctuation">&#125;</span>  <span class="token comment">// Step 2.2: 合并接受消息: 将收到信息进行聚合, 形成 标签->数量 的字典结构</span>  <span class="token keyword">def</span> mergeMessage<span class="token punctuation">(</span>count1<span class="token operator">:</span> Map<span class="token punctuation">[</span>VertexId<span class="token punctuation">,</span> <span class="token builtin">Long</span><span class="token punctuation">]</span><span class="token punctuation">,</span> count2<span class="token operator">:</span> Map<span class="token punctuation">[</span>VertexId<span class="token punctuation">,</span> <span class="token builtin">Long</span><span class="token punctuation">]</span><span class="token punctuation">)</span>    <span class="token operator">:</span> Map<span class="token punctuation">[</span>VertexId<span class="token punctuation">,</span> <span class="token builtin">Long</span><span class="token punctuation">]</span> <span class="token operator">=</span> <span class="token punctuation">&#123;</span>    <span class="token keyword">val</span> map <span class="token operator">=</span> mutable<span class="token punctuation">.</span>Map<span class="token punctuation">[</span>VertexId<span class="token punctuation">,</span> <span class="token builtin">Long</span><span class="token punctuation">]</span><span class="token punctuation">(</span><span class="token punctuation">)</span>    <span class="token punctuation">(</span>count1<span class="token punctuation">.</span>keySet <span class="token operator">++</span> count2<span class="token punctuation">.</span>keySet<span class="token punctuation">)</span><span class="token punctuation">.</span>foreach <span class="token punctuation">&#123;</span> i <span class="token keyword">=></span>      <span class="token keyword">val</span> count1Val <span class="token operator">=</span> count1<span class="token punctuation">.</span>getOrElse<span class="token punctuation">(</span>i<span class="token punctuation">,</span> <span class="token number">0L</span><span class="token punctuation">)</span>      <span class="token keyword">val</span> count2Val <span class="token operator">=</span> count2<span class="token punctuation">.</span>getOrElse<span class="token punctuation">(</span>i<span class="token punctuation">,</span> <span class="token number">0L</span><span class="token punctuation">)</span>      map<span class="token punctuation">.</span>put<span class="token punctuation">(</span>i<span class="token punctuation">,</span> count1Val <span class="token operator">+</span> count2Val<span class="token punctuation">)</span>    <span class="token punctuation">&#125;</span>    map  <span class="token punctuation">&#125;</span>  <span class="token comment">// Step 2.3: 重设节点标签属性: 当存在邻居节点则设为其最大数量的标签, 否则不变</span>  <span class="token keyword">def</span> vertexProgram<span class="token punctuation">(</span>vid<span class="token operator">:</span> VertexId<span class="token punctuation">,</span> attr<span class="token operator">:</span> <span class="token builtin">Long</span><span class="token punctuation">,</span> message<span class="token operator">:</span> Map<span class="token punctuation">[</span>VertexId<span class="token punctuation">,</span> <span class="token builtin">Long</span><span class="token punctuation">]</span><span class="token punctuation">)</span><span class="token operator">:</span> VertexId <span class="token operator">=</span> <span class="token punctuation">&#123;</span>    <span class="token keyword">if</span> <span class="token punctuation">(</span>message<span class="token punctuation">.</span>isEmpty<span class="token punctuation">)</span> attr <span class="token keyword">else</span> message<span class="token punctuation">.</span>maxBy<span class="token punctuation">(</span>_<span class="token punctuation">.</span>_2<span class="token punctuation">)</span><span class="token punctuation">.</span>_1  <span class="token punctuation">&#125;</span>  <span class="token keyword">val</span> initialMessage <span class="token operator">=</span> Map<span class="token punctuation">[</span>VertexId<span class="token punctuation">,</span> <span class="token builtin">Long</span><span class="token punctuation">]</span><span class="token punctuation">(</span><span class="token punctuation">)</span>  <span class="token comment">// Step 2: 利用 Pregel 函数实际调用算法</span>  Pregel<span class="token punctuation">(</span>lpaGraph<span class="token punctuation">,</span> initialMessage<span class="token punctuation">,</span> maxIterations <span class="token operator">=</span> maxSteps<span class="token punctuation">)</span><span class="token punctuation">(</span>    vprog <span class="token operator">=</span> vertexProgram<span class="token punctuation">,</span>    sendMsg <span class="token operator">=</span> sendMessage<span class="token punctuation">,</span>    mergeMsg <span class="token operator">=</span> mergeMessage<span class="token punctuation">)</span><span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre></div></figure><h3 id="算法优化"><a href="#算法优化" class="headerlink" title="算法优化"></a>算法优化</h3><p>由于对于无权图, 其邻居很可能多个最大标签, 此时随机选择, 则可能造成较大传播误差; 实际生产环境大多是带权图, 如果可利用边权进行传播则相对稳定.</p><figure><div class="code-wrapper"><pre class="line-numbers language-scala" data-language="scala"><code class="language-scala"><span class="token comment">// 直接将边权作为数值传递</span><span class="token keyword">def</span> sendMessage<span class="token punctuation">(</span>e<span class="token operator">:</span> EdgeTriplet<span class="token punctuation">[</span>VertexId<span class="token punctuation">,</span> ED<span class="token punctuation">]</span><span class="token punctuation">)</span><span class="token operator">:</span> Iterator<span class="token punctuation">[</span><span class="token punctuation">(</span>VertexId<span class="token punctuation">,</span> Map<span class="token punctuation">[</span>VertexId<span class="token punctuation">,</span> <span class="token builtin">Long</span><span class="token punctuation">]</span><span class="token punctuation">)</span><span class="token punctuation">]</span> <span class="token operator">=</span> <span class="token punctuation">&#123;</span>  Iterator<span class="token punctuation">(</span><span class="token punctuation">(</span>e<span class="token punctuation">.</span>srcId<span class="token punctuation">,</span> Map<span class="token punctuation">(</span>e<span class="token punctuation">.</span>dstAttr <span class="token operator">-></span> e<span class="token punctuation">.</span>attr<span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">,</span> <span class="token punctuation">(</span>e<span class="token punctuation">.</span>dstId<span class="token punctuation">,</span> Map<span class="token punctuation">(</span>e<span class="token punctuation">.</span>srcAttr <span class="token operator">-></span> e<span class="token punctuation">.</span>attr<span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre></div></figure><p>除此以外, 针对风控等场景通过专家规则等可获得部分正样本(黑样本), 此时调用算法则是想传播该部分标签, 可在初始化时不使用 <code>VertexId</code> 作为标签类型, 而是直接标记 正负样本 <code>Long&#123;0, 1&#125;</code>.</p><h2 id="参考资料"><a href="#参考资料" class="headerlink" title="参考资料"></a>参考资料</h2><ul><li><a href="https://www.cnblogs.com/LittleHann/p/10699988.html">标签传播算法（Label Propagation Algorithm, LPA）初探</a></li><li><a href="https://zhuanlan.zhihu.com/p/511796578">社区发现之标签传播算法</a></li></ul>]]></content>
+    <updated>2023-10-29T14:11:14.263Z</updated>
     
     
       
       
-    <summary type="html">&lt;h2 id=&quot;简介&quot;&gt;&lt;a href=&quot;#简介&quot; class=&quot;headerlink&quot; title=&quot;简介&quot;&gt;&lt;/a&gt;简介&lt;/h2&gt;&lt;p&gt;&lt;code&gt;Label Propagation Algorithm&lt;/code&gt; 标签传播算法(LPA)由&lt;code&gt;Raghavan&lt;/c</summary>
+        
+        
+    <summary type="html">&lt;h2 id=&quot;简介&quot;&gt;简介&lt;/h2&gt;
+&lt;p&gt;&lt;code&gt;Label Propagation Algorithm&lt;/code&gt; 标签传播算法(LPA)由&lt;code&gt;Raghavan&lt;/code&gt;等人于2007提出.&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;论文: &lt;a href=&quot;https://arxiv.org/abs/0709.2938&quot;&gt;《Near linear time algorithm to detect community structures in large-scale networks》&lt;/a&gt;.&lt;/li&gt;
+&lt;li&gt;思想: 节点标签完全由其直接邻居决定;</summary>
+        
       
-    
-    
-    
-    <category term="Community Detection" scheme="https://www.windism.space/categories/Community-Detection/"/>
-    
-    
-    <category term="Community Detection" scheme="https://www.windism.space/tags/Community-Detection/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>【社区发现算法】Walktrap算法</title>
-    <link href="https://www.windism.space/1876331717.html"/>
-    <id>https://www.windism.space/1876331717.html</id>
-    <published>2023-10-19T10:10:00.000Z</published>
-    <updated>2023-10-20T02:55:38.322Z</updated>
-    
     
     
     
@@ -79,14 +108,20 @@
     <link href="https://www.windism.space/1053869063.html"/>
     <id>https://www.windism.space/1053869063.html</id>
     <published>2023-10-19T10:00:00.000Z</published>
-    <updated>2023-10-20T02:53:15.014Z</updated>
-    
-    <content type="html"><![CDATA[<h2 id="引言"><a href="#引言" class="headerlink" title="引言"></a>引言</h2><p>在社会生活中, 图的概念无处不在, 如社交网络, 即自然人作为节点, 而人与人之间的社交关系则是边, 人与人之间的团体即为社区。上述是比较直观的描述, 如下则是更加具体的定义:</p><ul><li>社区(<code>community</code>): 社区是图的一个子图，相比于图的其他部分，其中包含着密集的节点.</li></ul><p>而如何查找图中的社区则是社区发现的内容, 在2004年, Newman 和 Girvan的论文中提出了利用介数中心性(betweenness centrality)的方法，称之为 <code>Girvan-Newman</code> 算法.</p><h2 id="基本定义"><a href="#基本定义" class="headerlink" title="基本定义"></a>基本定义</h2><p>介数中心性(<code>betweenness centrality</code>): 基于最短路径的图的中心的度量方法</p><p>$$<br>C_{B}(v) &#x3D; \sum_{s \ne v \ne t \in V} \frac{\sigma_{st}(v)}{\sigma_{st}}<br>$$</p><ul><li>其中 $\sigma_{st}$ 代表节点 <code>s-&gt;t</code> 的最短路径数, $\sigma_{st}(v)$ 代表节点 <code>s-&gt;t</code> 且经过节点 <code>v</code> 的最短路径数</li></ul><p>根据公式, 社区之间的边，值更大; 社区内部的边, 值更小. 若将节点 <code>v</code> 剔除, 则可以将两个社区分割.</p><p>上述公式给予社区发现过程中 <code>社区之间的边</code> 的选择方法, 将其切割即可拆分社区, 但拆分成几个社区, 则需要新的指标进行评估. 即模块度函数 $Q$ 来定量的衡量社区划分的结果.</p><p>假设已经发现复杂网络的社区结构, $M$ 为已发现的社区个数, $L$ 为网络中的边数, $l_s$ 是社区 <code>s</code> 中节点相互连接的数目, $d_s$ 是社区 <code>s</code> 中所有节点相互连接数目的和。则 $Q$ 的函数表达式如下所示:</p><p>$$<br>Q &#x3D; \sum_{s}^{M} \lbrack \frac{l_s}{L} - (\frac{d_s}{2L})^2 \rbrack<br>$$</p><blockquote><p>物理意义: 网络中连接两个同种类型的节点的边(即社区内部边)比例, 减去在同样的社区结构下任意连接这两个节点的边的比例的期望值.</p></blockquote><h2 id="算法步骤"><a href="#算法步骤" class="headerlink" title="算法步骤"></a>算法步骤</h2><p><code>Girvan-Newman</code> 算法的基本流程如下:</p><ol><li>计算网络中所有边的边介数</li><li>找到边介数最高的边并将它从网络中移除</li><li>重复步骤2, 直到每个节点成为一个独立的社区为止, 即网络中没有边存在.</li></ol><p>最终选择社区情况, 即通过遍历拆分成 <code>1-N</code> 社区的模块度 $Q_n$, 选择其中最大模块度的社区结果.</p><h2 id="参考资料"><a href="#参考资料" class="headerlink" title="参考资料"></a>参考资料</h2><ul><li><a href="https://sikasjc.github.io/2017/12/20/GN/">GN算法–复杂网络中社区发现与Python实现</a></li></ul>]]></content>
+    <updated>2023-10-29T14:11:14.269Z</updated>
     
     
       
       
-    <summary type="html">&lt;h2 id=&quot;引言&quot;&gt;&lt;a href=&quot;#引言&quot; class=&quot;headerlink&quot; title=&quot;引言&quot;&gt;&lt;/a&gt;引言&lt;/h2&gt;&lt;p&gt;在社会生活中, 图的概念无处不在, 如社交网络, 即自然人作为节点, 而人与人之间的社交关系则是边, 人与人之间的团体即为社区。上述是比较直</summary>
+        
+        
+    <summary type="html">&lt;h2 id=&quot;引言&quot;&gt;引言&lt;/h2&gt;
+&lt;p&gt;在社会生活中, 图的概念无处不在, 如社交网络, 即自然人作为节点, 而人与人之间的社交关系则是边, 人与人之间的团体即为社区。上述是比较直观的描述, 如下则是更加具体的定义:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;社区(&lt;code&gt;community&lt;/code&gt;): 社区是图的一个子图,相比于图的其他部分,其中包含着密集的节点.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;而如何查找图中的社区则是社区发现的内容, 在2004年, Newman 和 Girvan的论文中提出了利用介数中心性(betweenness centrality)的方法,称之为</summary>
+        
       
     
     
@@ -99,26 +134,34 @@
   </entry>
   
   <entry>
-    <title>【社区发现算法】Louvain算法</title>
-    <link href="https://www.windism.space/116063852.html"/>
-    <id>https://www.windism.space/116063852.html</id>
-    <published>2023-10-19T10:00:00.000Z</published>
-    <updated>2023-10-20T02:53:15.012Z</updated>
-    
-    <content type="html"><![CDATA[<h2 id="简介"><a href="#简介" class="headerlink" title="简介"></a>简介</h2><p>Louvain算法是基于模块度的社区发现算法，能够发现层次性的社区结构，其优化目标是最大化整个社区网络的模块度。其算法论文发表自2008年，原文为<a href="https://arxiv.org/abs/0803.0476">Fast unfolding of communities in large networks</a>。</p><h2 id="模块度-Modularity"><a href="#模块度-Modularity" class="headerlink" title="模块度(Modularity)"></a>模块度(Modularity)</h2><p>模块度是评估一个社区网络划分好坏的度量方法。</p><blockquote><p>模块度的定义社区内节点之间的实际连边数与随机情况下连边数的差值。其物理意义是：模块度越大，同一个社区内的节点之间联系更加紧密，不同社区之间的节点联系更加松散。</p></blockquote><p>对于一个有 $n$ 个节点， $m$ 条边的网络，其中节点 $v$ 有 $k_v$ 条边(即节点 $v$ 的度为 $k_v$)，其模块度公式定义如下:</p><p>$$<br>\begin{aligned}<br>Q &#x3D; \frac{1}{2m} \sum_{i,j} \lbrack A_{ij} - \frac{k_i k_j}{2m} \rbrack \<br>\delta(u,v) &#x3D; \lbrace_{0\ else}^{1 when\ u &#x3D;&#x3D; v}<br>\end{aligned}<br>$$</p><p>其中</p><ul><li>$A_{ij}$ 表示节点 $i$ 和节点 $j$ 之间的权重，当网络为无权图，权重均为1</li><li>$k_i &#x3D; \sum_{j} A_{ij}$ 即节点 $i$ 的权重之和(无权图即度数)</li><li>$c_i$ 表示节点 $i$ 所属社区</li><li>$m &#x3D; \frac{1}{2}\sum_{i,j} A_{ij}$即所有边权重之和(无权图即边的数量)</li></ul><p>公式内部 $A_{ij} - \frac{k_i k_j}{2m}$ 代表节点 $i$ 与 节点 $j$ 相连实际与期望的差, $\frac{k_i k_j}{2m}$ 表示节点 $i$ 与 节点 $j$ 在 $2m$ 个边节点中存在 $k_i k_j$ 个可能。</p><p>设 $\sum in$ 代表社区 $c$ 内的边权重之和, $\sum tot$ 代表与社区 $c$ 内的节点相连的边权重之和。</p><p>$$<br>\begin{aligned}<br>Q<br>&amp;&#x3D; \frac{1}{2m}[\sum_{i,j}A_{ij} - \frac{\sum_ik_i\sum_jk_j}{2m}]\delta(c_i,c_j) \<br>&amp;&#x3D; \sum_{c} \lbrack \frac{\sum in}{2m} - (\frac{\sum tot}{2m})^2 \rbrack \<br>&amp;&#x3D; \sum_{c} \lbrack e_c - a_c^2 \rbrack<br>\end{aligned}<br>$$</p><p>这样模块度可以理解为 <strong>社区内部边的权重和</strong> 减去 <strong>所有与社区内节点相连的边的权重和</strong> 的平方。对于无权图，模块度为 <strong>社区内部的度数</strong> 减去 <strong>社区内节点的总度数</strong> 的平方。</p><h2 id="算法实现"><a href="#算法实现" class="headerlink" title="算法实现"></a>算法实现</h2><h3 id="算法步骤"><a href="#算法步骤" class="headerlink" title="算法步骤"></a>算法步骤</h3><ol><li>初始化图中节点均为一个独立社区(即节点数为社区数)</li><li>对于每个节点 $i$ 依次将其分配到其邻居所属社区，计算分配前后模块度差值的 $Q_{cur} - Q_{pre}$, 将节点 $i$ 分配至 <strong>差值大于0且最大</strong> 的邻居所属社区中, 否则保持不变</li><li>重复步骤2，直至所有节点的所属社区不在变化</li><li>对图进行压缩, 所有在同一社区的节点压缩成一个新的节点，此时边权等<strong>均可能</strong>发生变化</li><li>重复步骤1，直至整个图的模块度无法增益</li></ol><p>从步骤中可以看出步骤2中节点顺序对分群结果有所影响，其中步骤二的公式可以简化成如下的形式: </p><p>$$<br>\begin{aligned}<br>\Delta Q<br>&amp;&#x3D; \lbrack \frac{\sum_{in}+ k_{i,in}}{2m}-(\frac{\sum_{tot}+k_i}{2m})^2 \rbrack- \lbrack \frac{\sum_{in}}{2m}-(\frac{\sum_{tot}}{2m})^2-(\frac{k_i}{2m})^2 \rbrack \<br>&amp;&#x3D; \lbrack \frac{k_{i,in}}{2m}-\frac{\sum_{tot}k_i}{2m^2} \rbrack \<br>&amp;&#x3D; 2m \lbrack k_{i,in}-\frac{\sum_{tot}k_i}{m} \rbrack<br>\end{aligned}<br>$$</p><blockquote><p>其中 $k_{i,in}$ 是社区 $c$ 内节点与节点 $i$ 的边权重之和，<strong>注意</strong> $k_{i,in}$ 纳入内部时同时存在原内部节点到节点 $i$ 与节点 $i$ 到原内部节点的权重，因此对应边权重加起来再乘以2。</p></blockquote><p>该公式计算思路是 <code>[i节点加入社群c后的模块度]-[社团c本身的模块]-[i单节点模块度]</code>.</p><h3 id="GraphX调用"><a href="#GraphX调用" class="headerlink" title="GraphX调用"></a>GraphX调用</h3><p>参考代码<a href="https://github.com/vesoft-inc/nebula-algorithm/blob/master/nebula-algorithm/src/main/scala/com/vesoft/nebula/algorithm/lib/LouvainAlgo.scala">LouvainAlgo.scala</a></p><h2 id="参考资料"><a href="#参考资料" class="headerlink" title="参考资料"></a>参考资料</h2><ul><li><a href="https://www.cnblogs.com/fengfenggirl/p/louvain.html">模块度与Louvain社区发现算法</a></li></ul>]]></content>
+    <title>风控特征之应用列表信息</title>
+    <link href="https://www.windism.space/3066150691.html"/>
+    <id>https://www.windism.space/3066150691.html</id>
+    <published>2023-10-16T10:57:52.000Z</published>
+    <updated>2023-10-29T14:11:14.265Z</updated>
     
     
       
       
-    <summary type="html">&lt;h2 id=&quot;简介&quot;&gt;&lt;a href=&quot;#简介&quot; class=&quot;headerlink&quot; title=&quot;简介&quot;&gt;&lt;/a&gt;简介&lt;/h2&gt;&lt;p&gt;Louvain算法是基于模块度的社区发现算法，能够发现层次性的社区结构，其优化目标是最大化整个社区网络的模块度。其算法论文发表自2008年，</summary>
+        
+        
+    <summary type="html">&lt;h2 id=&quot;引言&quot;&gt;引言&lt;/h2&gt;
+&lt;p&gt;在当前移动互联网的时代, 移动应用占据人们大量的时间, 该用户手机应用安装使用情况也可以反应其身份习惯, 如大量借贷软件的安装使用可能反应该用户存在欺诈风险. 对于风控从业人员, 如何处理应用列表信息也是必要的技能, 可以极大提升风控效果.&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;免责申明: 本文仅讨论相关技术问题, 针对隐私等相关问题, 请遵守相关法律.&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;h2 id=&quot;应用数据概述&quot;&gt;应用数据概述&lt;/h2&gt;
+&lt;h3 id=&quot;基础信息&quot;&gt;基础信息&lt;/h3&gt;
+&lt;p&gt;根据官方&lt;a</summary>
+        
       
     
     
     
-    <category term="Community Detection" scheme="https://www.windism.space/categories/Community-Detection/"/>
+    <category term="risk control" scheme="https://www.windism.space/categories/risk-control/"/>
     
     
-    <category term="Community Detection" scheme="https://www.windism.space/tags/Community-Detection/"/>
+    <category term="risk control" scheme="https://www.windism.space/tags/risk-control/"/>
     
   </entry>
   

@@ -2,6 +2,33 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>https://www.windism.space/1255115666.html</loc>
+    
+    <lastmod>2023-10-31</lastmod>
+    
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>https://www.windism.space/3797270078.html</loc>
+    
+    <lastmod>2023-10-31</lastmod>
+    
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>https://www.windism.space/780384459.html</loc>
+    
+    <lastmod>2023-10-31</lastmod>
+    
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
     <loc>https://www.windism.space/249128112.html</loc>
     
     <lastmod>2023-10-30</lastmod>
@@ -85,43 +112,43 @@
 
   <url>
     <loc>https://www.windism.space/</loc>
-    <lastmod>2023-10-30</lastmod>
+    <lastmod>2023-10-31</lastmod>
     <changefreq>daily</changefreq>
     <priority>1.0</priority>
   </url>
 
   
   <url>
-    <loc>https://www.windism.space/tags/Shap/</loc>
-    <lastmod>2023-10-30</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.2</priority>
-  </url>
-  
-  <url>
     <loc>https://www.windism.space/tags/FreshRSS/</loc>
-    <lastmod>2023-10-30</lastmod>
+    <lastmod>2023-10-31</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
     <loc>https://www.windism.space/tags/Windows/</loc>
-    <lastmod>2023-10-30</lastmod>
+    <lastmod>2023-10-31</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
     <loc>https://www.windism.space/tags/risk-control/</loc>
-    <lastmod>2023-10-30</lastmod>
+    <lastmod>2023-10-31</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>https://www.windism.space/tags/Shap/</loc>
+    <lastmod>2023-10-31</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
     <loc>https://www.windism.space/tags/Community-Detection/</loc>
-    <lastmod>2023-10-30</lastmod>
+    <lastmod>2023-10-31</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
@@ -129,36 +156,36 @@
 
   
   <url>
-    <loc>https://www.windism.space/categories/Model-Explainable/</loc>
-    <lastmod>2023-10-30</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.2</priority>
-  </url>
-  
-  <url>
     <loc>https://www.windism.space/categories/%E6%9C%8D%E5%8A%A1%E5%99%A8/</loc>
-    <lastmod>2023-10-30</lastmod>
+    <lastmod>2023-10-31</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
     <loc>https://www.windism.space/categories/%E6%97%A5%E5%B8%B8%E5%B9%B3%E5%8F%B0/</loc>
-    <lastmod>2023-10-30</lastmod>
+    <lastmod>2023-10-31</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
     <loc>https://www.windism.space/categories/risk-control/</loc>
-    <lastmod>2023-10-30</lastmod>
+    <lastmod>2023-10-31</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>https://www.windism.space/categories/Model-Explainable/</loc>
+    <lastmod>2023-10-31</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
     <loc>https://www.windism.space/categories/Community-Detection/</loc>
-    <lastmod>2023-10-30</lastmod>
+    <lastmod>2023-10-31</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>

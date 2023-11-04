@@ -6,7 +6,7 @@
   <link href="https://www.windism.space/atom.xml" rel="self"/>
   
   <link href="https://www.windism.space/"/>
-  <updated>2023-11-04T11:38:26.957Z</updated>
+  <updated>2023-11-04T11:51:05.465Z</updated>
   <id>https://www.windism.space/</id>
   
   <author>
@@ -17,11 +17,37 @@
   <generator uri="https://hexo.io/">Hexo</generator>
   
   <entry>
+    <title>【反欺诈算法】Fraudar算法</title>
+    <link href="https://www.windism.space/3153578885.html"/>
+    <id>https://www.windism.space/3153578885.html</id>
+    <published>2023-11-04T12:40:00.000Z</published>
+    <updated>2023-11-04T11:51:05.465Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;h2 id=&quot;前言&quot;&gt;前言&lt;/h2&gt;
+&lt;p&gt;在当今互联网流量时代, 公司在进行商机激励倾斜通常都会采用指标进行考核, 针对高品质商户等进行投放, 如电商场景, 通常单量较高商户曝光也会高很多. 商户自然有曝光需求, 由此会通过黑产进行虚假刷单, 虚假关注等动作, 针对该类场景如何风控, 方法较多. 本文主要讲述 &lt;code&gt;Fraudar算法&lt;/code&gt; 在其中的原理及其思路&lt;sup id=&quot;fnref:1&quot; class=&quot;footnote-ref&quot;&gt;&lt;a href=&quot;#fn:1&quot; rel=&quot;footnote&quot;&gt;&lt;span class=&quot;hint--top hint--rounded&quot;</summary>
+        
+      
+    
+    
+    
+    <category term="Anti fraud" scheme="https://www.windism.space/categories/Anti-fraud/"/>
+    
+    
+    <category term="Anti fraud" scheme="https://www.windism.space/tags/Anti-fraud/"/>
+    
+  </entry>
+  
+  <entry>
     <title>【反欺诈算法】CatchSync算法</title>
     <link href="https://www.windism.space/956199147.html"/>
     <id>https://www.windism.space/956199147.html</id>
     <published>2023-11-04T10:40:00.000Z</published>
-    <updated>2023-11-04T11:38:26.957Z</updated>
+    <updated>2023-11-04T12:22:18.680Z</updated>
     
     
       
@@ -115,36 +141,6 @@
 &lt;p&gt;&lt;code&gt;Label Propagation Algorithm&lt;/code&gt; 标签传播算法(LPA)由&lt;code&gt;Raghavan&lt;/code&gt;等人于2007提出.&lt;/p&gt;
 &lt;ul&gt;
 &lt;li&gt;论文: 《Near linear time algorithm to detect community structures in large-scale networks》&lt;sup id=&quot;fnref:1&quot; class=&quot;footnote-ref&quot;&gt;&lt;a href=&quot;#fn:1&quot; rel=&quot;footnote&quot;&gt;&lt;span</summary>
-        
-      
-    
-    
-    
-    <category term="Community Detection" scheme="https://www.windism.space/categories/Community-Detection/"/>
-    
-    
-    <category term="Community Detection" scheme="https://www.windism.space/tags/Community-Detection/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>【社区发现算法】GN算法</title>
-    <link href="https://www.windism.space/1053869063.html"/>
-    <id>https://www.windism.space/1053869063.html</id>
-    <published>2023-10-19T10:00:00.000Z</published>
-    <updated>2023-11-04T11:22:48.516Z</updated>
-    
-    
-      
-      
-        
-        
-    <summary type="html">&lt;h2 id=&quot;引言&quot;&gt;引言&lt;/h2&gt;
-&lt;p&gt;在社会生活中, 图的概念无处不在, 如社交网络, 即自然人作为节点, 而人与人之间的社交关系则是边, 人与人之间的团体即为社区。上述是比较直观的描述, 如下则是更加具体的定义:&lt;/p&gt;
-&lt;ul&gt;
-&lt;li&gt;社区(&lt;code&gt;community&lt;/code&gt;): 社区是图的一个子图,相比于图的其他部分,其中包含着密集的节点.&lt;/li&gt;
-&lt;/ul&gt;
-&lt;p&gt;而如何查找图中的社区则是社区发现的内容, 在2004年, Newman 和 Girvan的论文中提出了利用介数中心性(betweenness centrality)的方法,称之为</summary>
         
       
     

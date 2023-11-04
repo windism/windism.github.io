@@ -9,8 +9,36 @@
     <atom:link href="https://www.windism.space/rss2.xml" rel="self" type="application/rss+xml"/>
     
     <description></description>
-    <pubDate>Sat, 04 Nov 2023 11:38:26 GMT</pubDate>
+    <pubDate>Sat, 04 Nov 2023 11:51:05 GMT</pubDate>
     <generator>http://hexo.io/</generator>
+    
+    <item>
+      <title>【反欺诈算法】Fraudar算法</title>
+      <link>https://www.windism.space/3153578885.html</link>
+      <guid>https://www.windism.space/3153578885.html</guid>
+      <pubDate>Sat, 04 Nov 2023 12:40:00 GMT</pubDate>
+      
+        
+        
+          
+          
+      <description>&lt;h2 id=&quot;前言&quot;&gt;前言&lt;/h2&gt;
+&lt;p&gt;在当今互联网流量时代, 公司在进行商机激励倾斜通常都会采用指标进行考核, 针对高品质商户等进行投放, 如电商场景, 通常单量较高商户曝光也会高很多. 商户自然有曝光需求, 由此会通过黑产进行虚假刷单, 虚假关注等动作, 针对该类场景如何风控, 方法较多. 本文主要讲述 &lt;code&gt;Fraudar算法&lt;/code&gt; 在其中的原理及其思路&lt;sup id=&quot;fnref:1&quot; class=&quot;footnote-ref&quot;&gt;&lt;a href=&quot;#fn:1&quot; rel=&quot;footnote&quot;&gt;&lt;span class=&quot;hint--top hint--rounded&quot;</description>
+          
+        
+      
+      
+      
+      
+      <category domain="https://www.windism.space/categories/Anti-fraud/">Anti fraud</category>
+      
+      
+      <category domain="https://www.windism.space/tags/Anti-fraud/">Anti fraud</category>
+      
+      
+      <comments>https://www.windism.space/3153578885.html#disqus_thread</comments>
+      
+    </item>
     
     <item>
       <title>【反欺诈算法】CatchSync算法</title>
@@ -128,38 +156,6 @@
       
       
       <comments>https://www.windism.space/1876331716.html#disqus_thread</comments>
-      
-    </item>
-    
-    <item>
-      <title>【社区发现算法】GN算法</title>
-      <link>https://www.windism.space/1053869063.html</link>
-      <guid>https://www.windism.space/1053869063.html</guid>
-      <pubDate>Thu, 19 Oct 2023 10:00:00 GMT</pubDate>
-      
-        
-        
-          
-          
-      <description>&lt;h2 id=&quot;引言&quot;&gt;引言&lt;/h2&gt;
-&lt;p&gt;在社会生活中, 图的概念无处不在, 如社交网络, 即自然人作为节点, 而人与人之间的社交关系则是边, 人与人之间的团体即为社区。上述是比较直观的描述, 如下则是更加具体的定义:&lt;/p&gt;
-&lt;ul&gt;
-&lt;li&gt;社区(&lt;code&gt;community&lt;/code&gt;): 社区是图的一个子图,相比于图的其他部分,其中包含着密集的节点.&lt;/li&gt;
-&lt;/ul&gt;
-&lt;p&gt;而如何查找图中的社区则是社区发现的内容, 在2004年, Newman 和 Girvan的论文中提出了利用介数中心性(betweenness centrality)的方法,称之为</description>
-          
-        
-      
-      
-      
-      
-      <category domain="https://www.windism.space/categories/Community-Detection/">Community Detection</category>
-      
-      
-      <category domain="https://www.windism.space/tags/Community-Detection/">Community Detection</category>
-      
-      
-      <comments>https://www.windism.space/1053869063.html#disqus_thread</comments>
       
     </item>
     

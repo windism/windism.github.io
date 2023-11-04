@@ -6,7 +6,7 @@
   <link href="https://www.windism.space/atom.xml" rel="self"/>
   
   <link href="https://www.windism.space/"/>
-  <updated>2023-10-30T02:38:07.862Z</updated>
+  <updated>2023-11-04T11:38:26.957Z</updated>
   <id>https://www.windism.space/</id>
   
   <author>
@@ -15,6 +15,32 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>【反欺诈算法】CatchSync算法</title>
+    <link href="https://www.windism.space/956199147.html"/>
+    <id>https://www.windism.space/956199147.html</id>
+    <published>2023-11-04T10:40:00.000Z</published>
+    <updated>2023-11-04T11:38:26.957Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;h2 id=&quot;引言&quot;&gt;引言&lt;/h2&gt;
+&lt;p&gt;在社交网络中, 用户与用户之间以及用户与商家之间会形成网络. 例如, 电商中的购买评价关系等, 即 &lt;code&gt;who-buy-who&lt;/code&gt;, &lt;code&gt;who-rate-who&lt;/code&gt;. 在电商等评价体系中, 会基于评价等进行激励, 因此会引发欺诈风险, 即 &lt;code&gt;虚假转发&lt;/code&gt;, &lt;code&gt;虚假评论&lt;/code&gt; 等等&lt;sup id=&quot;fnref:1&quot; class=&quot;footnote-ref&quot;&gt;&lt;a href=&quot;#fn:1&quot; rel=&quot;footnote&quot;&gt;&lt;span class=&quot;hint--top</summary>
+        
+      
+    
+    
+    
+    <category term="Anti fraud" scheme="https://www.windism.space/categories/Anti-fraud/"/>
+    
+    
+    <category term="Anti fraud" scheme="https://www.windism.space/tags/Anti-fraud/"/>
+    
+  </entry>
   
   <entry>
     <title>风控特征之文本地址信息</title>
@@ -52,7 +78,7 @@
     <link href="https://www.windism.space/116063852.html"/>
     <id>https://www.windism.space/116063852.html</id>
     <published>2023-10-19T10:30:00.000Z</published>
-    <updated>2023-10-29T14:11:14.264Z</updated>
+    <updated>2023-11-04T11:25:20.936Z</updated>
     
     
       
@@ -60,8 +86,7 @@
         
         
     <summary type="html">&lt;h2 id=&quot;简介&quot;&gt;简介&lt;/h2&gt;
-&lt;p&gt;Louvain算法是基于模块度的社区发现算法,能够发现层次性的社区结构,其优化目标是最大化整个社区网络的模块度。其算法论文发表自2008年,原文为&lt;a href=&quot;https://arxiv.org/abs/0803.0476&quot;&gt;Fast unfolding of communities in large networks&lt;/a&gt;。&lt;/p&gt;
-&lt;h2</summary>
+&lt;p&gt;Louvain算法是基于模块度的社区发现算法,能够发现层次性的社区结构,其优化目标是最大化整个社区网络的模块度。其算法论文发表自2008年,原文为Fast unfolding of communities in large networks&lt;sup id=&quot;fnref:1&quot; class=&quot;footnote-ref&quot;&gt;&lt;a href=&quot;#fn:1&quot; rel=&quot;footnote&quot;&gt;&lt;span class=&quot;hint--top hint--rounded&quot; aria-label=&quot;[Fast unfolding of communities in</summary>
         
       
     
@@ -79,7 +104,7 @@
     <link href="https://www.windism.space/1876331716.html"/>
     <id>https://www.windism.space/1876331716.html</id>
     <published>2023-10-19T10:20:00.000Z</published>
-    <updated>2023-10-29T14:11:14.263Z</updated>
+    <updated>2023-11-04T11:24:26.218Z</updated>
     
     
       
@@ -89,8 +114,7 @@
     <summary type="html">&lt;h2 id=&quot;简介&quot;&gt;简介&lt;/h2&gt;
 &lt;p&gt;&lt;code&gt;Label Propagation Algorithm&lt;/code&gt; 标签传播算法(LPA)由&lt;code&gt;Raghavan&lt;/code&gt;等人于2007提出.&lt;/p&gt;
 &lt;ul&gt;
-&lt;li&gt;论文: &lt;a href=&quot;https://arxiv.org/abs/0709.2938&quot;&gt;《Near linear time algorithm to detect community structures in large-scale networks》&lt;/a&gt;.&lt;/li&gt;
-&lt;li&gt;思想: 节点标签完全由其直接邻居决定;</summary>
+&lt;li&gt;论文: 《Near linear time algorithm to detect community structures in large-scale networks》&lt;sup id=&quot;fnref:1&quot; class=&quot;footnote-ref&quot;&gt;&lt;a href=&quot;#fn:1&quot; rel=&quot;footnote&quot;&gt;&lt;span</summary>
         
       
     
@@ -108,7 +132,7 @@
     <link href="https://www.windism.space/1053869063.html"/>
     <id>https://www.windism.space/1053869063.html</id>
     <published>2023-10-19T10:00:00.000Z</published>
-    <updated>2023-10-29T14:11:14.269Z</updated>
+    <updated>2023-11-04T11:22:48.516Z</updated>
     
     
       
@@ -130,38 +154,6 @@
     
     
     <category term="Community Detection" scheme="https://www.windism.space/tags/Community-Detection/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>风控特征之应用列表信息</title>
-    <link href="https://www.windism.space/3066150691.html"/>
-    <id>https://www.windism.space/3066150691.html</id>
-    <published>2023-10-16T10:57:52.000Z</published>
-    <updated>2023-10-29T14:11:14.265Z</updated>
-    
-    
-      
-      
-        
-        
-    <summary type="html">&lt;h2 id=&quot;引言&quot;&gt;引言&lt;/h2&gt;
-&lt;p&gt;在当前移动互联网的时代, 移动应用占据人们大量的时间, 该用户手机应用安装使用情况也可以反应其身份习惯, 如大量借贷软件的安装使用可能反应该用户存在欺诈风险. 对于风控从业人员, 如何处理应用列表信息也是必要的技能, 可以极大提升风控效果.&lt;/p&gt;
-&lt;blockquote&gt;
-&lt;p&gt;免责申明: 本文仅讨论相关技术问题, 针对隐私等相关问题, 请遵守相关法律.&lt;/p&gt;
-&lt;/blockquote&gt;
-&lt;h2 id=&quot;应用数据概述&quot;&gt;应用数据概述&lt;/h2&gt;
-&lt;h3 id=&quot;基础信息&quot;&gt;基础信息&lt;/h3&gt;
-&lt;p&gt;根据官方&lt;a</summary>
-        
-      
-    
-    
-    
-    <category term="risk control" scheme="https://www.windism.space/categories/risk-control/"/>
-    
-    
-    <category term="risk control" scheme="https://www.windism.space/tags/risk-control/"/>
     
   </entry>
   

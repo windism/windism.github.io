@@ -2,7 +2,7 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
-    <loc>https://www.windism.space/4060319945.html</loc>
+    <loc>https://www.windism.space/971697457.html</loc>
     
     <lastmod>2024-01-18</lastmod>
     
@@ -21,15 +21,6 @@
   
   <url>
     <loc>https://www.windism.space/1255115666.html</loc>
-    
-    <lastmod>2024-01-18</lastmod>
-    
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
-    <loc>https://www.windism.space/971697457.html</loc>
     
     <lastmod>2024-01-18</lastmod>
     
@@ -245,15 +236,6 @@
   </url>
   
   <url>
-    <loc>https://www.windism.space/3387433632.html</loc>
-    
-    <lastmod>2022-06-28</lastmod>
-    
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
     <loc>https://www.windism.space/1071711833.html</loc>
     
     <lastmod>2022-06-28</lastmod>
@@ -272,25 +254,16 @@
   </url>
   
   <url>
-    <loc>https://www.windism.space/2120316972.html</loc>
-    
-    <lastmod>2022-06-28</lastmod>
-    
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
-    <loc>https://www.windism.space/3213134778.html</loc>
-    
-    <lastmod>2022-06-28</lastmod>
-    
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
     <loc>https://www.windism.space/2012667041.html</loc>
+    
+    <lastmod>2022-06-28</lastmod>
+    
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>https://www.windism.space/2120316972.html</loc>
     
     <lastmod>2022-06-28</lastmod>
     
@@ -308,7 +281,16 @@
   </url>
   
   <url>
-    <loc>https://www.windism.space/2812622581.html</loc>
+    <loc>https://www.windism.space/3213134778.html</loc>
+    
+    <lastmod>2022-06-28</lastmod>
+    
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>https://www.windism.space/3387433632.html</loc>
     
     <lastmod>2022-06-28</lastmod>
     
@@ -334,6 +316,15 @@
     <priority>0.6</priority>
   </url>
   
+  <url>
+    <loc>https://www.windism.space/2812622581.html</loc>
+    
+    <lastmod>2022-06-28</lastmod>
+    
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
 
   <url>
     <loc>https://www.windism.space/</loc>
@@ -351,13 +342,6 @@
   </url>
   
   <url>
-    <loc>https://www.windism.space/tags/daily-pits/</loc>
-    <lastmod>2024-01-18</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.2</priority>
-  </url>
-  
-  <url>
     <loc>https://www.windism.space/tags/Maven/</loc>
     <lastmod>2024-01-18</lastmod>
     <changefreq>weekly</changefreq>
@@ -365,7 +349,7 @@
   </url>
   
   <url>
-    <loc>https://www.windism.space/tags/Shap/</loc>
+    <loc>https://www.windism.space/tags/daily-pits/</loc>
     <lastmod>2024-01-18</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
@@ -379,14 +363,14 @@
   </url>
   
   <url>
-    <loc>https://www.windism.space/tags/%E9%A3%8E%E6%8E%A7%E6%A8%A1%E5%9E%8B/</loc>
+    <loc>https://www.windism.space/tags/Machine-Learning/</loc>
     <lastmod>2024-01-18</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
-    <loc>https://www.windism.space/tags/Machine-Learning/</loc>
+    <loc>https://www.windism.space/tags/Shap/</loc>
     <lastmod>2024-01-18</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
@@ -421,7 +405,7 @@
   </url>
   
   <url>
-    <loc>https://www.windism.space/tags/Spark/</loc>
+    <loc>https://www.windism.space/tags/Redis/</loc>
     <lastmod>2024-01-18</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
@@ -435,7 +419,7 @@
   </url>
   
   <url>
-    <loc>https://www.windism.space/tags/Redis/</loc>
+    <loc>https://www.windism.space/tags/Spark/</loc>
     <lastmod>2024-01-18</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
@@ -458,13 +442,6 @@
   </url>
   
   <url>
-    <loc>https://www.windism.space/categories/daily-pits/</loc>
-    <lastmod>2024-01-18</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.2</priority>
-  </url>
-  
-  <url>
     <loc>https://www.windism.space/categories/Maven/</loc>
     <lastmod>2024-01-18</lastmod>
     <changefreq>weekly</changefreq>
@@ -472,7 +449,7 @@
   </url>
   
   <url>
-    <loc>https://www.windism.space/categories/Model-Explainable/</loc>
+    <loc>https://www.windism.space/categories/daily-pits/</loc>
     <lastmod>2024-01-18</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
@@ -486,14 +463,14 @@
   </url>
   
   <url>
-    <loc>https://www.windism.space/categories/%E9%A3%8E%E6%8E%A7%E6%8A%80%E6%9C%AF/</loc>
+    <loc>https://www.windism.space/categories/Machine-Learning/</loc>
     <lastmod>2024-01-18</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
-    <loc>https://www.windism.space/categories/Machine-Learning/</loc>
+    <loc>https://www.windism.space/categories/Model-Explainable/</loc>
     <lastmod>2024-01-18</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>

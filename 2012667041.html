@@ -1,0 +1,965 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=auto>
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/favicon.png">
+  <link rel="icon" href="/img/favicon.png">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+    <meta http-equiv="Content-Security-Policy" content="upgrade-insecure-requests">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="author" content="windism">
+  <meta name="keywords" content="Hive,调优">
+  
+    <meta name="description" content="概述 如下很多配置其实在 hive 的新版本已经优化啦, 通用配置放置 $HOME&#x2F;.hiverc 即可持续生效 各种场景的优化有所不同, 可以利用 analyze table 进行分析. 通用优化 表连接优化   数据量大的表放在后面 Hive假定查询中最后的一个表是大表.它会将其它表缓存起来,然后扫描最后那个表.因此通常需要将小表放前面,或者标记哪张表是大表:、 利用 set hive.aut">
+<meta property="og:type" content="article">
+<meta property="og:title" content="【Hive笔记】 五、调优指南">
+<meta property="og:url" content="https://www.windism.space/2012667041.html">
+<meta property="og:site_name" content="风扬技术站">
+<meta property="og:description" content="概述 如下很多配置其实在 hive 的新版本已经优化啦, 通用配置放置 $HOME&#x2F;.hiverc 即可持续生效 各种场景的优化有所不同, 可以利用 analyze table 进行分析. 通用优化 表连接优化   数据量大的表放在后面 Hive假定查询中最后的一个表是大表.它会将其它表缓存起来,然后扫描最后那个表.因此通常需要将小表放前面,或者标记哪张表是大表:、 利用 set hive.aut">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2021-02-23T02:02:07.000Z">
+<meta property="article:modified_time" content="2022-06-28T14:14:42.000Z">
+<meta property="article:author" content="windism">
+<meta property="article:tag" content="Hive">
+<meta name="twitter:card" content="summary_large_image">
+  
+  
+    <meta name="referrer" content="no-referrer-when-downgrade">
+  
+  
+  <title>【Hive笔记】 五、调优指南 - 风扬技术站</title>
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
+
+
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/github-markdown-css/4.0.0/github-markdown.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/hint.css/2.7.0/hint.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/prism/1.29.0/plugins/line-numbers/prism-line-numbers.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/KaTeX/0.16.2/katex.min.css" />
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+<!-- Do not modify the link that theme dependent icons -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_hj8rtnfg7um.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_lbnruvf0jn.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+
+  <link id="highlight-css" rel="stylesheet" href="/css/highlight.css" />
+  
+    <link id="highlight-css-dark" rel="stylesheet" href="/css/highlight-dark.css" />
+  
+
+
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    Fluid.ctx = Object.assign({}, Fluid.ctx)
+    var CONFIG = {"hostname":"www.windism.space","root":"/","version":"1.9.5-a","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":true,"follow_dnt":true,"baidu":"2eac19870ffb3538ed048a88632c0e62","google":{"measurement_id":"G-5840CXGFGL"},"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false}},"search_path":"/local-search.xml","include_content_in_search":true};
+
+    if (CONFIG.web_analytics.follow_dnt) {
+      var dntVal = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
+      Fluid.ctx.dnt = dntVal && (dntVal.startsWith('1') || dntVal.startsWith('yes') || dntVal.startsWith('on'));
+    }
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+  
+
+  
+    <!-- Baidu Analytics -->
+    <script async>
+      if (!Fluid.ctx.dnt) {
+        var _hmt = _hmt || [];
+        (function() {
+          var hm = document.createElement("script");
+          hm.src = "https://hm.baidu.com/hm.js?2eac19870ffb3538ed048a88632c0e62";
+          var s = document.getElementsByTagName("script")[0];
+          s.parentNode.insertBefore(hm, s);
+        })();
+      }
+    </script>
+  
+
+  
+    <!-- Google tag (gtag.js) -->
+    <script async>
+      if (!Fluid.ctx.dnt) {
+        Fluid.utils.createScript("https://www.googletagmanager.com/gtag/js?id=G-5840CXGFGL", function() {
+          window.dataLayer = window.dataLayer || [];
+          function gtag() {
+            dataLayer.push(arguments);
+          }
+          gtag('js', new Date());
+          gtag('config', 'G-5840CXGFGL');
+        });
+      }
+    </script>
+  
+
+  
+
+  
+
+  
+
+  
+
+
+
+  <meta name="google-adsense-account" content="ca-pub-1519148638782253">
+<meta name="generator" content="Hexo 6.3.0"><link rel="alternate" href="/atom.xml" title="风扬技术站" type="application/atom+xml">
+<link rel="alternate" href="/rss2.xml" title="风扬技术站" type="application/rss+xml">
+</head>
+
+
+<body>
+  
+
+  <header>
+    
+
+<div class="header-inner" style="height: 70vh;">
+  <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand" href="/">
+      <strong>风扬技术站</strong>
+    </a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/">
+                <i class="iconfont icon-home-fill"></i>
+                <span>首页</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/">
+                <i class="iconfont icon-archive-fill"></i>
+                <span>归档</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/">
+                <i class="iconfont icon-category-fill"></i>
+                <span>分类</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/">
+                <i class="iconfont icon-tags-fill"></i>
+                <span>标签</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/">
+                <i class="iconfont icon-user-fill"></i>
+                <span>关于</span>
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              <i class="iconfont icon-search"></i>
+            </a>
+          </li>
+          
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self" href="javascript:;" aria-label="Color Toggle">
+              <i class="iconfont icon-dark" id="color-toggle-icon"></i>
+            </a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+  
+
+<div id="banner" class="banner" parallax=true
+     style="background: url('/img/default.png') no-repeat center center; background-size: cover;">
+  <div class="full-bg-img">
+    <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+      <div class="banner-text text-center fade-in-up">
+        <div class="h2">
+          
+            <span id="subtitle" data-typed-text="【Hive笔记】 五、调优指南"></span>
+          
+        </div>
+
+        
+          
+  <div class="mt-3">
+    
+    
+      <span class="post-meta">
+        <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+        <time datetime="2021-02-23 10:02" pubdate>
+          2021年2月23日 上午
+        </time>
+      </span>
+    
+  </div>
+
+  <div class="mt-1">
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-chart"></i>
+        
+          4.3k 字
+        
+      </span>
+    
+
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-clock-fill"></i>
+        
+        
+        
+          36 分钟
+        
+      </span>
+    
+
+    
+    
+      
+        <span id="busuanzi_container_page_pv" style="display: none">
+          <i class="iconfont icon-eye" aria-hidden="true"></i>
+          <span id="busuanzi_value_page_pv"></span> 次
+        </span>
+        
+      
+    
+  </div>
+
+
+        
+      </div>
+
+      
+    </div>
+  </div>
+</div>
+
+</div>
+
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+
+    </div>
+
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div id="board">
+          <article class="post-content mx-auto">
+            <h1 id="seo-header">【Hive笔记】 五、调优指南</h1>
+            
+            
+              <div class="markdown-body">
+                
+                <h2 id="概述">概述</h2>
+<p>如下很多配置其实在 <code>hive</code> 的新版本已经优化啦, 通用配置放置 <code>$HOME/.hiverc</code> 即可持续生效</p>
+<p>各种场景的优化有所不同, 可以利用 <code>analyze table</code> 进行分析.</p>
+<h2 id="通用优化">通用优化</h2>
+<h3 id="表连接优化">表连接优化</h3>
+<ol>
+<li>
+<p>数据量大的表放在后面<br>
+Hive假定查询中最后的一个表是大表.它会将其它表缓存起来,然后扫描最后那个表.因此通常需要将小表放前面,或者标记哪张表是大表:、</p>
+<p>利用 <code>set hive.auto.convert.join = true;</code>也可生效</p>
+ <figure><div class="code-wrapper"><pre class="line-numbers language-sql" data-language="sql"><code class="language-sql"><span class="token keyword">SELECT</span>
+<span class="token comment">/*+ STREAMTABLE(a) */</span>
+a<span class="token punctuation">.</span>val<span class="token punctuation">,</span> b<span class="token punctuation">.</span>val<span class="token punctuation">,</span> c<span class="token punctuation">.</span>val
+<span class="token keyword">FROM</span> a
+<span class="token keyword">JOIN</span> b
+<span class="token keyword">ON</span> <span class="token punctuation">(</span>a<span class="token punctuation">.</span><span class="token keyword">key</span> <span class="token operator">=</span> b<span class="token punctuation">.</span>key1<span class="token punctuation">)</span>
+<span class="token keyword">JOIN</span> c
+<span class="token keyword">ON</span> <span class="token punctuation">(</span>c<span class="token punctuation">.</span><span class="token keyword">key</span> <span class="token operator">=</span> b<span class="token punctuation">.</span>key1<span class="token punctuation">)</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre></div></figure>
+</li>
+<li>
+<p>使用相同的连接键</p>
+<p>当对3个或者更多个表进行join连接时,如果每个on子句都使用相同的连接键的话,那么只会产生一个MapReduce job.</p>
+</li>
+<li>
+<p>尽量尽早地过滤数据</p>
+<p>减少每个阶段的数据量,对于分区表要加分区,同时只选择需要使用到的字段.</p>
+</li>
+<li>
+<p>尽量原子化操作</p>
+<p>尽量避免一个SQL包含复杂逻辑,可以使用中间表来完成复杂的逻辑</p>
+</li>
+</ol>
+<h3 id="用insert-into替换union-all">用insert into替换union all</h3>
+<h3 id="order-by-sort-by">order by &amp; sort by</h3>
+<ol>
+<li><code>order by</code> : 对查询结果进行全局排序消耗时间长,需要<code>set hive.mapred.mode=nostrict</code></li>
+<li><code>sort by</code> : 局部排序,并非全局有序,提高效率.</li>
+</ol>
+<h3 id="成本优化器">成本优化器</h3>
+<blockquote>
+<p>传统的数据库,成本优化器做出最优化的执行计划是依据统计信息来计算的.</p>
+</blockquote>
+<figure><div class="code-wrapper"><pre class="line-numbers language-sql" data-language="sql"><code class="language-sql"><span class="token keyword">set</span> hive<span class="token punctuation">.</span>cbo<span class="token punctuation">.</span><span class="token keyword">enable</span> <span class="token operator">=</span> <span class="token boolean">true</span> <span class="token punctuation">;</span>
+<span class="token keyword">set</span> hive<span class="token punctuation">.</span><span class="token keyword">compute</span><span class="token punctuation">.</span>query<span class="token punctuation">.</span><span class="token keyword">using</span><span class="token punctuation">.</span>stats <span class="token operator">=</span> <span class="token boolean">true</span> <span class="token punctuation">;</span>
+<span class="token keyword">set</span> hive<span class="token punctuation">.</span>stats<span class="token punctuation">.</span><span class="token keyword">fetch</span><span class="token punctuation">.</span><span class="token keyword">column</span><span class="token punctuation">.</span>stats <span class="token operator">=</span> <span class="token boolean">true</span> <span class="token punctuation">;</span>
+<span class="token keyword">set</span> hive<span class="token punctuation">.</span>stats<span class="token punctuation">.</span><span class="token keyword">fetch</span><span class="token punctuation">.</span><span class="token keyword">partition</span><span class="token punctuation">.</span>stats <span class="token operator">=</span> <span class="token boolean">true</span> <span class="token punctuation">;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre></div></figure>
+<h2 id="场景优化">场景优化</h2>
+<h3 id="limit-语句快速出结果">limit 语句快速出结果</h3>
+<p>一般情况下,Limit语句还是需要执行整个查询语句,然后再返回部分结果.有一个配置属性可以开启,避免这种情况—对数据源进行抽样.</p>
+<blockquote>
+<p>缺点:有可能部分数据永远不会被处理到</p>
+</blockquote>
+<figure><div class="code-wrapper"><pre class="line-numbers language-sql" data-language="sql"><code class="language-sql">hive<span class="token punctuation">.</span><span class="token keyword">limit</span><span class="token punctuation">.</span><span class="token keyword">optimize</span><span class="token punctuation">.</span><span class="token keyword">enable</span><span class="token operator">=</span><span class="token boolean">true</span> <span class="token comment">--- 开启对数据源进行采样的功能</span>
+hive<span class="token punctuation">.</span><span class="token keyword">limit</span><span class="token punctuation">.</span><span class="token keyword">row</span><span class="token punctuation">.</span>max<span class="token punctuation">.</span>size <span class="token comment">--- 设置最小的采样容量</span>
+hive<span class="token punctuation">.</span><span class="token keyword">limit</span><span class="token punctuation">.</span><span class="token keyword">optimize</span><span class="token punctuation">.</span><span class="token keyword">limit</span><span class="token punctuation">.</span><span class="token keyword">file</span> <span class="token comment">--- 设置最大的采样样本数</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre></div></figure>
+<h3 id="本地模式">本地模式</h3>
+<p>对于小数据集,为查询触发执行任务消耗的时间&gt;实际执行job的时间,因此可以通过本地模式,在单台机器上(或某些时候在单个进程上)处理所有的任务.</p>
+<figure><div class="code-wrapper"><pre class="line-numbers language-sql" data-language="sql"><code class="language-sql"><span class="token keyword">set</span> oldjobtracker<span class="token operator">=</span>$&#123;hiveconf:mapred<span class="token punctuation">.</span>job<span class="token punctuation">.</span>tracker&#125;<span class="token punctuation">;</span>
+<span class="token keyword">set</span> mapred<span class="token punctuation">.</span>job<span class="token punctuation">.</span>tracker<span class="token operator">=</span><span class="token keyword">local</span><span class="token punctuation">;</span> 　
+<span class="token keyword">set</span> marped<span class="token punctuation">.</span>tmp<span class="token punctuation">.</span>dir<span class="token operator">=</span><span class="token operator">/</span>home<span class="token operator">/</span>edward<span class="token operator">/</span>tmp<span class="token punctuation">;</span>
+<span class="token keyword">set</span> mapred<span class="token punctuation">.</span>job<span class="token punctuation">.</span>tracker<span class="token operator">=</span>$&#123;oldjobtracker&#125;<span class="token punctuation">;</span>
+<span class="token keyword">sql</span> 语句<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre></div></figure>
+<p>可以通过设置属性hive.exec.mode.local.auto的值为true,来让Hive在适当的时候自动启动这个优化,也可以将这个配置写在$HOME/.hiverc文件中.<br>
+当一个job满足如下条件才能真正使用本地模式:</p>
+<figure><div class="code-wrapper"><pre class="line-numbers language-text" data-language="text"><code class="language-text">job的输入数据大小必须小于参数:hive.exec.mode.local.auto.inputbytes.max(默认128MB)
+job的map数必须小于参数:hive.exec.mode.local.auto.tasks.max(默认4)
+job的reduce数必须为0或者1
+可用参数hive.mapred.local.mem(默认0)控制child的jvm使用的最大内存数.<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre></div></figure>
+<h3 id="并行执行">并行执行</h3>
+<p>Hive会将一个查询转化为一个或多个阶段,包括:MapReduce阶段、抽样阶段、合并阶段、limit阶段等.默认情况下,一次只执行一个阶段. 不过,如果某些阶段不是互相依赖,是可以并行执行的.</p>
+<figure><div class="code-wrapper"><pre class="line-numbers language-sql" data-language="sql"><code class="language-sql"><span class="token keyword">set</span> hive<span class="token punctuation">.</span><span class="token keyword">exec</span><span class="token punctuation">.</span>parallel<span class="token operator">=</span><span class="token boolean">true</span><span class="token punctuation">;</span> <span class="token comment">--可以开启并发执行.</span>
+<span class="token keyword">set</span> hive<span class="token punctuation">.</span><span class="token keyword">exec</span><span class="token punctuation">.</span>parallel<span class="token punctuation">.</span>thread<span class="token punctuation">.</span>number<span class="token operator">=</span><span class="token number">16</span><span class="token punctuation">;</span> <span class="token comment">--同一个sql允许最大并行度,默认为8.</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre></div></figure>
+<h3 id="数据倾斜">数据倾斜</h3>
+<blockquote>
+<p>表现:任务进度长时间维持在99%(或100%),查看任务监控页面,发现只有少量(1个或几个)reduce子任务未完成.因为其处理的数据量和其他reduce差异过大.单一reduce的记录数与平均记录数差异过大,通常可能达到3倍甚至更多. 最长时长远大于平均时长.</p>
+</blockquote>
+<p>原因:</p>
+<ul>
+<li>key分布不均匀</li>
+<li>业务数据本身的特性</li>
+<li>建表时考虑不周</li>
+<li>某些SQL语句本身就有数据倾斜</li>
+</ul>
+<figure><div class="code-wrapper"><pre class="line-numbers language-sql" data-language="sql"><code class="language-sql">hive<span class="token punctuation">.</span>map<span class="token punctuation">.</span>aggr <span class="token operator">=</span> <span class="token boolean">true</span>
+hive<span class="token punctuation">.</span>groupby<span class="token punctuation">.</span>skewindata<span class="token operator">=</span><span class="token boolean">true</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre></div></figure>
+<p><strong>注意</strong>: 上述参数只是一种方式, 具体问题具体分析,查看异常聚集的数据是否为无效数据,是否可以剔除如果不能,利用加前缀的方式进行手动分组,再聚合.</p>
+<h3 id="Each-Top-N-优化">Each-Top-N 优化</h3>
+<p>执行类似如下操作的时候</p>
+<figure><div class="code-wrapper"><pre class="line-numbers language-sql" data-language="sql"><code class="language-sql"><span class="token keyword">SELECT</span> <span class="token operator">*</span><span class="token punctuation">,</span>Rank<span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token keyword">Over</span><span class="token punctuation">(</span><span class="token keyword">Partition</span> <span class="token keyword">BY</span><span class="token punctuation">)</span>
+<span class="token keyword">FROM</span> tblTable
+Distribute <span class="token keyword">By</span> FieldA
+Sort <span class="token keyword">By</span> FieldA<span class="token punctuation">,</span> MetricA <span class="token keyword">DESC</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre></div></figure>
+<p>可采用 predicate pushdown (PPD) 在存储级别执行过滤</p>
+<blockquote>
+<p>该部分含义为: 过滤条件在map端执行,减少了map端的输出,降低了数据在集群上传输的量,节约了集群的资源,也提升了任务的性能.</p>
+</blockquote>
+<figure><div class="code-wrapper"><pre class="line-numbers language-sql" data-language="sql"><code class="language-sql"><span class="token keyword">SET</span> hive<span class="token punctuation">.</span><span class="token keyword">optimize</span><span class="token punctuation">.</span>ppd<span class="token operator">=</span><span class="token boolean">true</span> <span class="token punctuation">;</span>
+<span class="token keyword">SET</span> hive<span class="token punctuation">.</span><span class="token keyword">optimize</span><span class="token punctuation">.</span>ppd<span class="token punctuation">.</span>storage<span class="token operator">=</span><span class="token boolean">true</span> <span class="token punctuation">;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre></div></figure>
+<h2 id="配置参数">配置参数</h2>
+<h3 id="调整mapper和reducer的个数">调整mapper和reducer的个数</h3>
+<h4 id="Map阶段优化">Map阶段优化</h4>
+<p>map个数的主要的决定因素有</p>
+<ol>
+<li>input的文件总个数,input的文件大小</li>
+<li>集群设置的文件块大小(默认128M,不可自定义).</li>
+</ol>
+<blockquote>
+<p>参考举例如下:</p>
+<p>假设input目录下有1个文件a,大小为780M,那么hadoop会将该文件a分隔成7个块(6个128m的块和1个12m的块),从而产生7个map数</p>
+<p>假设input目录下有3个文件a,b,c,大小分别为10m,20m,130m,那么hadoop会分隔成4个块(10m,20m,128m,2m),从而产生4个map数.</p>
+<p>即如果文件大于块大小(128m),那么会拆分,如果小于块大小,则把该文件当成一个块.</p>
+</blockquote>
+<p>map执行时间:map任务启动和初始化的时间+逻辑处理的时间.</p>
+<ol>
+<li>
+<p>减少map数</p>
+<p>若有大量小文件(小于128M),会产生多个map,处理方法是:</p>
+ <figure><div class="code-wrapper"><pre class="line-numbers language-sql" data-language="sql"><code class="language-sql"><span class="token keyword">set</span> mapred<span class="token punctuation">.</span>max<span class="token punctuation">.</span>split<span class="token punctuation">.</span>size<span class="token operator">=</span><span class="token number">100000000</span><span class="token punctuation">;</span>
+<span class="token keyword">set</span> mapred<span class="token punctuation">.</span>min<span class="token punctuation">.</span>split<span class="token punctuation">.</span>size<span class="token punctuation">.</span>per<span class="token punctuation">.</span>node<span class="token operator">=</span><span class="token number">100000000</span><span class="token punctuation">;</span>
+<span class="token keyword">set</span> mapred<span class="token punctuation">.</span>min<span class="token punctuation">.</span>split<span class="token punctuation">.</span>size<span class="token punctuation">.</span>per<span class="token punctuation">.</span>rack<span class="token operator">=</span><span class="token number">100000000</span><span class="token punctuation">;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre></div></figure>
+<p>前面三个参数确定合并文件块的大小,大于文件块大小128m的,按照128m来分隔,小于128m,大于100m的,按照100m来分隔,把那些小于100m的(包括小文件和分隔大文件剩下的)进行合并.</p>
+ <figure><div class="code-wrapper"><pre class="line-numbers language-sql" data-language="sql"><code class="language-sql"><span class="token keyword">set</span> hive<span class="token punctuation">.</span>input<span class="token punctuation">.</span>format<span class="token operator">=</span>org<span class="token punctuation">.</span>apache<span class="token punctuation">.</span>hadoop<span class="token punctuation">.</span>hive<span class="token punctuation">.</span>ql<span class="token punctuation">.</span>io<span class="token punctuation">.</span>CombineHiveInputFormat<span class="token punctuation">;</span> <span class="token comment">-- 执行前进行小文件合并.</span><span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre></div></figure>
+</li>
+<li>
+<p>增加map数</p>
+<p>当input的文件都很大,任务逻辑复杂,map执行非常慢的时候,可以考虑增加Map数,来使得每个map处理的数据量减少,从而提高任务的执行效率.</p>
+<figure><div class="code-wrapper"><pre class="line-numbers language-sql" data-language="sql"><code class="language-sql"><span class="token keyword">set</span> mapred<span class="token punctuation">.</span>map<span class="token punctuation">.</span>tasks<span class="token operator">=</span>?<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre></div></figure>
+</li>
+</ol>
+<h4 id="Reduce阶段优化">Reduce阶段优化</h4>
+<figure><div class="code-wrapper"><pre class="line-numbers language-sql" data-language="sql"><code class="language-sql"><span class="token keyword">set</span> mapred<span class="token punctuation">.</span>reduce<span class="token punctuation">.</span>tasks<span class="token operator">=</span>?
+<span class="token keyword">set</span> hive<span class="token punctuation">.</span><span class="token keyword">exec</span><span class="token punctuation">.</span>reducers<span class="token punctuation">.</span>bytes<span class="token punctuation">.</span>per<span class="token punctuation">.</span>reducer <span class="token operator">=</span> ?<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre></div></figure>
+<p>一般根据输入文件的总大小,用它的estimation函数来自动计算reduce的个数:reduce个数 = InputFileSize / bytes per reducer</p>
+<h3 id="压缩设置-未使用过">压缩设置(未使用过)</h3>
+<figure><div class="code-wrapper"><pre class="line-numbers language-sql" data-language="sql"><code class="language-sql"><span class="token comment">--  map/reduce 输出压缩(一般采用序列化文件存储)</span>
+<span class="token keyword">set</span> hive<span class="token punctuation">.</span><span class="token keyword">exec</span><span class="token punctuation">.</span>compress<span class="token punctuation">.</span>output<span class="token operator">=</span><span class="token boolean">true</span><span class="token punctuation">;</span>
+<span class="token keyword">set</span> mapred<span class="token punctuation">.</span>output<span class="token punctuation">.</span>compression<span class="token punctuation">.</span>codec<span class="token operator">=</span>org<span class="token punctuation">.</span>apache<span class="token punctuation">.</span>hadoop<span class="token punctuation">.</span>io<span class="token punctuation">.</span>compress<span class="token punctuation">.</span>GzipCodec<span class="token punctuation">;</span>
+<span class="token keyword">set</span> mapred<span class="token punctuation">.</span>output<span class="token punctuation">.</span>compression<span class="token punctuation">.</span><span class="token keyword">type</span><span class="token operator">=</span>BLOCK<span class="token punctuation">;</span>
+<span class="token comment">--任务中间压缩</span>
+<span class="token keyword">set</span> hive<span class="token punctuation">.</span><span class="token keyword">exec</span><span class="token punctuation">.</span>compress<span class="token punctuation">.</span>intermediate<span class="token operator">=</span><span class="token boolean">true</span><span class="token punctuation">;</span>
+<span class="token keyword">set</span> hive<span class="token punctuation">.</span>intermediate<span class="token punctuation">.</span>compression<span class="token punctuation">.</span>codec<span class="token operator">=</span>org<span class="token punctuation">.</span>apache<span class="token punctuation">.</span>hadoop<span class="token punctuation">.</span>io<span class="token punctuation">.</span>compress<span class="token punctuation">.</span>SnappyCodec<span class="token punctuation">;</span>
+<span class="token keyword">set</span> hive<span class="token punctuation">.</span>intermediate<span class="token punctuation">.</span>compression<span class="token punctuation">.</span><span class="token keyword">type</span><span class="token operator">=</span>BLOCK<span class="token punctuation">;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre></div></figure>
+<h3 id="动态分区-插入多个分区数据">动态分区(插入多个分区数据)</h3>
+<blockquote>
+<p>可以通过动态分区来进行多个分区的插入, 但是只可以一个分区是动态的,还有一点比较坑,就是如果新增列,记得动态的分区字段放在 <code>select</code> 的最后一个</p>
+</blockquote>
+<figure><div class="code-wrapper"><pre class="line-numbers language-sql" data-language="sql"><code class="language-sql"><span class="token comment">--设置非严格模式</span>
+<span class="token keyword">set</span> hive<span class="token punctuation">.</span><span class="token keyword">exec</span><span class="token punctuation">.</span>dynamic<span class="token punctuation">.</span><span class="token keyword">partition</span><span class="token punctuation">.</span><span class="token keyword">mode</span><span class="token operator">=</span>nonstrict<span class="token punctuation">;</span>
+<span class="token comment">--设置动态分区</span>
+<span class="token keyword">set</span> hive<span class="token punctuation">.</span><span class="token keyword">exec</span><span class="token punctuation">.</span>dynamic<span class="token punctuation">.</span><span class="token keyword">partition</span><span class="token operator">=</span><span class="token boolean">true</span><span class="token punctuation">;</span>
+<span class="token comment">--设置动态分区每个节点最多可划分为多少个分区</span>
+<span class="token keyword">set</span> hive<span class="token punctuation">.</span><span class="token keyword">exec</span><span class="token punctuation">.</span>max<span class="token punctuation">.</span>dynamic<span class="token punctuation">.</span>partitions<span class="token punctuation">.</span>pernode<span class="token operator">=</span><span class="token number">1000</span><span class="token punctuation">;</span>
+<span class="token comment">--设置动态分区时的分区最大数量</span>
+<span class="token keyword">set</span> hive<span class="token punctuation">.</span><span class="token keyword">exec</span><span class="token punctuation">.</span>max<span class="token punctuation">.</span>dynamic<span class="token punctuation">.</span>partitions<span class="token operator">=</span><span class="token number">2000</span><span class="token punctuation">;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre></div></figure>
+<h2 id="严格模式">严格模式</h2>
+<figure><div class="code-wrapper"><pre class="line-numbers language-sql" data-language="sql"><code class="language-sql"><span class="token keyword">set</span> hive<span class="token punctuation">.</span>marped<span class="token punctuation">.</span><span class="token keyword">mode</span><span class="token operator">=</span>strict <span class="token comment">--防止用户执行那些可能意想不到的不好的影响的查询</span><span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre></div></figure>
+<ol>
+<li>分区表,必须选定分区范围</li>
+<li>对于使用order by的查询,要求必须使用limit语句.因为order by为了执行排序过程会将所有的结果数据分发到同一个reducer中进行处理</li>
+<li>限制笛卡尔积查询:两张表join时必须有on语句</li>
+</ol>
+<h2 id="transform-python">transform+python</h2>
+<p>一种嵌入在hive取数流程中的自定义函数,通过transform语句可以把在hive中不方便实现的功能在python中实现,然后写入hive表中.示例语法如下:</p>
+<figure><div class="code-wrapper"><pre class="line-numbers language-sql" data-language="sql"><code class="language-sql"><span class="token keyword">select</span> transform<span class="token punctuation">(</span>&#123;<span class="token keyword">column</span> names1&#125;<span class="token punctuation">)</span>
+<span class="token keyword">using</span> <span class="token string">'**.py'</span>
+<span class="token keyword">as</span> &#123;<span class="token keyword">column</span> names2&#125;
+<span class="token keyword">from</span> &#123;<span class="token keyword">table</span> name&#125;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre></div></figure>
+<p>如果除python脚本外还有其它依赖资源,可以使用<code>ADD ARVHIVE</code>.</p>
+<h2 id="参考文献">参考文献</h2>
+<ul>
+<li><a target="_blank" rel="noopener" href="https://www.cnblogs.com/importbigdata/p/12215461.html">Hive优化的十大方法</a></li>
+<li><a target="_blank" rel="noopener" href="https://cloud.tencent.com/developer/article/1559200">Hive 性能调优,这9点都掌握了</a></li>
+</ul>
+
+                
+              </div>
+            
+            <hr/>
+            <div>
+              <div class="post-metas my-3">
+  
+    <div class="post-meta mr-3 d-flex align-items-center">
+      <i class="iconfont icon-category"></i>
+      
+
+<span class="category-chains">
+  
+  
+    
+      <span class="category-chain">
+        
+  <a href="/categories/%E5%A4%A7%E6%95%B0%E6%8D%AE%E6%A1%86%E6%9E%B6/" class="category-chain-item">大数据框架</a>
+  
+  
+
+      </span>
+    
+  
+</span>
+
+    </div>
+  
+  
+    <div class="post-meta">
+      <i class="iconfont icon-tags"></i>
+      
+        <a href="/tags/Hive/" class="print-no-link">#Hive</a>
+      
+    </div>
+  
+</div>
+
+
+              
+  
+
+  <div class="license-box my-3">
+    <div class="license-title">
+      <div>【Hive笔记】 五、调优指南</div>
+      <div>https://www.windism.space/2012667041.html</div>
+    </div>
+    <div class="license-meta">
+      
+        <div class="license-meta-item">
+          <div>作者</div>
+          <div>windism</div>
+        </div>
+      
+      
+        <div class="license-meta-item license-meta-date">
+          <div>发布于</div>
+          <div>2021年2月23日</div>
+        </div>
+      
+      
+      
+        <div class="license-meta-item">
+          <div>许可协议</div>
+          <div>
+            
+              
+              
+                <a class="print-no-link" target="_blank" href="https://creativecommons.org/licenses/by-nc-nd/4.0/">
+                  <span class="hint--top hint--rounded" aria-label="BY - 署名">
+                    <i class="iconfont icon-by"></i>
+                  </span>
+                </a>
+              
+                <a class="print-no-link" target="_blank" href="https://creativecommons.org/licenses/by-nc-nd/4.0/">
+                  <span class="hint--top hint--rounded" aria-label="NC - 非商业性使用">
+                    <i class="iconfont icon-nc"></i>
+                  </span>
+                </a>
+              
+                <a class="print-no-link" target="_blank" href="https://creativecommons.org/licenses/by-nc-nd/4.0/">
+                  <span class="hint--top hint--rounded" aria-label="ND - 禁止演绎">
+                    <i class="iconfont icon-nd"></i>
+                  </span>
+                </a>
+              
+            
+          </div>
+        </div>
+      
+    </div>
+    <div class="license-icon iconfont"></div>
+  </div>
+
+
+
+              
+                <div class="post-prevnext my-3">
+                  <article class="post-prev col-6">
+                    
+                    
+                      <a href="/780384459.html" title="风控特征之定位地址信息">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">风控特征之定位地址信息</span>
+                        <span class="visible-mobile">上一篇</span>
+                      </a>
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2032419892.html" title="【数据基础知识】VC维">
+                        <span class="hidden-mobile">【数据基础知识】VC维</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+  
+  
+    <article id="comments" lazyload>
+      
+  <div id="twikoo"></div>
+  <script type="text/javascript">
+    Fluid.utils.loadComments('#comments', function() {
+      Fluid.utils.createScript('https://lib.baomitu.com/twikoo/1.6.8/twikoo.all.min.js', function() {
+        var options = Object.assign(
+          {"envId":"http://twikoo.windism.space","region":null,"path":"window.location.pathname"},
+          {
+            el: '#twikoo',
+            path: 'window.location.pathname',
+            onCommentLoaded: function() {
+              Fluid.utils.listenDOMLoaded(function() {
+                var imgSelector = '#twikoo .tk-content img:not(.tk-owo-emotion)';
+                Fluid.plugins.imageCaption(imgSelector);
+                Fluid.plugins.fancyBox(imgSelector);
+              });
+            }
+          }
+        )
+        twikoo.init(options)
+      });
+    });
+  </script>
+  <noscript>Please enable JavaScript to view the comments</noscript>
+
+
+    </article>
+  
+
+
+          </article>
+        </div>
+      </div>
+    </div>
+
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+  <aside class="sidebar" style="margin-left: -1rem">
+    <div id="toc">
+  <p class="toc-header">
+    <i class="iconfont icon-list"></i>
+    <span>目录</span>
+  </p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+
+
+  </aside>
+
+
+    </div>
+  </div>
+</div>
+
+
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+  
+  
+
+
+
+
+
+
+
+
+    
+
+    
+      <a id="scroll-top-button" aria-label="TOP" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v" for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+    
+
+    
+  </main>
+
+  <footer>
+    <div class="footer-inner">
+  
+    <div class="footer-content">
+       <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a> 
+    </div>
+  
+  
+    <div class="statistics">
+  
+  
+
+  
+    
+      <span id="busuanzi_container_site_pv" style="display: none">
+        总访问量 
+        <span id="busuanzi_value_site_pv"></span>
+         次
+      </span>
+    
+    
+      <span id="busuanzi_container_site_uv" style="display: none">
+        总访客数 
+        <span id="busuanzi_value_site_uv"></span>
+         人
+      </span>
+    
+    
+  
+</div>
+
+  
+  
+    <!-- 备案信息 ICP for China -->
+    <div class="beian">
+  <span>
+    <a href="http://beian.miit.gov.cn/" target="_blank" rel="nofollow noopener">
+      京ICP备2023029279号
+    </a>
+  </span>
+  
+</div>
+
+  
+  
+</div>
+
+  </footer>
+
+  <!-- Scripts -->
+  
+  <script  src="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://lib.baomitu.com/jquery/3.6.4/jquery.min.js" ></script>
+<script  src="https://lib.baomitu.com/twitter-bootstrap/4.6.1/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+
+  <script  src="https://lib.baomitu.com/typed.js/2.0.12/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var subtitle = document.getElementById('subtitle');
+      if (!subtitle || !typing) {
+        return;
+      }
+      var text = subtitle.getAttribute('data-typed-text');
+      
+        typing(text);
+      
+    })(window, document);
+  </script>
+
+
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/tocbot/4.20.1/tocbot.min.js', function() {
+    var toc = jQuery('#toc');
+    if (toc.length === 0 || !window.tocbot) { return; }
+    var boardCtn = jQuery('#board-ctn');
+    var boardTop = boardCtn.offset().top;
+
+    window.tocbot.init(Object.assign({
+      tocSelector     : '#toc-body',
+      contentSelector : '.markdown-body',
+      linkClass       : 'tocbot-link',
+      activeLinkClass : 'tocbot-active-link',
+      listClass       : 'tocbot-list',
+      isCollapsedClass: 'tocbot-is-collapsed',
+      collapsibleClass: 'tocbot-is-collapsible',
+      scrollSmooth    : true,
+      includeTitleTags: true,
+      headingsOffset  : -boardTop,
+    }, CONFIG.toc));
+    if (toc.find('.toc-list-item').length > 0) {
+      toc.css('visibility', 'visible');
+    }
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('tocbot' in window) {
+        tocbot.refresh();
+        var toc = jQuery('#toc');
+        if (toc.length === 0 || !tocbot) {
+          return;
+        }
+        if (toc.find('.toc-list-item').length > 0) {
+          toc.css('visibility', 'visible');
+        }
+      }
+    });
+  });
+</script>
+
+
+  <script  src="https://lib.baomitu.com/prism/1.29.0/plugins/line-numbers/prism-line-numbers.min.js" ></script>
+
+  <script src=https://lib.baomitu.com/clipboard.js/2.0.11/clipboard.min.js></script>
+
+  <script>Fluid.plugins.codeWidget();</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/anchor-js/4.3.1/anchor.min.js', function() {
+    window.anchors.options = {
+      placement: CONFIG.anchorjs.placement,
+      visible  : CONFIG.anchorjs.visible
+    };
+    if (CONFIG.anchorjs.icon) {
+      window.anchors.options.icon = CONFIG.anchorjs.icon;
+    }
+    var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+    var res = [];
+    for (var item of el) {
+      res.push('.markdown-body > ' + item.trim());
+    }
+    if (CONFIG.anchorjs.placement === 'left') {
+      window.anchors.options.class = 'anchorjs-link-left';
+    }
+    window.anchors.add(res.join(', '));
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('anchors' in window) {
+        anchors.removeAll();
+        var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+        var res = [];
+        for (var item of el) {
+          res.push('.markdown-body > ' + item.trim());
+        }
+        if (CONFIG.anchorjs.placement === 'left') {
+          anchors.options.class = 'anchorjs-link-left';
+        }
+        anchors.add(res.join(', '));
+      }
+    });
+  });
+</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.js', function() {
+    Fluid.plugins.fancyBox();
+  });
+</script>
+
+
+  <script>Fluid.plugins.imageCaption();</script>
+
+  <script  src="/js/local-search.js" ></script>
+
+  <script defer src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js" ></script>
+
+
+
+
+
+<!-- 主题的启动项，将它保持在最底部 -->
+<!-- the boot of the theme, keep it at the bottom -->
+<script  src="/js/boot.js" ></script>
+
+
+  
+
+  <noscript>
+    <div class="noscript-warning">博客在允许 JavaScript 运行的环境下浏览效果更佳</div>
+  </noscript>
+</body>
+</html>

@@ -28,7 +28,7 @@
 <meta property="og:image" content="https://www.windism.space/img/1_2_9-SynchroTrap_1.png">
 <meta property="og:image" content="https://www.windism.space/img/1_2_9-SynchroTrap_2.png">
 <meta property="article:published_time" content="2024-01-04T10:40:00.000Z">
-<meta property="article:modified_time" content="2024-01-10T08:19:35.842Z">
+<meta property="article:modified_time" content="2024-01-10T08:22:56.821Z">
 <meta property="article:author" content="windism">
 <meta property="article:tag" content="Anti fraud">
 <meta name="twitter:card" content="summary_large_image">
@@ -338,7 +338,7 @@
 <p>互联网社交网络的崛起，引起黑产对其的广泛攻击; 通常以控制恶意账户(包括虚假账户及被入侵的真实账户)攻击其业务系统(包括虚假评级等等).</p>
 <p>本次将介绍发表于2014年的论文《Uncovering Large Groups of Active Malicious Accounts in Online Social Networks》，该论文设计挖掘恶意账户同步性行为模式对抗,在Facebook实践可在一个月识别200万恶意账号<sup id="fnref:1" class="footnote-ref"><a href="#fn:1" rel="footnote"><span class="hint--top hint--rounded" aria-label="[风控算法-SynchroTrap](https://zhuanlan.zhihu.com/p/494776685)">[1]</span></a></sup><sup id="fnref:2" class="footnote-ref"><a href="#fn:2" rel="footnote"><span class="hint--top hint--rounded" aria-label="[Uncovering Large Groups of Active Malicious Accounts in Online Social Networks](https://dl.acm.org/doi/10.1145/2660267.2660269)">[2]</span></a></sup>。</p>
 <h2 id="基础假设">基础假设</h2>
-<p><code>SynchroTrap</code> 作为 <code>Facebook</code> 于2014年即挖掘同步攻击(<code>Synchronized attack</code>)行为.</p>
+<p><code>SynchroTrap</code> 主要挖掘同步攻击(<code>Synchronized attack</code>)行为.</p>
 <p><img src="/img/1_2_9-SynchroTrap_1.png" srcset="/img/loading.gif" lazyload alt="图1: 同步攻击示例"></p>
 <p>如上图, 其中横坐标代表时间, 纵坐标代表账号编码, 散点图颜色代表行为类型. 可以看出恶意账号在较短时间区间内<strong>同时</strong>产生某种行为，而正常账号则较为分散.</p>
 <p>针对<code>Synchronized Attack</code>产生的原因, 认为是如下经济学约束导致的</p>

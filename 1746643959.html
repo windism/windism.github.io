@@ -1,0 +1,1169 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=auto>
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/favicon.png">
+  <link rel="icon" href="/img/favicon.png">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+    <meta http-equiv="Content-Security-Policy" content="upgrade-insecure-requests">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="author" content="windism">
+  <meta name="keywords" content="Redis">
+  
+    <meta name="description" content="简介 Redis 是互联网技术领域使用最为广泛的存储中间件, 他是 Remote Dictionary Service（远程字典服务）的首字母缩写. 起步 博主以通用的学习练习平台 Docker 举例, 从而使用其命令行. docker run --name myredis -d -p6379:6379 redis docker exec -it myredis redis-cli 基本数据结果">
+<meta property="og:type" content="article">
+<meta property="og:title" content="【Redis笔记】 一、准备知识">
+<meta property="og:url" content="https://www.windism.space/1746643959.html">
+<meta property="og:site_name" content="风扬技术站">
+<meta property="og:description" content="简介 Redis 是互联网技术领域使用最为广泛的存储中间件, 他是 Remote Dictionary Service（远程字典服务）的首字母缩写. 起步 博主以通用的学习练习平台 Docker 举例, 从而使用其命令行. docker run --name myredis -d -p6379:6379 redis docker exec -it myredis redis-cli 基本数据结果">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2022-02-20T02:57:52.000Z">
+<meta property="article:modified_time" content="2022-06-28T14:14:42.000Z">
+<meta property="article:author" content="windism">
+<meta property="article:tag" content="Redis">
+<meta name="twitter:card" content="summary_large_image">
+  
+  
+    <meta name="referrer" content="no-referrer-when-downgrade">
+  
+  
+  <title>【Redis笔记】 一、准备知识 - 风扬技术站</title>
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
+
+
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/github-markdown-css/4.0.0/github-markdown.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/hint.css/2.7.0/hint.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/prism/1.29.0/plugins/line-numbers/prism-line-numbers.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/KaTeX/0.16.2/katex.min.css" />
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+<!-- Do not modify the link that theme dependent icons -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_hj8rtnfg7um.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_lbnruvf0jn.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+
+  <link id="highlight-css" rel="stylesheet" href="/css/highlight.css" />
+  
+    <link id="highlight-css-dark" rel="stylesheet" href="/css/highlight-dark.css" />
+  
+
+
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    Fluid.ctx = Object.assign({}, Fluid.ctx)
+    var CONFIG = {"hostname":"www.windism.space","root":"/","version":"1.9.5-a","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":true,"follow_dnt":true,"baidu":"2eac19870ffb3538ed048a88632c0e62","google":{"measurement_id":"G-5840CXGFGL"},"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false}},"search_path":"/local-search.xml","include_content_in_search":true};
+
+    if (CONFIG.web_analytics.follow_dnt) {
+      var dntVal = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
+      Fluid.ctx.dnt = dntVal && (dntVal.startsWith('1') || dntVal.startsWith('yes') || dntVal.startsWith('on'));
+    }
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+  
+
+  
+    <!-- Baidu Analytics -->
+    <script async>
+      if (!Fluid.ctx.dnt) {
+        var _hmt = _hmt || [];
+        (function() {
+          var hm = document.createElement("script");
+          hm.src = "https://hm.baidu.com/hm.js?2eac19870ffb3538ed048a88632c0e62";
+          var s = document.getElementsByTagName("script")[0];
+          s.parentNode.insertBefore(hm, s);
+        })();
+      }
+    </script>
+  
+
+  
+    <!-- Google tag (gtag.js) -->
+    <script async>
+      if (!Fluid.ctx.dnt) {
+        Fluid.utils.createScript("https://www.googletagmanager.com/gtag/js?id=G-5840CXGFGL", function() {
+          window.dataLayer = window.dataLayer || [];
+          function gtag() {
+            dataLayer.push(arguments);
+          }
+          gtag('js', new Date());
+          gtag('config', 'G-5840CXGFGL');
+        });
+      }
+    </script>
+  
+
+  
+
+  
+
+  
+
+  
+
+
+
+  <meta name="google-adsense-account" content="ca-pub-1519148638782253">
+<meta name="generator" content="Hexo 6.3.0"><link rel="alternate" href="/atom.xml" title="风扬技术站" type="application/atom+xml">
+<link rel="alternate" href="/rss2.xml" title="风扬技术站" type="application/rss+xml">
+</head>
+
+
+<body>
+  
+
+  <header>
+    
+
+<div class="header-inner" style="height: 70vh;">
+  <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand" href="/">
+      <strong>风扬技术站</strong>
+    </a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/">
+                <i class="iconfont icon-home-fill"></i>
+                <span>首页</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/">
+                <i class="iconfont icon-archive-fill"></i>
+                <span>归档</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/">
+                <i class="iconfont icon-category-fill"></i>
+                <span>分类</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/">
+                <i class="iconfont icon-tags-fill"></i>
+                <span>标签</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/">
+                <i class="iconfont icon-user-fill"></i>
+                <span>关于</span>
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              <i class="iconfont icon-search"></i>
+            </a>
+          </li>
+          
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self" href="javascript:;" aria-label="Color Toggle">
+              <i class="iconfont icon-dark" id="color-toggle-icon"></i>
+            </a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+  
+
+<div id="banner" class="banner" parallax=true
+     style="background: url('/img/default.png') no-repeat center center; background-size: cover;">
+  <div class="full-bg-img">
+    <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+      <div class="banner-text text-center fade-in-up">
+        <div class="h2">
+          
+            <span id="subtitle" data-typed-text="【Redis笔记】 一、准备知识"></span>
+          
+        </div>
+
+        
+          
+  <div class="mt-3">
+    
+    
+      <span class="post-meta">
+        <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+        <time datetime="2022-02-20 10:57" pubdate>
+          2022年2月20日 上午
+        </time>
+      </span>
+    
+  </div>
+
+  <div class="mt-1">
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-chart"></i>
+        
+          3.4k 字
+        
+      </span>
+    
+
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-clock-fill"></i>
+        
+        
+        
+          29 分钟
+        
+      </span>
+    
+
+    
+    
+      
+        <span id="busuanzi_container_page_pv" style="display: none">
+          <i class="iconfont icon-eye" aria-hidden="true"></i>
+          <span id="busuanzi_value_page_pv"></span> 次
+        </span>
+        
+      
+    
+  </div>
+
+
+        
+      </div>
+
+      
+    </div>
+  </div>
+</div>
+
+</div>
+
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+
+    </div>
+
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div id="board">
+          <article class="post-content mx-auto">
+            <h1 id="seo-header">【Redis笔记】 一、准备知识</h1>
+            
+            
+              <div class="markdown-body">
+                
+                <h2 id="简介">简介</h2>
+<p>Redis 是互联网技术领域使用最为广泛的存储中间件, 他是 <code>Remote Dictionary Service</code>（远程字典服务）的首字母缩写.</p>
+<h2 id="起步">起步</h2>
+<p>博主以通用的学习练习平台 <code>Docker</code> 举例, 从而使用其命令行.</p>
+<figure><div class="code-wrapper"><pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token function">docker</span> run <span class="token parameter variable">--name</span> myredis <span class="token parameter variable">-d</span> <span class="token parameter variable">-p6379:6379</span> redis
+<span class="token function">docker</span> <span class="token builtin class-name">exec</span> <span class="token parameter variable">-it</span> myredis redis-cli<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre></div></figure>
+<h2 id="基本数据结果">基本数据结果</h2>
+<p>Redis 有 5 中基础数据结构, 主要遵循两个原则</p>
+<ul>
+<li><code>create if not exists</code>: 如果容器不存在就创建一个</li>
+<li><code>drop if no elements</code>: 如果容器没有元素, 就立即删除容器释放内存</li>
+</ul>
+<h3 id="string-字符串"><code>string</code>(字符串)</h3>
+<ul>
+<li>内部实现类似于 Java 的 ArrayList 的动态字符串
+<ul>
+<li>采用预分配亢余空间的方式来减少内存的频繁分配, 单次扩容最大 <code>1M</code>(<code>str_len &lt;1M</code>, 可翻倍扩容), 最大长度为 <code>512M</code></li>
+</ul>
+</li>
+<li>操作函数</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th style="text-align:center">命令</th>
+<th style="text-align:center">命令用法</th>
+<th style="text-align:center">描述</th>
+<th style="text-align:center">返回值</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">set</td>
+<td style="text-align:center">set KEY VALUE</td>
+<td style="text-align:center">设定KEY的值为VALUE</td>
+<td style="text-align:center">OK</td>
+</tr>
+<tr>
+<td style="text-align:center">get</td>
+<td style="text-align:center">get KEY</td>
+<td style="text-align:center">获取KEY的值</td>
+<td style="text-align:center">VALUE/nil</td>
+</tr>
+<tr>
+<td style="text-align:center">exists</td>
+<td style="text-align:center">exists KEY</td>
+<td style="text-align:center">是否存在KEY</td>
+<td style="text-align:center">存在KEY数量</td>
+</tr>
+<tr>
+<td style="text-align:center">del</td>
+<td style="text-align:center">del KEY</td>
+<td style="text-align:center">删除KEY-VALUE键值对</td>
+<td style="text-align:center">删除KEY数量</td>
+</tr>
+<tr>
+<td style="text-align:center">mset</td>
+<td style="text-align:center">mset KEY1 VALUE1 KEY2 VALUE2</td>
+<td style="text-align:center">设置多个KEY-VALUE</td>
+<td style="text-align:center">OK</td>
+</tr>
+<tr>
+<td style="text-align:center">mget</td>
+<td style="text-align:center">mget KEY1 KEY2</td>
+<td style="text-align:center">获取多个KEY</td>
+<td style="text-align:center">VALUE列表</td>
+</tr>
+<tr>
+<td style="text-align:center">expire</td>
+<td style="text-align:center">expire KEY SECOND</td>
+<td style="text-align:center">设置键值对过期时间(单位秒)</td>
+<td style="text-align:center">设定KEY数量</td>
+</tr>
+<tr>
+<td style="text-align:center">setex</td>
+<td style="text-align:center">setex KEY SECOND VALUE</td>
+<td style="text-align:center">设定键值对及过期时间</td>
+<td style="text-align:center">OK</td>
+</tr>
+<tr>
+<td style="text-align:center">setnx</td>
+<td style="text-align:center">setnx KEY VALUE</td>
+<td style="text-align:center">如果不存在KEY就设定</td>
+<td style="text-align:center">设定KEY数量</td>
+</tr>
+<tr>
+<td style="text-align:center">incr</td>
+<td style="text-align:center">incr KEY</td>
+<td style="text-align:center">自增KEY所代表的数字</td>
+<td style="text-align:center">计算结果</td>
+</tr>
+<tr>
+<td style="text-align:center">incrby</td>
+<td style="text-align:center">incrby KEY INTERGER</td>
+<td style="text-align:center">KEY所代表的值与INTERGER相加</td>
+<td style="text-align:center">计算结果</td>
+</tr>
+</tbody>
+</table>
+<h3 id="list-列表"><code>list</code>(列表)</h3>
+<ul>
+<li>内部实现类似于 Java 的 LinkedList 的双向链表(实际上是 <code>quicklist</code>)
+<ul>
+<li>插入删除非常快(<code>O(1)</code>), 查询非常慢(<code>O(n)</code>), 弹出元素后会自动删除回收内存</li>
+<li><code>quicklist</code> 元素较少采用 <code>ziplist</code>, 类似数组, 较长采用多个 <code>ziplist</code> 作为节点的 <code>linkedlist</code></li>
+</ul>
+</li>
+<li>操作函数
+<ul>
+<li>注意: <code>lindex</code> 是 <code>O(n)</code> 操作</li>
+</ul>
+</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th style="text-align:center">命令</th>
+<th style="text-align:center">命令用法</th>
+<th style="text-align:center">描述</th>
+<th style="text-align:center">返回值</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">llen</td>
+<td style="text-align:center">llen LIST</td>
+<td style="text-align:center">获取列表大小</td>
+<td style="text-align:center">列表大小</td>
+</tr>
+<tr>
+<td style="text-align:center">rpush</td>
+<td style="text-align:center">rpush LIST VALUE1 VALUE2</td>
+<td style="text-align:center">向列表右侧插入多个VALUE</td>
+<td style="text-align:center">插入数量</td>
+</tr>
+<tr>
+<td style="text-align:center">lpop</td>
+<td style="text-align:center">lpop LIST</td>
+<td style="text-align:center">列表左侧弹出VALUE</td>
+<td style="text-align:center">元素结果</td>
+</tr>
+<tr>
+<td style="text-align:center">rpop</td>
+<td style="text-align:center">rpop LIST</td>
+<td style="text-align:center">列表右侧弹出VALUE</td>
+<td style="text-align:center">元素结果</td>
+</tr>
+<tr>
+<td style="text-align:center">lindex</td>
+<td style="text-align:center">lindex LIST INDEX</td>
+<td style="text-align:center">获取列表特定索引结果</td>
+<td style="text-align:center">元素结果</td>
+</tr>
+<tr>
+<td style="text-align:center">lrange</td>
+<td style="text-align:center">lrange LIST START_INDEX END_INDEX</td>
+<td style="text-align:center">获取列表特定索引范围结果</td>
+<td style="text-align:center">元素结果列表</td>
+</tr>
+<tr>
+<td style="text-align:center">ltrim</td>
+<td style="text-align:center">ltrim LIST START_INDEX END_INDEX</td>
+<td style="text-align:center">保留列表特定索引范围元素</td>
+<td style="text-align:center">OK</td>
+</tr>
+</tbody>
+</table>
+<h3 id="hash-字典"><code>hash</code>(字典)</h3>
+<ul>
+<li>内部实现类似于 Java 的 HashMap 无序字典(采用数组+链表方式)
+<ul>
+<li>Redis 字典值仅为字符串, 并且 <code>rehash</code> 采用渐进方式, 可同时查询新旧 Hash 结果, 待旧 Hash 元素移除后, 会自动回收旧 Hash 空间</li>
+</ul>
+</li>
+<li>操作函数</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th style="text-align:center">命令</th>
+<th style="text-align:center">命令用法</th>
+<th style="text-align:center">描述</th>
+<th style="text-align:center">返回值</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">hset</td>
+<td style="text-align:center">hset HASHMAP KEY VALUE</td>
+<td style="text-align:center">设定字典上的键值对</td>
+<td style="text-align:center">设定数量</td>
+</tr>
+<tr>
+<td style="text-align:center">hgetall</td>
+<td style="text-align:center">hgetall HASHMAP</td>
+<td style="text-align:center">获取该字典全部键值对</td>
+<td style="text-align:center">键值对交替的列表</td>
+</tr>
+<tr>
+<td style="text-align:center">hlen</td>
+<td style="text-align:center">hlen HASHMAP</td>
+<td style="text-align:center">获取该字典长度</td>
+<td style="text-align:center">字典长度</td>
+</tr>
+<tr>
+<td style="text-align:center">hget</td>
+<td style="text-align:center">hget HASHMAP KEY</td>
+<td style="text-align:center">获取该字典特定键值</td>
+<td style="text-align:center">OK</td>
+</tr>
+<tr>
+<td style="text-align:center">hmset</td>
+<td style="text-align:center">hmset HASHMAP KEY1 VALUE1 KEY2 VALUE2</td>
+<td style="text-align:center">批量设定字典上键值对</td>
+<td style="text-align:center">OK</td>
+</tr>
+<tr>
+<td style="text-align:center">hincrby</td>
+<td style="text-align:center">hincrby HASHMAP KEY INTERGER</td>
+<td style="text-align:center">对字典上的特定键值进行计算</td>
+<td style="text-align:center">计算结果</td>
+</tr>
+</tbody>
+</table>
+<h3 id="set-集合"><code>set</code>(集合)</h3>
+<ul>
+<li>内部实现类似于 Java 的 HashSet 无序集合
+<ul>
+<li>内部实现相当于特殊字典, 其键值为 NULL</li>
+</ul>
+</li>
+<li>操作函数</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th style="text-align:center">命令</th>
+<th style="text-align:center">命令用法</th>
+<th style="text-align:center">描述</th>
+<th style="text-align:center">返回值</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">sadd</td>
+<td style="text-align:center">sadd HASHSET KEY1 KEY2</td>
+<td style="text-align:center">集合新增元素</td>
+<td style="text-align:center">新增数量</td>
+</tr>
+<tr>
+<td style="text-align:center">smembers</td>
+<td style="text-align:center">smembers HASHSET</td>
+<td style="text-align:center">获取集合元素</td>
+<td style="text-align:center">元素列表</td>
+</tr>
+<tr>
+<td style="text-align:center">sismember</td>
+<td style="text-align:center">sismember HASHSET KEY</td>
+<td style="text-align:center">判断集合是否包含该元素</td>
+<td style="text-align:center">包含数量</td>
+</tr>
+<tr>
+<td style="text-align:center">scard</td>
+<td style="text-align:center">scard HASHSET</td>
+<td style="text-align:center">获取集合元素数量</td>
+<td style="text-align:center">元素数量</td>
+</tr>
+<tr>
+<td style="text-align:center">spop</td>
+<td style="text-align:center">spop HASHSET</td>
+<td style="text-align:center">弹出集合一个元素</td>
+<td style="text-align:center">元素结果</td>
+</tr>
+</tbody>
+</table>
+<h3 id="zset-有序集合"><code>zset</code>(有序集合)</h3>
+<ul>
+<li>内部实现类似于 Java 的 SortedSet 和 HashMap 的集合体, 实际上使用 “跳跃列表” 的数据结构
+<ul>
+<li>其元素内部唯一, 且每个均赋予一个排序权重.</li>
+</ul>
+</li>
+<li>操作函数</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th style="text-align:center">命令</th>
+<th style="text-align:center">命令用法</th>
+<th style="text-align:center">描述</th>
+<th style="text-align:center">返回值</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">zadd</td>
+<td style="text-align:center">zadd ZSET WEIGHT KEY</td>
+<td style="text-align:center">集合新增元素及权重</td>
+<td style="text-align:center">新增数量</td>
+</tr>
+<tr>
+<td style="text-align:center">zrange</td>
+<td style="text-align:center">zrange ZSET START_INDEX END_INDEX</td>
+<td style="text-align:center">集合权重特定排序区间元素</td>
+<td style="text-align:center">元素列表</td>
+</tr>
+<tr>
+<td style="text-align:center">zrevrange</td>
+<td style="text-align:center">zrevrange ZSET START_INDEX END_INDEX</td>
+<td style="text-align:center">集合权重特定逆排序区间元素</td>
+<td style="text-align:center">元素列表</td>
+</tr>
+<tr>
+<td style="text-align:center">zcard</td>
+<td style="text-align:center">zcard ZSET</td>
+<td style="text-align:center">集合元素数量</td>
+<td style="text-align:center">元素数量</td>
+</tr>
+<tr>
+<td style="text-align:center">zscore</td>
+<td style="text-align:center">zscore ZSET KEY</td>
+<td style="text-align:center">获取元素权重</td>
+<td style="text-align:center">元素权重</td>
+</tr>
+<tr>
+<td style="text-align:center">zrank</td>
+<td style="text-align:center">zrank ZSET KEY</td>
+<td style="text-align:center">获取元素排名</td>
+<td style="text-align:center">元素排名</td>
+</tr>
+<tr>
+<td style="text-align:center">zrangebyscore</td>
+<td style="text-align:center">zrangebyscore</td>
+<td style="text-align:center">根据分值区间遍历</td>
+<td style="text-align:center">元素列表</td>
+</tr>
+<tr>
+<td style="text-align:center">zrem</td>
+<td style="text-align:center">zrem ZSET KEY</td>
+<td style="text-align:center">删除元素</td>
+<td style="text-align:center">删除数量</td>
+</tr>
+</tbody>
+</table>
+<h2 id="应用">应用</h2>
+<h3 id="分布式锁">分布式锁</h3>
+<p>在分布式应用逻辑处理时, 常常遇到针对同一变量的修改, Redis 需要设定特定值进行锁设定, 处理结束后释放.(类似 shell 中的创建文件锁)</p>
+<figure><div class="code-wrapper"><pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token comment"># setnx 常用于占坑, 但可能处理中间发生失败, 无法运行到 del 从而删除锁, 即使使用 expire 可能存在 setnx 到 expire 期间的失败, 因此 Redis 扩展 set 命令, 使其多种设定为一个原子操作</span>
+<span class="token builtin class-name">set</span> lock:windism <span class="token boolean">true</span> ex <span class="token number">5</span> nx
+del lock:windism<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre></div></figure>
+<p>实际上可能存在处理时间过长, 导致锁超时释放, 或者被其他任务误释放, 此时可能考虑给锁设定任务不同的值, 每个任务进行匹配从而关闭自身产生的锁(但匹配和删除并非原子, 可能需要借助其他工具, 例如Lua).</p>
+<h3 id="延时队列">延时队列</h3>
+<p>针对队列没有数据时, 如果不停采用 <code>pop</code>, 会拉升 CPU 消耗和 Redis 的 QPS. 如果采用 <code>sleep</code> 方法, 可以解决, 但会延缓消费者处理任务, 采用 <code>blpop/brpop</code> 阻塞读, 即空队列进入元素, 立马唤醒线程, 但若闲置太久, Redis 会自动断开线程, 因此需要构建重试机制.</p>
+<p>针对消息的分布式锁, 若加密失败可能性较大, 可以采用延时队列进行处理, 其关键在于 <code>zrem</code> 哪个线程能执行成功, 其进行消息处理.</p>
+<h3 id="位图">位图</h3>
+<p>位图其实是普通字符串, 但通过位图操作当做 “位数组” 进行处理</p>
+<ul>
+<li><code>set KEY VALUE</code>: 可直接通过该方法进行整体设定</li>
+<li><code>get KEY</code>: 可直接通过该方法进行整体获取, 若不可打印字符则十六进制表示</li>
+<li><code>setbit KEY index 0/1</code>: 设定KEY特定索引为 0/1</li>
+<li><code>getbit KEY index</code>: 获取KEY特定索引值</li>
+<li><code>bitcount KEY START_INDEX END_INDEX</code>: 获取指定字节范围的 1 的个数</li>
+<li><code>bitpos KEY 0/1 START_INDEX END_INDEX</code>: 获取指定范围内第一个 0/1 的索引</li>
+<li><code>bitfield KEY get [u/i, 位数] INDEX</code>: 获取特定索引之后 N 位结果转化为 U(无符号)/I(有符号) 数字</li>
+<li><code>bitfield KEY set/incrby [u/i, 位数] INDEX INTERGER</code>: 获取特定索引之后 N 位结果设定为该数值或加和该数值</li>
+<li><code>bitfield KEY overflow sat/fail incrby u4 2 3</code>: 利用 overflow控制在第3位开始取4位加和3的结果, 若大于或小于最大值最小值的边界处理方案, sat 为停留在边界上, fail 则为报错</li>
+</ul>
+<h3 id="HyperLogLog">HyperLogLog</h3>
+<p>相对而言更加高级的 Set, 可用于统计 UV 使用, 存在一定的误差, 在 1W 时, 大约丢失 0.277%, 其数据结构需占 12KB(较小时稀疏矩阵, 较大时稠密矩阵)</p>
+<ul>
+<li><code>pfadd SET VALUE1 VALUE2</code>: 向容器内添加值</li>
+<li><code>pfcount SET</code>: 统计容器内独有值个数</li>
+<li><code>pfmerge</code>: 合并两个容器</li>
+</ul>
+<blockquote>
+<p>PF 的内存占用为什么是 12KB, 原因在于其实现使用 <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msup><mn>2</mn><mn>14</mn></msup></mrow><annotation encoding="application/x-tex">2^{14}</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.8141em;"></span><span class="mord"><span class="mord">2</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.8141em;"><span style="top:-3.063em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mtight">14</span></span></span></span></span></span></span></span></span></span></span></span> 个桶, 每个桶需 6 bit, 代表最大0长度 63, <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msup><mn>2</mn><mn>14</mn></msup><mo>×</mo><mn>6</mn><mi mathvariant="normal">/</mi><mn>8</mn></mrow><annotation encoding="application/x-tex">2^{14} \times 6 / 8</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.8974em;vertical-align:-0.0833em;"></span><span class="mord"><span class="mord">2</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.8141em;"><span style="top:-3.063em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mtight">14</span></span></span></span></span></span></span></span></span><span class="mspace" style="margin-right:0.2222em;"></span><span class="mbin">×</span><span class="mspace" style="margin-right:0.2222em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord">6/8</span></span></span></span></p>
+</blockquote>
+
+                
+              </div>
+            
+            <hr/>
+            <div>
+              <div class="post-metas my-3">
+  
+    <div class="post-meta mr-3 d-flex align-items-center">
+      <i class="iconfont icon-category"></i>
+      
+
+<span class="category-chains">
+  
+  
+    
+      <span class="category-chain">
+        
+  <a href="/categories/%E5%A4%A7%E6%95%B0%E6%8D%AE%E6%A1%86%E6%9E%B6/" class="category-chain-item">大数据框架</a>
+  
+  
+
+      </span>
+    
+  
+</span>
+
+    </div>
+  
+  
+    <div class="post-meta">
+      <i class="iconfont icon-tags"></i>
+      
+        <a href="/tags/Redis/" class="print-no-link">#Redis</a>
+      
+    </div>
+  
+</div>
+
+
+              
+  
+
+  <div class="license-box my-3">
+    <div class="license-title">
+      <div>【Redis笔记】 一、准备知识</div>
+      <div>https://www.windism.space/1746643959.html</div>
+    </div>
+    <div class="license-meta">
+      
+        <div class="license-meta-item">
+          <div>作者</div>
+          <div>windism</div>
+        </div>
+      
+      
+        <div class="license-meta-item license-meta-date">
+          <div>发布于</div>
+          <div>2022年2月20日</div>
+        </div>
+      
+      
+      
+        <div class="license-meta-item">
+          <div>许可协议</div>
+          <div>
+            
+              
+              
+                <a class="print-no-link" target="_blank" href="https://creativecommons.org/licenses/by-nc-nd/4.0/">
+                  <span class="hint--top hint--rounded" aria-label="BY - 署名">
+                    <i class="iconfont icon-by"></i>
+                  </span>
+                </a>
+              
+                <a class="print-no-link" target="_blank" href="https://creativecommons.org/licenses/by-nc-nd/4.0/">
+                  <span class="hint--top hint--rounded" aria-label="NC - 非商业性使用">
+                    <i class="iconfont icon-nc"></i>
+                  </span>
+                </a>
+              
+                <a class="print-no-link" target="_blank" href="https://creativecommons.org/licenses/by-nc-nd/4.0/">
+                  <span class="hint--top hint--rounded" aria-label="ND - 禁止演绎">
+                    <i class="iconfont icon-nd"></i>
+                  </span>
+                </a>
+              
+            
+          </div>
+        </div>
+      
+    </div>
+    <div class="license-icon iconfont"></div>
+  </div>
+
+
+
+              
+                <div class="post-prevnext my-3">
+                  <article class="post-prev col-6">
+                    
+                    
+                      <a href="/1198335029.html" title="【Hive笔记】 四、用户自定义函数UDF">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">【Hive笔记】 四、用户自定义函数UDF</span>
+                        <span class="visible-mobile">上一篇</span>
+                      </a>
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/1071711833.html" title="【Hive笔记】 三、Hive的DDL和DML操作">
+                        <span class="hidden-mobile">【Hive笔记】 三、Hive的DDL和DML操作</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+  
+  
+    <article id="comments" lazyload>
+      
+  <div id="twikoo"></div>
+  <script type="text/javascript">
+    Fluid.utils.loadComments('#comments', function() {
+      Fluid.utils.createScript('https://lib.baomitu.com/twikoo/1.6.8/twikoo.all.min.js', function() {
+        var options = Object.assign(
+          {"envId":"http://twikoo.windism.space","region":null,"path":"window.location.pathname"},
+          {
+            el: '#twikoo',
+            path: 'window.location.pathname',
+            onCommentLoaded: function() {
+              Fluid.utils.listenDOMLoaded(function() {
+                var imgSelector = '#twikoo .tk-content img:not(.tk-owo-emotion)';
+                Fluid.plugins.imageCaption(imgSelector);
+                Fluid.plugins.fancyBox(imgSelector);
+              });
+            }
+          }
+        )
+        twikoo.init(options)
+      });
+    });
+  </script>
+  <noscript>Please enable JavaScript to view the comments</noscript>
+
+
+    </article>
+  
+
+
+          </article>
+        </div>
+      </div>
+    </div>
+
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+  <aside class="sidebar" style="margin-left: -1rem">
+    <div id="toc">
+  <p class="toc-header">
+    <i class="iconfont icon-list"></i>
+    <span>目录</span>
+  </p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+
+
+  </aside>
+
+
+    </div>
+  </div>
+</div>
+
+
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+  
+  
+
+
+
+
+
+
+
+
+    
+
+    
+      <a id="scroll-top-button" aria-label="TOP" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v" for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+    
+
+    
+  </main>
+
+  <footer>
+    <div class="footer-inner">
+  
+    <div class="footer-content">
+       <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a> 
+    </div>
+  
+  
+    <div class="statistics">
+  
+  
+
+  
+    
+      <span id="busuanzi_container_site_pv" style="display: none">
+        总访问量 
+        <span id="busuanzi_value_site_pv"></span>
+         次
+      </span>
+    
+    
+      <span id="busuanzi_container_site_uv" style="display: none">
+        总访客数 
+        <span id="busuanzi_value_site_uv"></span>
+         人
+      </span>
+    
+    
+  
+</div>
+
+  
+  
+    <!-- 备案信息 ICP for China -->
+    <div class="beian">
+  <span>
+    <a href="http://beian.miit.gov.cn/" target="_blank" rel="nofollow noopener">
+      京ICP备2023029279号
+    </a>
+  </span>
+  
+</div>
+
+  
+  
+</div>
+
+  </footer>
+
+  <!-- Scripts -->
+  
+  <script  src="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://lib.baomitu.com/jquery/3.6.4/jquery.min.js" ></script>
+<script  src="https://lib.baomitu.com/twitter-bootstrap/4.6.1/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+
+  <script  src="https://lib.baomitu.com/typed.js/2.0.12/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var subtitle = document.getElementById('subtitle');
+      if (!subtitle || !typing) {
+        return;
+      }
+      var text = subtitle.getAttribute('data-typed-text');
+      
+        typing(text);
+      
+    })(window, document);
+  </script>
+
+
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/tocbot/4.20.1/tocbot.min.js', function() {
+    var toc = jQuery('#toc');
+    if (toc.length === 0 || !window.tocbot) { return; }
+    var boardCtn = jQuery('#board-ctn');
+    var boardTop = boardCtn.offset().top;
+
+    window.tocbot.init(Object.assign({
+      tocSelector     : '#toc-body',
+      contentSelector : '.markdown-body',
+      linkClass       : 'tocbot-link',
+      activeLinkClass : 'tocbot-active-link',
+      listClass       : 'tocbot-list',
+      isCollapsedClass: 'tocbot-is-collapsed',
+      collapsibleClass: 'tocbot-is-collapsible',
+      scrollSmooth    : true,
+      includeTitleTags: true,
+      headingsOffset  : -boardTop,
+    }, CONFIG.toc));
+    if (toc.find('.toc-list-item').length > 0) {
+      toc.css('visibility', 'visible');
+    }
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('tocbot' in window) {
+        tocbot.refresh();
+        var toc = jQuery('#toc');
+        if (toc.length === 0 || !tocbot) {
+          return;
+        }
+        if (toc.find('.toc-list-item').length > 0) {
+          toc.css('visibility', 'visible');
+        }
+      }
+    });
+  });
+</script>
+
+
+  <script  src="https://lib.baomitu.com/prism/1.29.0/plugins/line-numbers/prism-line-numbers.min.js" ></script>
+
+  <script src=https://lib.baomitu.com/clipboard.js/2.0.11/clipboard.min.js></script>
+
+  <script>Fluid.plugins.codeWidget();</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/anchor-js/4.3.1/anchor.min.js', function() {
+    window.anchors.options = {
+      placement: CONFIG.anchorjs.placement,
+      visible  : CONFIG.anchorjs.visible
+    };
+    if (CONFIG.anchorjs.icon) {
+      window.anchors.options.icon = CONFIG.anchorjs.icon;
+    }
+    var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+    var res = [];
+    for (var item of el) {
+      res.push('.markdown-body > ' + item.trim());
+    }
+    if (CONFIG.anchorjs.placement === 'left') {
+      window.anchors.options.class = 'anchorjs-link-left';
+    }
+    window.anchors.add(res.join(', '));
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('anchors' in window) {
+        anchors.removeAll();
+        var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+        var res = [];
+        for (var item of el) {
+          res.push('.markdown-body > ' + item.trim());
+        }
+        if (CONFIG.anchorjs.placement === 'left') {
+          anchors.options.class = 'anchorjs-link-left';
+        }
+        anchors.add(res.join(', '));
+      }
+    });
+  });
+</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.js', function() {
+    Fluid.plugins.fancyBox();
+  });
+</script>
+
+
+  <script>Fluid.plugins.imageCaption();</script>
+
+  <script  src="/js/local-search.js" ></script>
+
+  <script defer src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js" ></script>
+
+
+
+
+
+<!-- 主题的启动项，将它保持在最底部 -->
+<!-- the boot of the theme, keep it at the bottom -->
+<script  src="/js/boot.js" ></script>
+
+
+  
+
+  <noscript>
+    <div class="noscript-warning">博客在允许 JavaScript 运行的环境下浏览效果更佳</div>
+  </noscript>
+</body>
+</html>

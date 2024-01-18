@@ -16,26 +16,26 @@
   
   <meta name="theme-color" content="#2f4154">
   <meta name="author" content="windism">
-  <meta name="keywords" content="daily pits,Spark,无法读取,Python,pyspark,GLIBC NOT FOUND">
+  <meta name="keywords" content="Spark">
   
     <meta name="description" content="Spark 2.4.X 无法读取 Hive 数据 场景分析: Hive 部分数据表存在数据, Spark 2.1.1 可以读取, 但是 Spark 2.4.X 无法读取 分析过程:  针对可读取数据表和不可读取数据表进行分析  hadoop fs -ls -R can_read_table_path | awk &#39;&amp;#123;print $8&amp;#125;&#39; | awk -F&#x2F; &#39;&amp;#123;pri">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Spark日常踩坑合集">
+<meta property="og:title" content="【Spark笔记】 日常踩坑">
 <meta property="og:url" content="https://www.windism.space/3387433632.html">
 <meta property="og:site_name" content="风扬技术站">
 <meta property="og:description" content="Spark 2.4.X 无法读取 Hive 数据 场景分析: Hive 部分数据表存在数据, Spark 2.1.1 可以读取, 但是 Spark 2.4.X 无法读取 分析过程:  针对可读取数据表和不可读取数据表进行分析  hadoop fs -ls -R can_read_table_path | awk &#39;&amp;#123;print $8&amp;#125;&#39; | awk -F&#x2F; &#39;&amp;#123;pri">
 <meta property="og:locale" content="zh_CN">
-<meta property="article:published_time" content="2023-07-04T04:10:14.000Z">
-<meta property="article:modified_time" content="2023-11-24T01:52:49.840Z">
+<meta property="article:published_time" content="2021-06-07T08:53:08.000Z">
+<meta property="article:modified_time" content="2022-06-28T14:14:42.000Z">
 <meta property="article:author" content="windism">
-<meta property="article:tag" content="daily pits">
+<meta property="article:tag" content="Spark">
 <meta name="twitter:card" content="summary_large_image">
   
   
     <meta name="referrer" content="no-referrer-when-downgrade">
   
   
-  <title>Spark日常踩坑合集 - 风扬技术站</title>
+  <title>【Spark笔记】 日常踩坑 - 风扬技术站</title>
 
   <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
 
@@ -247,7 +247,7 @@
       <div class="banner-text text-center fade-in-up">
         <div class="h2">
           
-            <span id="subtitle" data-typed-text="Spark日常踩坑合集"></span>
+            <span id="subtitle" data-typed-text="【Spark笔记】 日常踩坑"></span>
           
         </div>
 
@@ -258,8 +258,8 @@
     
       <span class="post-meta">
         <i class="iconfont icon-date-fill" aria-hidden="true"></i>
-        <time datetime="2023-07-04 12:10" pubdate>
-          2023年7月4日 中午
+        <time datetime="2021-06-07 16:53" pubdate>
+          2021年6月7日 下午
         </time>
       </span>
     
@@ -270,7 +270,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          6.7k 字
+          6.2k 字
         
       </span>
     
@@ -281,7 +281,7 @@
         
         
         
-          57 分钟
+          52 分钟
         
       </span>
     
@@ -326,7 +326,7 @@
       <div class="container nopadding-x-md" id="board-ctn">
         <div id="board">
           <article class="post-content mx-auto">
-            <h1 id="seo-header">Spark日常踩坑合集</h1>
+            <h1 id="seo-header">【Spark笔记】 日常踩坑</h1>
             
             
               <div class="markdown-body">
@@ -481,18 +481,6 @@ _ssl _ssl.c <span class="token punctuation">\</span>
 <span class="token function">docker</span> <span class="token function">cp</span> build_python:/output/libs.zip ~/Downloads
 <span class="token comment"># 推送到hdfs</span>
 hadoop fs <span class="token parameter variable">-put</span> ~/Downloads/python37.zip /YOUR_WORK_PATH/<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre></div></figure>
-<h2 id="pyspark-无法启动-client-模式">pyspark 无法启动 client 模式</h2>
-<p>日常工作数据部门通常采用 K8S 启动 POD 的方式提供给开发者使用, 但由于 类 <code>docker</code> 样式, 相较于物理机如果运维未配置好, 会出现一些错误.</p>
-<p>在调用 pyspark client 模式时会报错 <code>Caused by: java.net.UnknownHostException: XXX_POD</code>, 原因: 无法正常通讯driver. 可采用如下参数处理:</p>
-<ul>
-<li><code>spark.driver.host</code>: driver监听的主机名或IP地址, 用于 <code>executors</code> 通讯; 通常该值采用主机名, 但POD主机名在内网未被运维同学固定到对应IP，导致无法正常解析, 如下解决方法, 手动获取当前主机IP用于固定.</li>
-</ul>
-<figure><div class="code-wrapper"><pre class="line-numbers language-python" data-language="python"><code class="language-python"><span class="token keyword">from</span> pyspark<span class="token punctuation">.</span>sql <span class="token keyword">import</span> SparkSession
-<span class="token keyword">import</span> socket
-spark <span class="token operator">=</span> SparkSession<span class="token punctuation">.</span>builder<span class="token punctuation">.</span>master<span class="token punctuation">(</span><span class="token string">"yarn"</span><span class="token punctuation">)</span> \
-    <span class="token punctuation">.</span>config<span class="token punctuation">(</span><span class="token string">'spark.driver.host'</span><span class="token punctuation">,</span> socket<span class="token punctuation">.</span>gethostbyname<span class="token punctuation">(</span>socket<span class="token punctuation">.</span>gethostname<span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">)</span> \
-    <span class="token punctuation">.</span>enableHiveSupport<span class="token punctuation">(</span><span class="token punctuation">)</span> \
-    <span class="token punctuation">.</span>getOrCreate<span class="token punctuation">(</span><span class="token punctuation">)</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre></div></figure>
 <h2 id="参考资料">参考资料</h2>
 
                 
@@ -512,7 +500,7 @@ spark <span class="token operator">=</span> SparkSession<span class="token punct
     
       <span class="category-chain">
         
-  <a href="/categories/daily-pits/" class="category-chain-item">daily pits</a>
+  <a href="/categories/%E5%A4%A7%E6%95%B0%E6%8D%AE%E6%A1%86%E6%9E%B6/" class="category-chain-item">大数据框架</a>
   
   
 
@@ -527,7 +515,7 @@ spark <span class="token operator">=</span> SparkSession<span class="token punct
     <div class="post-meta">
       <i class="iconfont icon-tags"></i>
       
-        <a href="/tags/daily-pits/" class="print-no-link">#daily pits</a>
+        <a href="/tags/Spark/" class="print-no-link">#Spark</a>
       
     </div>
   
@@ -539,7 +527,7 @@ spark <span class="token operator">=</span> SparkSession<span class="token punct
 
   <div class="license-box my-3">
     <div class="license-title">
-      <div>Spark日常踩坑合集</div>
+      <div>【Spark笔记】 日常踩坑</div>
       <div>https://www.windism.space/3387433632.html</div>
     </div>
     <div class="license-meta">
@@ -552,7 +540,7 @@ spark <span class="token operator">=</span> SparkSession<span class="token punct
       
         <div class="license-meta-item license-meta-date">
           <div>发布于</div>
-          <div>2023年7月4日</div>
+          <div>2021年6月7日</div>
         </div>
       
       
@@ -596,9 +584,9 @@ spark <span class="token operator">=</span> SparkSession<span class="token punct
                   <article class="post-prev col-6">
                     
                     
-                      <a href="/3066150691.html" title="风控特征之应用列表信息">
+                      <a href="/2209565849.html" title="Maven使用笔记总结">
                         <i class="iconfont icon-arrowleft"></i>
-                        <span class="hidden-mobile">风控特征之应用列表信息</span>
+                        <span class="hidden-mobile">Maven使用笔记总结</span>
                         <span class="visible-mobile">上一篇</span>
                       </a>
                     
@@ -606,8 +594,8 @@ spark <span class="token operator">=</span> SparkSession<span class="token punct
                   <article class="post-next col-6">
                     
                     
-                      <a href="/164327144.html" title="模型增量学习(GDBT/PYTORCH)">
-                        <span class="hidden-mobile">模型增量学习(GDBT/PYTORCH)</span>
+                      <a href="/3797270078.html" title="风控特征之通讯数据信息">
+                        <span class="hidden-mobile">风控特征之通讯数据信息</span>
                         <span class="visible-mobile">下一篇</span>
                         <i class="iconfont icon-arrowright"></i>
                       </a>

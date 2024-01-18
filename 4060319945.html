@@ -16,26 +16,26 @@
   
   <meta name="theme-color" content="#2f4154">
   <meta name="author" content="windism">
-  <meta name="keywords" content="daily pits,增量学习,GDBT,pytorch">
+  <meta name="keywords" content="Machine Learning,数据探索性分析,EDA">
   
-    <meta name="description" content="前言 相比于机器学习比赛, 实际工作中的特征数据比较多, 而且在博主所处的风控对抗场景中, 黑产攻击特征具备一定的攻击特征变换. 在此时则需要增量学习的知识. 本文中的 增量学习 与 在线学习 含义类似, 在一个基础模型上随着时间不断以新数据灌入加以学习, 在保留对以往样本识别能力基础上学习对新增样本的识别能力.  博主对于 增量学习 应用部分相对较为简单, 详细可见 增量学习(Increment">
+    <meta name="description" content="什么是EDA 探索性数据分析（Exploratory Data Analysis，EDA）主要用于数据分析过程中的探索，通过探索可以发现数据背后隐藏的 内在规律和联系，挖掘出数据中出现 异常情况 的原因。 EDA 总览  探索单变量质量  变量类型情况 变量缺失情况 变量异常情况 变量重复情况 变量均匀情况   探索单变量价值  变量与标签主观相关性(业务逻辑) 变量与标签客观相关性(数据表现)">
 <meta property="og:type" content="article">
-<meta property="og:title" content="模型增量学习(GDBT&#x2F;PYTORCH)">
-<meta property="og:url" content="https://www.windism.space/164327144.html">
+<meta property="og:title" content="【特征预处理】数据探索性分析-EDA">
+<meta property="og:url" content="https://www.windism.space/4060319945.html">
 <meta property="og:site_name" content="风扬技术站">
-<meta property="og:description" content="前言 相比于机器学习比赛, 实际工作中的特征数据比较多, 而且在博主所处的风控对抗场景中, 黑产攻击特征具备一定的攻击特征变换. 在此时则需要增量学习的知识. 本文中的 增量学习 与 在线学习 含义类似, 在一个基础模型上随着时间不断以新数据灌入加以学习, 在保留对以往样本识别能力基础上学习对新增样本的识别能力.  博主对于 增量学习 应用部分相对较为简单, 详细可见 增量学习(Increment">
+<meta property="og:description" content="什么是EDA 探索性数据分析（Exploratory Data Analysis，EDA）主要用于数据分析过程中的探索，通过探索可以发现数据背后隐藏的 内在规律和联系，挖掘出数据中出现 异常情况 的原因。 EDA 总览  探索单变量质量  变量类型情况 变量缺失情况 变量异常情况 变量重复情况 变量均匀情况   探索单变量价值  变量与标签主观相关性(业务逻辑) 变量与标签客观相关性(数据表现)">
 <meta property="og:locale" content="zh_CN">
-<meta property="article:published_time" content="2023-06-04T04:10:14.000Z">
-<meta property="article:modified_time" content="2023-11-24T01:37:33.870Z">
+<meta property="article:published_time" content="2022-03-17T12:22:56.000Z">
+<meta property="article:modified_time" content="2024-01-18T08:59:46.822Z">
 <meta property="article:author" content="windism">
-<meta property="article:tag" content="daily pits">
+<meta property="article:tag" content="Machine Learning">
 <meta name="twitter:card" content="summary_large_image">
   
   
     <meta name="referrer" content="no-referrer-when-downgrade">
   
   
-  <title>模型增量学习(GDBT/PYTORCH) - 风扬技术站</title>
+  <title>【特征预处理】数据探索性分析-EDA - 风扬技术站</title>
 
   <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
 
@@ -247,7 +247,7 @@
       <div class="banner-text text-center fade-in-up">
         <div class="h2">
           
-            <span id="subtitle" data-typed-text="模型增量学习(GDBT/PYTORCH)"></span>
+            <span id="subtitle" data-typed-text="【特征预处理】数据探索性分析-EDA"></span>
           
         </div>
 
@@ -258,8 +258,8 @@
     
       <span class="post-meta">
         <i class="iconfont icon-date-fill" aria-hidden="true"></i>
-        <time datetime="2023-06-04 12:10" pubdate>
-          2023年6月4日 中午
+        <time datetime="2022-03-17 20:22" pubdate>
+          2022年3月17日 晚上
         </time>
       </span>
     
@@ -270,7 +270,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          930 字
+          1.3k 字
         
       </span>
     
@@ -281,7 +281,7 @@
         
         
         
-          8 分钟
+          12 分钟
         
       </span>
     
@@ -326,52 +326,89 @@
       <div class="container nopadding-x-md" id="board-ctn">
         <div id="board">
           <article class="post-content mx-auto">
-            <h1 id="seo-header">模型增量学习(GDBT/PYTORCH)</h1>
+            <h1 id="seo-header">【特征预处理】数据探索性分析-EDA</h1>
             
             
               <div class="markdown-body">
                 
-                <h2 id="前言">前言</h2>
-<p>相比于机器学习比赛, 实际工作中的特征数据比较多, 而且在博主所处的风控对抗场景中, 黑产攻击特征具备一定的攻击特征变换. 在此时则需要增量学习的知识.</p>
-<p>本文中的 <code>增量学习</code> 与 <code>在线学习</code> 含义类似, 在一个基础模型上随着时间不断以新数据灌入加以学习, 在保留对以往样本识别能力基础上学习对新增样本的识别能力.</p>
-<blockquote>
-<p>博主对于 <code>增量学习</code> 应用部分相对较为简单, 详细可见 <a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/353273834">增量学习(Incremental Learning)小综述</a>, 注意直接采用如下代码, 可能存在 <code>捡了芝麻丢了西瓜</code> 的情况, 使用者可以保留以往样本典型数据放置到新的数据流中.</p>
-</blockquote>
-<h2 id="机器学习-增量学习">机器学习-增量学习</h2>
-<h3 id="基于XGBoost增量学习">基于XGBoost增量学习</h3>
-<p>如下参数解释详见: <a target="_blank" rel="noopener" href="https://xgboost.readthedocs.io/en/latest/parameter.html">XGBoost官方文档</a></p>
-<figure><div class="code-wrapper"><pre class="line-numbers language-python" data-language="python"><code class="language-python"><span class="token comment"># 模型参数</span>
-<span class="token comment">## 从原模型中随机取树进行迭代, 更新树节点的统计数据, 并不会执行数据行随机子采样</span>
-params<span class="token punctuation">.</span>update<span class="token punctuation">(</span><span class="token punctuation">&#123;</span>
-    <span class="token string">'process_type'</span><span class="token punctuation">:</span> <span class="token string">'update'</span><span class="token punctuation">,</span>  
-    <span class="token string">'updater'</span>     <span class="token punctuation">:</span> <span class="token string">'refresh'</span><span class="token punctuation">,</span>
-    <span class="token string">'refresh_leaf'</span><span class="token punctuation">:</span> <span class="token boolean">True</span>
-<span class="token punctuation">&#125;</span><span class="token punctuation">)</span>
-<span class="token comment"># 训练前加载模型</span>
-new_model <span class="token operator">=</span> xgb<span class="token punctuation">.</span>train<span class="token punctuation">(</span>params<span class="token punctuation">,</span> TRAIN_DATA<span class="token punctuation">,</span> num_boost_round <span class="token operator">=</span> <span class="token number">10</span><span class="token punctuation">,</span> xgb_model <span class="token operator">=</span> ORIGIN_MODEL_PATH<span class="token punctuation">)</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre></div></figure>
-<h2 id="基于LightGBM增量学习">基于LightGBM增量学习</h2>
-<p>如下参数解释详见: <a target="_blank" rel="noopener" href="https://lightgbm.readthedocs.io/en/latest/pythonapi/lightgbm.train.html">LightGBM官方文档</a></p>
-<figure><div class="code-wrapper"><pre class="line-numbers language-python" data-language="python"><code class="language-python"><span class="token comment"># 引入原始模型文件实现增量训练</span>
-lgb<span class="token punctuation">.</span>train<span class="token punctuation">(</span>
-    <span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">,</span>
-    init_model <span class="token operator">=</span> ORIGIN_MODEL_PATH<span class="token punctuation">,</span>
-    keep_training_booster <span class="token operator">=</span> <span class="token boolean">True</span>     <span class="token comment"># 用以表征返回模型是否未来会继续训练</span>
-<span class="token punctuation">)</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre></div></figure>
-<blockquote>
-<p>增量学习效果可以参考<a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/624055915">LGBM上的fine-tuning</a>中的效果.</p>
-</blockquote>
-<h2 id="深度学习-增量学习">深度学习-增量学习</h2>
-<h3 id="基于Pytorch增量学习">基于Pytorch增量学习</h3>
-<p>博主通常采用 <code>pytorch lightning</code> 框架训练模型, 基于 <a target="_blank" rel="noopener" href="https://lightning.ai/docs/pytorch/stable/api/lightning.pytorch.trainer.trainer.Trainer.html">Trainer</a> 文档描述可在训练时选择待加载模型, 注意: 加载位置需保留模型全部信息(框架保存方法即可), 训练将从其下一个 <code>epoch</code> 开始.</p>
-<figure><div class="code-wrapper"><pre class="line-numbers language-python" data-language="python"><code class="language-python">trainer <span class="token operator">=</span> pl<span class="token punctuation">.</span>Trainer<span class="token punctuation">(</span><span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">)</span>
-trainer<span class="token punctuation">.</span>fit<span class="token punctuation">(</span>model<span class="token punctuation">,</span> ckpt_path <span class="token operator">=</span> YOUR_SAVE_MODEL_PATH<span class="token punctuation">)</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre></div></figure>
-<h2 id="参考资料">参考资料</h2>
+                <h2 id="什么是EDA">什么是EDA</h2>
+<p>探索性数据分析（Exploratory Data Analysis，EDA）主要用于数据分析过程中的探索，通过探索可以发现数据背后隐藏的 <strong>内在规律和联系</strong>，挖掘出数据中出现 <strong>异常情况</strong> 的原因。</p>
+<h2 id="EDA-总览">EDA 总览</h2>
 <ul>
-<li><a target="_blank" rel="noopener" href="http://www.nohup.cc/article/299/">增量学习的主流实现</a></li>
-<li><a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/320010888">XGBoost增量学习之多阶段任务学习</a></li>
-<li><a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/624055915">LGBM上的fine-tuning</a></li>
+<li>探索单变量质量
+<ul>
+<li>变量类型情况</li>
+<li>变量缺失情况</li>
+<li>变量异常情况</li>
+<li>变量重复情况</li>
+<li>变量均匀情况</li>
 </ul>
-
+</li>
+<li>探索单变量价值
+<ul>
+<li>变量与标签主观相关性(业务逻辑)</li>
+<li>变量与标签客观相关性(数据表现)</li>
+</ul>
+</li>
+<li>探索多变量关联
+<ul>
+<li>连续变量间关联
+<ul>
+<li>可视化：散点图; 相关性热力图</li>
+<li>数学验证: 皮尔逊系数; 互信息</li>
+</ul>
+</li>
+<li>离散变量间关联
+<ul>
+<li>可视化：柱状图; 饼图分组表</li>
+<li>数学验证: 卡方检验</li>
+</ul>
+</li>
+<li>连续与离散变量间关联
+<ul>
+<li>可视化: 直方图; 箱线图; Quantile-Quantile (QQ图)</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<p>通过上述的流程, 可以大概分析出:</p>
+<ol>
+<li>变量是否需要筛选、替换和清洗；</li>
+<li>变量是否需要转换；</li>
+<li>变量之间是否需要交叉；</li>
+<li>变量是否需要采样；</li>
+</ol>
+<h2 id="EDA-实战">EDA 实战</h2>
+<h3 id="Pandas-Profiling">Pandas Profiling</h3>
+<p>关于 <code>pandas_profiling</code><sup id="fnref:1" class="footnote-ref"><a href="#fn:1" rel="footnote"><span class="hint--top hint--rounded" aria-label="[数据分析利器Pandas Profiling，一行搞定探索性分析](https://mp.weixin.qq.com/s/bw9I2Frq-U3-IcoQZNkdEA)">[1]</span></a></sup> 细节参数设定可以参考 <a target="_blank" rel="noopener" href="https://pandas-profiling.ydata.ai/docs/master/rtd/pages/advanced_usage.html">advanced_usage</a></p>
+<p><code>pandas_profiling</code> 对于数据分析提供通用配置文件, 用户可以根据自己需求订制, 从而不断复用, 减少代码量. 配置文件见<a target="_blank" rel="noopener" href="https://github.com/ydataai/pandas-profiling/blob/master/src/pandas_profiling/config_default.yaml">config_default.yaml</a></p>
+<figure><div class="code-wrapper"><pre class="line-numbers language-python" data-language="python"><code class="language-python"><span class="token comment"># conda install -c conda-forge pandas-profiling</span>
+<span class="token keyword">from</span> pandas_profiling <span class="token keyword">import</span> ProfileReport
+profile <span class="token operator">=</span> ProfileReport<span class="token punctuation">(</span>df<span class="token punctuation">,</span> title<span class="token operator">=</span><span class="token string">"Pandas Profiling Report"</span><span class="token punctuation">,</span> explorative<span class="token operator">=</span><span class="token boolean">True</span><span class="token punctuation">)</span>
+profile<span class="token punctuation">.</span>to_widgets<span class="token punctuation">(</span><span class="token punctuation">)</span>
+profile<span class="token punctuation">.</span>to_file<span class="token punctuation">(</span><span class="token string">"your_report.html"</span><span class="token punctuation">)</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre></div></figure>
+<p><code>pandas_profiling</code>  在<a target="_blank" rel="noopener" href="https://www.kaggle.com/c/titanic">Titanic Dataset</a>上的<a target="_blank" rel="noopener" href="https://www.kaggle.com/code/sainathkrothapalli/pandas-profiling-tutorial-on-titanic-dataset/notebook">数据分析样例</a></p>
+<h3 id="Sweetviz">Sweetviz</h3>
+<p><a target="_blank" rel="noopener" href="https://github.com/fbdesignpro/sweetviz">Sweetviz</a>与Pandas Profiling类似, 其独特特点在于, 可以对比数据集之间的数据特点差异(评估训练集, 验证集以及测试集数据分布).</p>
+<figure><div class="code-wrapper"><pre class="line-numbers language-python" data-language="python"><code class="language-python"><span class="token comment"># conda install weetviz</span>
+<span class="token keyword">import</span> sweetviz <span class="token keyword">as</span> sv
+sv_report <span class="token operator">=</span> sv<span class="token punctuation">.</span>analyze<span class="token punctuation">(</span>source <span class="token operator">=</span> <span class="token punctuation">&#123;</span>train_data<span class="token punctuation">:</span> <span class="token string">"train"</span><span class="token punctuation">,</span> valid_data<span class="token punctuation">:</span> <span class="token string">"valid"</span><span class="token punctuation">,</span> test_data<span class="token punctuation">:</span> <span class="token string">"test"</span><span class="token punctuation">&#125;</span><span class="token punctuation">,</span> target_feat <span class="token operator">=</span> <span class="token string">"target"</span><span class="token punctuation">)</span>
+sv_report<span class="token punctuation">.</span>show_html<span class="token punctuation">(</span>filepath<span class="token operator">=</span><span class="token string">'SWEETVIZ_REPORT.html'</span><span class="token punctuation">)</span>
+<span class="token comment"># 针对子集进行数据分析</span>
+sub_class_report <span class="token operator">=</span> sv<span class="token punctuation">.</span>compare_intra<span class="token punctuation">(</span>
+    train_data<span class="token punctuation">,</span> 
+    train_data<span class="token punctuation">[</span><span class="token string">"Sex"</span><span class="token punctuation">]</span> <span class="token operator">==</span> <span class="token string">"male"</span><span class="token punctuation">,</span> <span class="token comment"># 区分条件</span>
+    <span class="token punctuation">[</span><span class="token string">"Male"</span><span class="token punctuation">,</span> <span class="token string">"Female"</span><span class="token punctuation">]</span>           <span class="token comment"># 命名标签</span>
+<span class="token punctuation">)</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre></div></figure>
+<p><code>Sweetviz</code> 在<a target="_blank" rel="noopener" href="https://www.kaggle.com/c/titanic">Titanic Dataset</a>上的<a target="_blank" rel="noopener" href="https://www.kaggle.com/code/francoisbertrand/two-line-eda-of-titanic-using-sweetviz-analysis/notebook">数据分析样例</a>, 针对分类类别特征, 相关性表现为其为其他特征提供信息的程度, 其结果并<strong>不对称</strong>.</p>
+<h3 id="pandasGUI">pandasGUI</h3>
+<p><a target="_blank" rel="noopener" href="https://github.com/adrotog/PandasGUI">pandasGUI</a> 工具相对自由, 可以通过拖拽实现 <code>EDA</code> 过程, 比较适合传统 EDA 完成后自我扩展时进行使用.</p>
+<figure><div class="code-wrapper"><pre class="line-numbers language-python" data-language="python"><code class="language-python"><span class="token keyword">from</span> pandasgui <span class="token keyword">import</span> show
+gui <span class="token operator">=</span> show<span class="token punctuation">(</span>mpg<span class="token punctuation">)</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre></div></figure>
+<h2 id="参考资料">参考资料</h2>
+<section class="footnotes"><div class="footnote-list"><ol><li><span id="fn:1" class="footnote-text"><span><a target="_blank" rel="noopener" href="https://mp.weixin.qq.com/s/bw9I2Frq-U3-IcoQZNkdEA">数据分析利器Pandas Profiling，一行搞定探索性分析</a>
+<a href="#fnref:1" rev="footnote" class="footnote-backref"> ↩</a></span></span></li></ol></div></section>
                 
               </div>
             
@@ -389,7 +426,7 @@ trainer<span class="token punctuation">.</span>fit<span class="token punctuation
     
       <span class="category-chain">
         
-  <a href="/categories/daily-pits/" class="category-chain-item">daily pits</a>
+  <a href="/categories/Machine-Learning/" class="category-chain-item">Machine Learning</a>
   
   
 
@@ -404,7 +441,7 @@ trainer<span class="token punctuation">.</span>fit<span class="token punctuation
     <div class="post-meta">
       <i class="iconfont icon-tags"></i>
       
-        <a href="/tags/daily-pits/" class="print-no-link">#daily pits</a>
+        <a href="/tags/Machine-Learning/" class="print-no-link">#Machine Learning</a>
       
     </div>
   
@@ -416,8 +453,8 @@ trainer<span class="token punctuation">.</span>fit<span class="token punctuation
 
   <div class="license-box my-3">
     <div class="license-title">
-      <div>模型增量学习(GDBT/PYTORCH)</div>
-      <div>https://www.windism.space/164327144.html</div>
+      <div>【特征预处理】数据探索性分析-EDA</div>
+      <div>https://www.windism.space/4060319945.html</div>
     </div>
     <div class="license-meta">
       
@@ -429,7 +466,7 @@ trainer<span class="token punctuation">.</span>fit<span class="token punctuation
       
         <div class="license-meta-item license-meta-date">
           <div>发布于</div>
-          <div>2023年6月4日</div>
+          <div>2022年3月17日</div>
         </div>
       
       
@@ -473,9 +510,9 @@ trainer<span class="token punctuation">.</span>fit<span class="token punctuation
                   <article class="post-prev col-6">
                     
                     
-                      <a href="/3387433632.html" title="【BUG】Spark日常踩坑合集">
+                      <a href="/164327144.html" title="模型增量学习(GDBT/PYTORCH)">
                         <i class="iconfont icon-arrowleft"></i>
-                        <span class="hidden-mobile">【BUG】Spark日常踩坑合集</span>
+                        <span class="hidden-mobile">模型增量学习(GDBT/PYTORCH)</span>
                         <span class="visible-mobile">上一篇</span>
                       </a>
                     
@@ -483,8 +520,8 @@ trainer<span class="token punctuation">.</span>fit<span class="token punctuation
                   <article class="post-next col-6">
                     
                     
-                      <a href="/4060319945.html" title="【特征预处理】数据探索性分析-EDA">
-                        <span class="hidden-mobile">【特征预处理】数据探索性分析-EDA</span>
+                      <a href="/1116592221.html" title="【模型可解释】 Shap">
+                        <span class="hidden-mobile">【模型可解释】 Shap</span>
                         <span class="visible-mobile">下一篇</span>
                         <i class="iconfont icon-arrowright"></i>
                       </a>

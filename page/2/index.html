@@ -270,15 +270,15 @@
     <article class="col-12 col-md-12 mx-auto index-info">
       <h2 class="index-header">
         
-        <a href="/3387433632.html" target="_self">
-          【BUG】Spark日常踩坑合集
+        <a href="/971697457.html" target="_self">
+          【BUG】HIVE日常踩坑合集
         </a>
       </h2>
 
       
-      <a class="index-excerpt index-excerpt__noimg" href="/3387433632.html" target="_self">
+      <a class="index-excerpt index-excerpt__noimg" href="/971697457.html" target="_self">
         <div>
-          Spark 2.4.X 无法读取 Hive 数据 场景分析: Hive 部分数据表存在数据, Spark 2.1.1 可以读取, 但是 Spark 2.4.X 无法读取 分析过程:   针对可读取数据表和不可读取数据表进行分析  hadoop fs -ls -R can_read_table_path | awk '&#123;print $8&#125;' | awk -F/ '&#123;pr
+          隐形转换异常  Hive 版本为 1.2.1 场景简述: 针对字符串字段与常量数值进行对比判断 数据问题: 结果存在 null 情况  问题 SQL 举例如下: SELECT 'default' &lt;> -1 情景分析: SELECT 'default' &lt;&gt; -1 实际上相当于 SELECT CAST('default' AS INT) &lt;&gt; -1 由于左侧为 nul
         </div>
       </a>
 
@@ -331,15 +331,15 @@
     <article class="col-12 col-md-12 mx-auto index-info">
       <h2 class="index-header">
         
-        <a href="/971697457.html" target="_self">
-          【BUG】HIVE日常踩坑合集
+        <a href="/3387433632.html" target="_self">
+          【BUG】Spark日常踩坑合集
         </a>
       </h2>
 
       
-      <a class="index-excerpt index-excerpt__noimg" href="/971697457.html" target="_self">
+      <a class="index-excerpt index-excerpt__noimg" href="/3387433632.html" target="_self">
         <div>
-          隐形转换异常  Hive 版本为 1.2.1 场景简述: 针对字符串字段与常量数值进行对比判断 数据问题: 结果存在 null 情况  问题 SQL 举例如下: SELECT 'default' &lt;> -1 情景分析: SELECT 'default' &lt;&gt; -1 实际上相当于 SELECT CAST('default' AS INT) &lt;&gt; -1 由于左侧为 nul
+          Spark 2.4.X 无法读取 Hive 数据 场景分析: Hive 部分数据表存在数据, Spark 2.1.1 可以读取, 但是 Spark 2.4.X 无法读取 分析过程:   针对可读取数据表和不可读取数据表进行分析  hadoop fs -ls -R can_read_table_path | awk '&#123;print $8&#125;' | awk -F/ '&#123;pr
         </div>
       </a>
 
@@ -440,6 +440,67 @@
             <i class="iconfont icon-tags"></i>
             
               <a href="/tags/daily-pits/">#daily pits</a>
+            
+          </div>
+        
+      </div>
+    </article>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+    <article class="col-12 col-md-12 mx-auto index-info">
+      <h2 class="index-header">
+        
+        <a href="/4060319945.html" target="_self">
+          【特征预处理】数据探索性分析-EDA
+        </a>
+      </h2>
+
+      
+      <a class="index-excerpt index-excerpt__noimg" href="/4060319945.html" target="_self">
+        <div>
+          什么是EDA 探索性数据分析（Exploratory Data Analysis，EDA）主要用于数据分析过程中的探索，通过探索可以发现数据背后隐藏的 内在规律和联系，挖掘出数据中出现 异常情况 的原因。 EDA 总览  探索单变量质量  变量类型情况 变量缺失情况 变量异常情况 变量重复情况 变量均匀情况   探索单变量价值  变量与标签主观相关性(业务逻辑) 变量与标签客观相关性(数据表现)
+        </div>
+      </a>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>
+            <time datetime="2022-03-17 20:22" pubdate>
+              2022-03-17
+            </time>
+          </div>
+        
+        
+          <div class="post-meta mr-3 d-flex align-items-center">
+            <i class="iconfont icon-category"></i>
+            
+
+<span class="category-chains">
+  
+  
+    
+      <span class="category-chain">
+        
+  <a href="/categories/Machine-Learning/" class="category-chain-item">Machine Learning</a>
+  
+  
+
+      </span>
+    
+  
+</span>
+
+          </div>
+        
+        
+          <div class="post-meta">
+            <i class="iconfont icon-tags"></i>
+            
+              <a href="/tags/Machine-Learning/">#Machine Learning</a>
             
           </div>
         
@@ -775,67 +836,6 @@
           <div class="post-meta mr-3">
             <i class="iconfont icon-date"></i>
             <time datetime="2022-02-19 17:57" pubdate>
-              2022-02-19
-            </time>
-          </div>
-        
-        
-          <div class="post-meta mr-3 d-flex align-items-center">
-            <i class="iconfont icon-category"></i>
-            
-
-<span class="category-chains">
-  
-  
-    
-      <span class="category-chain">
-        
-  <a href="/categories/%E5%A4%A7%E6%95%B0%E6%8D%AE%E6%A1%86%E6%9E%B6/" class="category-chain-item">大数据框架</a>
-  
-  
-
-      </span>
-    
-  
-</span>
-
-          </div>
-        
-        
-          <div class="post-meta">
-            <i class="iconfont icon-tags"></i>
-            
-              <a href="/tags/Hive/">#Hive</a>
-            
-          </div>
-        
-      </div>
-    </article>
-  </div>
-
-  <div class="row mx-auto index-card">
-    
-    
-    <article class="col-12 col-md-12 mx-auto index-info">
-      <h2 class="index-header">
-        
-        <a href="/1585770774.html" target="_self">
-          【Hive笔记】 二、表、视图和索引
-        </a>
-      </h2>
-
-      
-      <a class="index-excerpt index-excerpt__noimg" href="/1585770774.html" target="_self">
-        <div>
-          数据表 数据属于互联网公司的核心资产之一, 但是随着时间, 数据不断膨胀, 如何优化数据表从而平衡空间和时间的开销.本部分将介绍 Hive 表支持的分区表和分桶表思路.  两种手段既可以单独使用, 也可结合使用.  分区表  分区表: 利用特定字段针对数据进行分区(分类), 例如对于采集日志数据量巨大按照 date/hour 等粒度分类, 从而在针对单日某小时数据进行离线计算节省扫描时间.多重分区
-        </div>
-      </a>
-
-      <div class="index-btm post-metas">
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-date"></i>
-            <time datetime="2022-02-19 15:57" pubdate>
               2022-02-19
             </time>
           </div>

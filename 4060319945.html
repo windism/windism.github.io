@@ -16,26 +16,26 @@
   
   <meta name="theme-color" content="#2f4154">
   <meta name="author" content="windism">
-  <meta name="keywords" content="Windows,Scoop,PowerShell,美化,Powerline,posh-git,oh-my-posh">
+  <meta name="keywords" content="数据探索性分析,EDA">
   
-    <meta name="description" content="前言 博主有时需要兼顾游戏与办公等, 并且由于深度学习, 显卡配置 N卡, 因此配置WINDOWS开发美化环境. SCOOP 配置 如果使用过 MACOS 的 brew 包管理系统, 这个相当于 Windows 的 brew 管理系统.  官方安装文档: Scoop  设定路径 Scoop默认是安装在C盘中用户主目录下的,可以在开始前设定好scoop的安装目录(请在以管理员身份运行的Powersh">
+    <meta name="description" content="什么是EDA 探索性数据分析（Exploratory Data Analysis，EDA）主要用于数据分析过程中的探索，通过探索可以发现数据背后隐藏的 内在规律和联系，挖掘出数据中出现 异常情况 的原因。 EDA 总览  探索单变量质量  变量类型情况 变量缺失情况 变量异常情况 变量重复情况 变量均匀情况   探索单变量价值  变量与标签主观相关性(业务逻辑) 变量与标签客观相关性(数据表现)">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Windows 开发工具配置">
-<meta property="og:url" content="https://www.windism.space/2273904557.html">
+<meta property="og:title" content="【风控模型】一、探索性数据分析(EDA)">
+<meta property="og:url" content="https://www.windism.space/4060319945.html">
 <meta property="og:site_name" content="风扬技术站">
-<meta property="og:description" content="前言 博主有时需要兼顾游戏与办公等, 并且由于深度学习, 显卡配置 N卡, 因此配置WINDOWS开发美化环境. SCOOP 配置 如果使用过 MACOS 的 brew 包管理系统, 这个相当于 Windows 的 brew 管理系统.  官方安装文档: Scoop  设定路径 Scoop默认是安装在C盘中用户主目录下的,可以在开始前设定好scoop的安装目录(请在以管理员身份运行的Powersh">
+<meta property="og:description" content="什么是EDA 探索性数据分析（Exploratory Data Analysis，EDA）主要用于数据分析过程中的探索，通过探索可以发现数据背后隐藏的 内在规律和联系，挖掘出数据中出现 异常情况 的原因。 EDA 总览  探索单变量质量  变量类型情况 变量缺失情况 变量异常情况 变量重复情况 变量均匀情况   探索单变量价值  变量与标签主观相关性(业务逻辑) 变量与标签客观相关性(数据表现)">
 <meta property="og:locale" content="zh_CN">
-<meta property="article:published_time" content="2021-08-09T14:52:12.000Z">
-<meta property="article:modified_time" content="2023-10-20T09:36:00.580Z">
+<meta property="article:published_time" content="2022-03-17T12:22:56.000Z">
+<meta property="article:modified_time" content="2024-01-18T08:55:40.562Z">
 <meta property="article:author" content="windism">
-<meta property="article:tag" content="Windows">
+<meta property="article:tag" content="风控模型">
 <meta name="twitter:card" content="summary_large_image">
   
   
     <meta name="referrer" content="no-referrer-when-downgrade">
   
   
-  <title>Windows 开发工具配置 - 风扬技术站</title>
+  <title>【风控模型】一、探索性数据分析(EDA) - 风扬技术站</title>
 
   <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
 
@@ -247,7 +247,7 @@
       <div class="banner-text text-center fade-in-up">
         <div class="h2">
           
-            <span id="subtitle" data-typed-text="Windows 开发工具配置"></span>
+            <span id="subtitle" data-typed-text="【风控模型】一、探索性数据分析(EDA)"></span>
           
         </div>
 
@@ -258,8 +258,8 @@
     
       <span class="post-meta">
         <i class="iconfont icon-date-fill" aria-hidden="true"></i>
-        <time datetime="2021-08-09 22:52" pubdate>
-          2021年8月9日 晚上
+        <time datetime="2022-03-17 20:22" pubdate>
+          2022年3月17日 晚上
         </time>
       </span>
     
@@ -270,7 +270,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          2.4k 字
+          1.3k 字
         
       </span>
     
@@ -281,7 +281,7 @@
         
         
         
-          21 分钟
+          12 分钟
         
       </span>
     
@@ -326,105 +326,89 @@
       <div class="container nopadding-x-md" id="board-ctn">
         <div id="board">
           <article class="post-content mx-auto">
-            <h1 id="seo-header">Windows 开发工具配置</h1>
+            <h1 id="seo-header">【风控模型】一、探索性数据分析(EDA)</h1>
             
             
               <div class="markdown-body">
                 
-                <h2 id="前言">前言</h2>
-<p>博主有时需要兼顾游戏与办公等, 并且由于深度学习, 显卡配置 N卡, 因此配置WINDOWS开发美化环境.</p>
-<h2 id="SCOOP-配置">SCOOP 配置</h2>
-<p>如果使用过 MACOS 的 <code>brew</code> 包管理系统, 这个相当于 Windows 的 <code>brew</code> 管理系统.</p>
+                <h2 id="什么是EDA">什么是EDA</h2>
+<p>探索性数据分析（Exploratory Data Analysis，EDA）主要用于数据分析过程中的探索，通过探索可以发现数据背后隐藏的 <strong>内在规律和联系</strong>，挖掘出数据中出现 <strong>异常情况</strong> 的原因。</p>
+<h2 id="EDA-总览">EDA 总览</h2>
 <ul>
-<li>官方安装文档: <a target="_blank" rel="noopener" href="https://scoop.sh/">Scoop</a></li>
+<li>探索单变量质量
+<ul>
+<li>变量类型情况</li>
+<li>变量缺失情况</li>
+<li>变量异常情况</li>
+<li>变量重复情况</li>
+<li>变量均匀情况</li>
 </ul>
-<h3 id="设定路径">设定路径</h3>
-<p>Scoop默认是安装在C盘中用户主目录下的,可以在开始前设定好scoop的安装目录(请在以管理员身份运行的Powershell中执行以下命令):</p>
-<figure><div class="code-wrapper"><pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token comment"># 用户模式</span>
-<span class="token punctuation">[</span>environment<span class="token punctuation">]</span>::setEnvironmentVariable<span class="token punctuation">(</span><span class="token string">'SCOOP'</span>,<span class="token string">'C:\Scoop'</span>,<span class="token string">'Machine'</span><span class="token punctuation">)</span> 
-<span class="token variable">$env</span>:SCOOP<span class="token operator">=</span><span class="token string">'C:\Scoop'</span>
-<span class="token comment"># 全局模式, 安装时使用 -g</span>
-<span class="token punctuation">[</span>environment<span class="token punctuation">]</span>::setEnvironmentVariable<span class="token punctuation">(</span><span class="token string">'SCOOP_GLOBAL'</span>,<span class="token string">'C:\GlobalScoop'</span>,<span class="token string">'Machine'</span><span class="token punctuation">)</span>
-<span class="token variable">$env</span>:SCOOP_GLOBAL<span class="token operator">=</span><span class="token string">'C:\GlobalScoopApps'</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre></div></figure>
-<h3 id="安装">安装</h3>
-<p>通过如下命令, 即可进行 <code>Scoop</code> 的安装:</p>
-<figure><div class="code-wrapper"><pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token comment"># 配置执行策略 (Powershell)</span>
-Set-ExecutionPolicy RemoteSigned <span class="token parameter variable">-scope</span> CurrentUser
-Invoke-Expression <span class="token punctuation">(</span>New-Object System.Net.WebClient<span class="token punctuation">)</span>.DownloadString<span class="token punctuation">(</span><span class="token string">'https://get.scoop.sh'</span><span class="token punctuation">)</span>
-<span class="token comment"># or shorter</span>
-iwr <span class="token parameter variable">-useb</span> get.scoop.sh <span class="token operator">|</span> iex<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre></div></figure>
-<p>一般而言, 用户可以自行添加自己的仓库, 博主提供常见的几个仓库:</p>
-<figure><div class="code-wrapper"><pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token comment"># 安装 git(会自动安装 7zip)</span>
-scoop <span class="token function">install</span> <span class="token function">git</span>
-<span class="token comment"># 如下命令, 可能要求安装程序 git</span>
-scoop bucket <span class="token function">add</span> extras
-scoop bucket <span class="token function">add</span> versions
-<span class="token comment">## 第三方库: 包含微信等</span>
-scoop bucket <span class="token function">add</span> dorado
-<span class="token comment">## 第三方库: 包含字体等</span>
-scoop bucket <span class="token function">add</span> nerd-fonts
-scoop update<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre></div></figure>
-<h3 id="设置代理">设置代理</h3>
-<p>针对Scoop很多时候需要从 <code>github</code> 进行代码库同步, 因此对于码农常常准备代理工具, 针对 <code>scoop</code> 可以如下配置进行 <code>git</code> 更新和包下载时采用代理</p>
-<figure><div class="code-wrapper"><pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">scoop config proxy <span class="token number">127.0</span>.0.1:1081
-scoop config <span class="token function">rm</span> proxy<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre></div></figure>
-<h3 id="配置加速">配置加速</h3>
-<p>一般而言, 下载是采用 <code>wget</code> 命令, 用户可以通过 <code>aria2</code> 进行下载多线程加速(注: 较少时候会表现不好):</p>
-<figure><div class="code-wrapper"><pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">scoop <span class="token function">install</span> aria2 
-<span class="token comment"># 设置16线程下载</span>
-scoop config aria2-max-connection-per-server <span class="token number">16</span> 
-<span class="token comment"># 设置16线程下载分块</span>
-scoop config aria2-split <span class="token number">16</span> 
-<span class="token comment"># 设置每个分块的最小体积</span>
-scoop config aria2-min-split-size 1M 
-<span class="token comment"># 启用aira2下载,默认安装好后就是启用的</span>
-scoop config aria2-enabled <span class="token boolean">true</span> <span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre></div></figure>
-<h3 id="安装软件">安装软件</h3>
-<p>如下是博主常常使用的一下软件包:</p>
-<figure><div class="code-wrapper"><pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token comment"># 日常使用</span>
-scoop <span class="token function">install</span> wechat wechatwork telegram qbittorrent
-<span class="token comment"># 阅读学习</span>
-scoop <span class="token function">install</span> calibre
-<span class="token comment"># 笔记软件</span>
-scoop <span class="token function">install</span> siyuan-note
-<span class="token comment"># 影音必备</span>
-scoop <span class="token function">install</span> potplayer plex-desktop neteasemusic
-<span class="token comment"># 开发必备</span>
-scoop <span class="token function">install</span> coreutils windows-terminal
-<span class="token comment"># IDE 等</span>
-scoop <span class="token function">install</span> vscode pycharm idea
-<span class="token comment"># 效率工具</span>
-scoop <span class="token function">install</span> trafficmonitor snipaste everything bitwarden dismplusplus utools<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre></div></figure>
-<h2 id="美化终端">美化终端</h2>
-<p>目前 WINDOWS 推荐使用 <code>Windows Terminal</code>, 以往答主通常采用 <code>cmder</code> 等, 当时配置后的 <code>Windows Terminal</code> 效果更优.</p>
-<h3 id="安装-Powerline">安装 Powerline</h3>
-<p><code>Powerline</code> 使用字形来设置提示符样式. 若不包含, 则针对提示符会显示异常.</p>
-<blockquote>
-<p>根据 <code>参考资料-1</code> 可知 <code>Oh-my-Posh V3</code> 更新后, <code>Cascadia</code> 字体无法完美支持 <code>Powerline</code>.</p>
-</blockquote>
-<p>目前基于 <a target="_blank" rel="noopener" href="https://github.com/ryanoasis/nerd-fonts/releases/download/v2.1.0/Meslo.zip">Meslo LGM NF</a> 开发, 可进行下载添加. 也可通过如下命令安装.</p>
-<figure><div class="code-wrapper"><pre class="line-numbers language-scoop" data-language="scoop"><code class="language-scoop">scoop install https:&#x2F;&#x2F;github.com&#x2F;JanDeDobbeleer&#x2F;oh-my-posh&#x2F;releases&#x2F;latest&#x2F;download&#x2F;oh-my-posh.json
-scoop update
-scoop install meslo-nf<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre></div></figure>
-<p>注意: 将终端显示字体切换为 <code>Meslo LGM NF</code> 族系字体.</p>
-<h3 id="安装-posh-git-以及-oh-my-posh">安装 posh-git 以及 oh-my-posh</h3>
-<figure><div class="code-wrapper"><pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">Install-Module posh-git <span class="token parameter variable">-Scope</span> CurrentUser
-Install-Module oh-my-posh <span class="token parameter variable">-Scope</span> CurrentUser<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre></div></figure>
-<h3 id="在-PowerShell-中设置-Powerline">在 PowerShell 中设置 Powerline</h3>
-<p>可通过如下命令, 查看当前效果:</p>
-<figure><div class="code-wrapper"><pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">Import-Module posh-git
-Import-Module oh-my-posh
-Set-PoshPrompt <span class="token parameter variable">-Theme</span> Paradox<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre></div></figure>
-<blockquote>
-<p>大多数在设置终端样式采用 <code>Set-Theme Paradox</code>, 但博主验证, 会发生 <code>无法将&quot;set-theme&quot;项识别为 cmdlet、函数、脚本文件或可运行程序的名称.请检查名称的拼写,如果包括路径,请确保路径正确,然后再试一次.</code>. 参考 <a target="_blank" rel="noopener" href="https://ohmyposh.dev/docs/upgrading/">Oh-my-posh更新文档</a>可知已经更换为 <code>Set-PoshPrompt -Theme Paradox</code>.</p>
-</blockquote>
-<p>但是每次新开终端均是原样式, 可通过如下命令, 将上述命令写入, 则可每次新建均生效.</p>
-<figure><div class="code-wrapper"><pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">notepad <span class="token variable">$profile</span><span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre></div></figure>
+</li>
+<li>探索单变量价值
+<ul>
+<li>变量与标签主观相关性(业务逻辑)</li>
+<li>变量与标签客观相关性(数据表现)</li>
+</ul>
+</li>
+<li>探索多变量关联
+<ul>
+<li>连续变量间关联
+<ul>
+<li>可视化：散点图; 相关性热力图</li>
+<li>数学验证: 皮尔逊系数; 互信息</li>
+</ul>
+</li>
+<li>离散变量间关联
+<ul>
+<li>可视化：柱状图; 饼图分组表</li>
+<li>数学验证: 卡方检验</li>
+</ul>
+</li>
+<li>连续与离散变量间关联
+<ul>
+<li>可视化: 直方图; 箱线图; Quantile-Quantile (QQ图)</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<p>通过上述的流程, 可以大概分析出:</p>
+<ol>
+<li>变量是否需要筛选、替换和清洗；</li>
+<li>变量是否需要转换；</li>
+<li>变量之间是否需要交叉；</li>
+<li>变量是否需要采样；</li>
+</ol>
+<h2 id="EDA-实战">EDA 实战</h2>
+<h3 id="Pandas-Profiling">Pandas Profiling</h3>
+<p>关于 <code>pandas_profiling</code><sup id="fnref:1" class="footnote-ref"><a href="#fn:1" rel="footnote"><span class="hint--top hint--rounded" aria-label="[数据分析利器Pandas Profiling，一行搞定探索性分析](https://mp.weixin.qq.com/s/bw9I2Frq-U3-IcoQZNkdEA)">[1]</span></a></sup> 细节参数设定可以参考 <a target="_blank" rel="noopener" href="https://pandas-profiling.ydata.ai/docs/master/rtd/pages/advanced_usage.html">advanced_usage</a></p>
+<p><code>pandas_profiling</code> 对于数据分析提供通用配置文件, 用户可以根据自己需求订制, 从而不断复用, 减少代码量. 配置文件见<a target="_blank" rel="noopener" href="https://github.com/ydataai/pandas-profiling/blob/master/src/pandas_profiling/config_default.yaml">config_default.yaml</a></p>
+<figure><div class="code-wrapper"><pre class="line-numbers language-python" data-language="python"><code class="language-python"><span class="token comment"># conda install -c conda-forge pandas-profiling</span>
+<span class="token keyword">from</span> pandas_profiling <span class="token keyword">import</span> ProfileReport
+profile <span class="token operator">=</span> ProfileReport<span class="token punctuation">(</span>df<span class="token punctuation">,</span> title<span class="token operator">=</span><span class="token string">"Pandas Profiling Report"</span><span class="token punctuation">,</span> explorative<span class="token operator">=</span><span class="token boolean">True</span><span class="token punctuation">)</span>
+profile<span class="token punctuation">.</span>to_widgets<span class="token punctuation">(</span><span class="token punctuation">)</span>
+profile<span class="token punctuation">.</span>to_file<span class="token punctuation">(</span><span class="token string">"your_report.html"</span><span class="token punctuation">)</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre></div></figure>
+<p><code>pandas_profiling</code>  在<a target="_blank" rel="noopener" href="https://www.kaggle.com/c/titanic">Titanic Dataset</a>上的<a target="_blank" rel="noopener" href="https://www.kaggle.com/code/sainathkrothapalli/pandas-profiling-tutorial-on-titanic-dataset/notebook">数据分析样例</a></p>
+<h3 id="Sweetviz">Sweetviz</h3>
+<p><a target="_blank" rel="noopener" href="https://github.com/fbdesignpro/sweetviz">Sweetviz</a>与Pandas Profiling类似, 其独特特点在于, 可以对比数据集之间的数据特点差异(评估训练集, 验证集以及测试集数据分布).</p>
+<figure><div class="code-wrapper"><pre class="line-numbers language-python" data-language="python"><code class="language-python"><span class="token comment"># conda install weetviz</span>
+<span class="token keyword">import</span> sweetviz <span class="token keyword">as</span> sv
+sv_report <span class="token operator">=</span> sv<span class="token punctuation">.</span>analyze<span class="token punctuation">(</span>source <span class="token operator">=</span> <span class="token punctuation">&#123;</span>train_data<span class="token punctuation">:</span> <span class="token string">"train"</span><span class="token punctuation">,</span> valid_data<span class="token punctuation">:</span> <span class="token string">"valid"</span><span class="token punctuation">,</span> test_data<span class="token punctuation">:</span> <span class="token string">"test"</span><span class="token punctuation">&#125;</span><span class="token punctuation">,</span> target_feat <span class="token operator">=</span> <span class="token string">"target"</span><span class="token punctuation">)</span>
+sv_report<span class="token punctuation">.</span>show_html<span class="token punctuation">(</span>filepath<span class="token operator">=</span><span class="token string">'SWEETVIZ_REPORT.html'</span><span class="token punctuation">)</span>
+<span class="token comment"># 针对子集进行数据分析</span>
+sub_class_report <span class="token operator">=</span> sv<span class="token punctuation">.</span>compare_intra<span class="token punctuation">(</span>
+    train_data<span class="token punctuation">,</span> 
+    train_data<span class="token punctuation">[</span><span class="token string">"Sex"</span><span class="token punctuation">]</span> <span class="token operator">==</span> <span class="token string">"male"</span><span class="token punctuation">,</span> <span class="token comment"># 区分条件</span>
+    <span class="token punctuation">[</span><span class="token string">"Male"</span><span class="token punctuation">,</span> <span class="token string">"Female"</span><span class="token punctuation">]</span>           <span class="token comment"># 命名标签</span>
+<span class="token punctuation">)</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre></div></figure>
+<p><code>Sweetviz</code> 在<a target="_blank" rel="noopener" href="https://www.kaggle.com/c/titanic">Titanic Dataset</a>上的<a target="_blank" rel="noopener" href="https://www.kaggle.com/code/francoisbertrand/two-line-eda-of-titanic-using-sweetviz-analysis/notebook">数据分析样例</a>, 针对分类类别特征, 相关性表现为其为其他特征提供信息的程度, 其结果并<strong>不对称</strong>.</p>
+<h3 id="pandasGUI">pandasGUI</h3>
+<p><a target="_blank" rel="noopener" href="https://github.com/adrotog/PandasGUI">pandasGUI</a> 工具相对自由, 可以通过拖拽实现 <code>EDA</code> 过程, 比较适合传统 EDA 完成后自我扩展时进行使用.</p>
+<figure><div class="code-wrapper"><pre class="line-numbers language-python" data-language="python"><code class="language-python"><span class="token keyword">from</span> pandasgui <span class="token keyword">import</span> show
+gui <span class="token operator">=</span> show<span class="token punctuation">(</span>mpg<span class="token punctuation">)</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre></div></figure>
 <h2 id="参考资料">参考资料</h2>
-<ul>
-<li><a target="_blank" rel="noopener" href="https://blog.csdn.net/weixin_44490152/article/details/113854767">Windows Terminal + oh-my-posh模块美化官方教程集锦以及常见问题</a></li>
-</ul>
-
+<section class="footnotes"><div class="footnote-list"><ol><li><span id="fn:1" class="footnote-text"><span><a target="_blank" rel="noopener" href="https://mp.weixin.qq.com/s/bw9I2Frq-U3-IcoQZNkdEA">数据分析利器Pandas Profiling，一行搞定探索性分析</a>
+<a href="#fnref:1" rev="footnote" class="footnote-backref"> ↩</a></span></span></li></ol></div></section>
                 
               </div>
             
@@ -442,7 +426,7 @@ Set-PoshPrompt <span class="token parameter variable">-Theme</span> Paradox<span
     
       <span class="category-chain">
         
-  <a href="/categories/%E6%97%A5%E5%B8%B8%E5%B9%B3%E5%8F%B0/" class="category-chain-item">日常平台</a>
+  <a href="/categories/%E9%A3%8E%E6%8E%A7%E6%8A%80%E6%9C%AF/" class="category-chain-item">风控技术</a>
   
   
 
@@ -457,7 +441,7 @@ Set-PoshPrompt <span class="token parameter variable">-Theme</span> Paradox<span
     <div class="post-meta">
       <i class="iconfont icon-tags"></i>
       
-        <a href="/tags/Windows/" class="print-no-link">#Windows</a>
+        <a href="/tags/%E9%A3%8E%E6%8E%A7%E6%A8%A1%E5%9E%8B/" class="print-no-link">#风控模型</a>
       
     </div>
   
@@ -469,8 +453,8 @@ Set-PoshPrompt <span class="token parameter variable">-Theme</span> Paradox<span
 
   <div class="license-box my-3">
     <div class="license-title">
-      <div>Windows 开发工具配置</div>
-      <div>https://www.windism.space/2273904557.html</div>
+      <div>【风控模型】一、探索性数据分析(EDA)</div>
+      <div>https://www.windism.space/4060319945.html</div>
     </div>
     <div class="license-meta">
       
@@ -482,7 +466,7 @@ Set-PoshPrompt <span class="token parameter variable">-Theme</span> Paradox<span
       
         <div class="license-meta-item license-meta-date">
           <div>发布于</div>
-          <div>2021年8月9日</div>
+          <div>2022年3月17日</div>
         </div>
       
       
@@ -526,9 +510,9 @@ Set-PoshPrompt <span class="token parameter variable">-Theme</span> Paradox<span
                   <article class="post-prev col-6">
                     
                     
-                      <a href="/3388315422.html" title="Spark Structured Streaming 实战">
+                      <a href="/164327144.html" title="模型增量学习(GDBT/PYTORCH)">
                         <i class="iconfont icon-arrowleft"></i>
-                        <span class="hidden-mobile">Spark Structured Streaming 实战</span>
+                        <span class="hidden-mobile">模型增量学习(GDBT/PYTORCH)</span>
                         <span class="visible-mobile">上一篇</span>
                       </a>
                     
@@ -536,8 +520,8 @@ Set-PoshPrompt <span class="token parameter variable">-Theme</span> Paradox<span
                   <article class="post-next col-6">
                     
                     
-                      <a href="/2209565849.html" title="Maven使用笔记总结">
-                        <span class="hidden-mobile">Maven使用笔记总结</span>
+                      <a href="/1116592221.html" title="【模型可解释】 Shap">
+                        <span class="hidden-mobile">【模型可解释】 Shap</span>
                         <span class="visible-mobile">下一篇</span>
                         <i class="iconfont icon-arrowright"></i>
                       </a>

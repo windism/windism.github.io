@@ -9,23 +9,8 @@
     <atom:link href="https://www.windism.space/rss2.xml" rel="self" type="application/rss+xml"/>
     
     <description></description>
-    <pubDate>Thu, 18 Jan 2024 08:07:39 GMT</pubDate>
+    <pubDate>Mon, 22 Jan 2024 01:58:17 GMT</pubDate>
     <generator>http://hexo.io/</generator>
-    
-    <item>
-      <title></title>
-      <link>https://www.windism.space/1.html</link>
-      <guid>https://www.windism.space/1.html</guid>
-      <pubDate>Thu, 18 Jan 2024 07:16:42 GMT</pubDate>
-      
-      
-      
-      
-      
-      
-      <comments>https://www.windism.space/1.html#disqus_thread</comments>
-      
-    </item>
     
     <item>
       <title>【反欺诈算法】SynchroTrap算法</title>
@@ -137,6 +122,39 @@
       
       
       <comments>https://www.windism.space/956199147.html#disqus_thread</comments>
+      
+    </item>
+    
+    <item>
+      <title>风控特征之文本地址信息</title>
+      <link>https://www.windism.space/249128112.html</link>
+      <guid>https://www.windism.space/249128112.html</guid>
+      <pubDate>Fri, 27 Oct 2023 10:57:52 GMT</pubDate>
+      
+        
+        
+          
+          
+      <description>&lt;h2 id=&quot;引言&quot;&gt;引言&lt;/h2&gt;
+&lt;p&gt;在大多数业务场景中, 地址类信息相对而言获取难度较低, 如多数场景需要填写的工作地址、家庭地址等, 但该类信息通常在风控行业处理较为粗糙; 实际上地址涵盖诸多隐藏信息.&lt;/p&gt;
+&lt;h2 id=&quot;地址信息概述&quot;&gt;地址信息概述&lt;/h2&gt;
+&lt;h3 id=&quot;地址分类&quot;&gt;地址分类&lt;/h3&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;家庭地址&lt;/strong&gt;: 用户住宅地址; 注意: 可能为自有住宅, 也可能是租用住宅&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;单位地址&lt;/strong&gt;: 用户工作地址; 注意: 通常地址模糊, 如XX大厦,</description>
+          
+        
+      
+      
+      
+      
+      <category domain="https://www.windism.space/categories/risk-control/">risk control</category>
+      
+      
+      <category domain="https://www.windism.space/tags/risk-control/">risk control</category>
+      
+      
+      <comments>https://www.windism.space/249128112.html#disqus_thread</comments>
       
     </item>
     

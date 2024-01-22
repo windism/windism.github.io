@@ -47,15 +47,6 @@
   </url>
   
   <url>
-    <loc>https://www.windism.space/about/index.html</loc>
-    
-    <lastmod>2024-01-18</lastmod>
-    
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
     <loc>https://www.windism.space/4060319945.html</loc>
     
     <lastmod>2024-01-18</lastmod>
@@ -102,15 +93,6 @@
   
   <url>
     <loc>https://www.windism.space/958369856.html</loc>
-    
-    <lastmod>2024-01-18</lastmod>
-    
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
-    <loc>https://www.windism.space/1.html</loc>
     
     <lastmod>2024-01-18</lastmod>
     
@@ -263,15 +245,6 @@
   </url>
   
   <url>
-    <loc>https://www.windism.space/1198335029.html</loc>
-    
-    <lastmod>2022-06-28</lastmod>
-    
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
     <loc>https://www.windism.space/2012667041.html</loc>
     
     <lastmod>2022-06-28</lastmod>
@@ -281,25 +254,16 @@
   </url>
   
   <url>
+    <loc>https://www.windism.space/1198335029.html</loc>
+    
+    <lastmod>2022-06-28</lastmod>
+    
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
     <loc>https://www.windism.space/2120316972.html</loc>
-    
-    <lastmod>2022-06-28</lastmod>
-    
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
-    <loc>https://www.windism.space/3213134778.html</loc>
-    
-    <lastmod>2022-06-28</lastmod>
-    
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
-    <loc>https://www.windism.space/2812622581.html</loc>
     
     <lastmod>2022-06-28</lastmod>
     
@@ -326,7 +290,16 @@
   </url>
   
   <url>
-    <loc>https://www.windism.space/2035267275.html</loc>
+    <loc>https://www.windism.space/3213134778.html</loc>
+    
+    <lastmod>2022-06-28</lastmod>
+    
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>https://www.windism.space/2812622581.html</loc>
     
     <lastmod>2022-06-28</lastmod>
     
@@ -336,6 +309,15 @@
   
   <url>
     <loc>https://www.windism.space/3388315422.html</loc>
+    
+    <lastmod>2022-06-28</lastmod>
+    
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>https://www.windism.space/2035267275.html</loc>
     
     <lastmod>2022-06-28</lastmod>
     
@@ -395,41 +377,6 @@
   </url>
   
   <url>
-    <loc>https://www.windism.space/tags/Hive/</loc>
-    <lastmod>2024-01-22</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.2</priority>
-  </url>
-  
-  <url>
-    <loc>https://www.windism.space/tags/Kafka/</loc>
-    <lastmod>2024-01-22</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.2</priority>
-  </url>
-  
-  <url>
-    <loc>https://www.windism.space/tags/Flink/</loc>
-    <lastmod>2024-01-22</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.2</priority>
-  </url>
-  
-  <url>
-    <loc>https://www.windism.space/tags/Spark/</loc>
-    <lastmod>2024-01-22</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.2</priority>
-  </url>
-  
-  <url>
-    <loc>https://www.windism.space/tags/Redis/</loc>
-    <lastmod>2024-01-22</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.2</priority>
-  </url>
-  
-  <url>
     <loc>https://www.windism.space/tags/risk-control/</loc>
     <lastmod>2024-01-22</lastmod>
     <changefreq>weekly</changefreq>
@@ -452,6 +399,41 @@
   
   <url>
     <loc>https://www.windism.space/tags/Anti-fraud/</loc>
+    <lastmod>2024-01-22</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>https://www.windism.space/tags/Hive/</loc>
+    <lastmod>2024-01-22</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>https://www.windism.space/tags/Spark/</loc>
+    <lastmod>2024-01-22</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>https://www.windism.space/tags/Redis/</loc>
+    <lastmod>2024-01-22</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>https://www.windism.space/tags/Kafka/</loc>
+    <lastmod>2024-01-22</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>https://www.windism.space/tags/Flink/</loc>
     <lastmod>2024-01-22</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
@@ -502,13 +484,6 @@
   </url>
   
   <url>
-    <loc>https://www.windism.space/categories/%E5%A4%A7%E6%95%B0%E6%8D%AE%E6%A1%86%E6%9E%B6/</loc>
-    <lastmod>2024-01-22</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.2</priority>
-  </url>
-  
-  <url>
     <loc>https://www.windism.space/categories/risk-control/</loc>
     <lastmod>2024-01-22</lastmod>
     <changefreq>weekly</changefreq>
@@ -531,6 +506,13 @@
   
   <url>
     <loc>https://www.windism.space/categories/Anti-fraud/</loc>
+    <lastmod>2024-01-22</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>https://www.windism.space/categories/%E5%A4%A7%E6%95%B0%E6%8D%AE%E6%A1%86%E6%9E%B6/</loc>
     <lastmod>2024-01-22</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>

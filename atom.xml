@@ -6,7 +6,7 @@
   <link href="https://www.windism.space/atom.xml" rel="self"/>
   
   <link href="https://www.windism.space/"/>
-  <updated>2024-01-18T08:07:39.411Z</updated>
+  <updated>2024-01-22T01:58:17.966Z</updated>
   <id>https://www.windism.space/</id>
   
   <author>
@@ -15,19 +15,6 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
-  
-  <entry>
-    <title></title>
-    <link href="https://www.windism.space/1.html"/>
-    <id>https://www.windism.space/1.html</id>
-    <published>2024-01-18T07:16:42.351Z</published>
-    <updated>2024-01-18T08:07:39.411Z</updated>
-    
-    
-    
-    
-    
-  </entry>
   
   <entry>
     <title>【反欺诈算法】SynchroTrap算法</title>
@@ -131,6 +118,37 @@
     
     
     <category term="Anti fraud" scheme="https://www.windism.space/tags/Anti-fraud/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>风控特征之文本地址信息</title>
+    <link href="https://www.windism.space/249128112.html"/>
+    <id>https://www.windism.space/249128112.html</id>
+    <published>2023-10-27T10:57:52.000Z</published>
+    <updated>2023-10-30T02:38:07.860Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;h2 id=&quot;引言&quot;&gt;引言&lt;/h2&gt;
+&lt;p&gt;在大多数业务场景中, 地址类信息相对而言获取难度较低, 如多数场景需要填写的工作地址、家庭地址等, 但该类信息通常在风控行业处理较为粗糙; 实际上地址涵盖诸多隐藏信息.&lt;/p&gt;
+&lt;h2 id=&quot;地址信息概述&quot;&gt;地址信息概述&lt;/h2&gt;
+&lt;h3 id=&quot;地址分类&quot;&gt;地址分类&lt;/h3&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;家庭地址&lt;/strong&gt;: 用户住宅地址; 注意: 可能为自有住宅, 也可能是租用住宅&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;单位地址&lt;/strong&gt;: 用户工作地址; 注意: 通常地址模糊, 如XX大厦,</summary>
+        
+      
+    
+    
+    
+    <category term="risk control" scheme="https://www.windism.space/categories/risk-control/"/>
+    
+    
+    <category term="risk control" scheme="https://www.windism.space/tags/risk-control/"/>
     
   </entry>
   

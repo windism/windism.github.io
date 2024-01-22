@@ -25,14 +25,14 @@
 <meta property="og:site_name" content="风扬技术站">
 <meta property="og:description" content="引言 在社交网络中, 用户与用户之间以及用户与商家之间会形成网络. 例如, 电商中的购买评价关系等, 即 who-buy-who, who-rate-who. 在电商等评价体系中, 会基于评价等进行激励, 因此会引发欺诈风险, 即 虚假转发, 虚假评论 等等[1][2]. 本文介绍 Meng Jiang 论文 CatchSync: catching synchronized behavior in">
 <meta property="og:locale" content="zh_CN">
-<meta property="og:image" content="https://www.windism.space/img/1_2_6-CatchSync_1.png">
-<meta property="og:image" content="https://www.windism.space/img/1_2_6-CatchSync_2.png">
+<meta property="og:image" content="https://www.windism.space/img/4_2_6-CatchSync_1.png">
+<meta property="og:image" content="https://www.windism.space/img/4_2_6-CatchSync_2.png">
 <meta property="article:published_time" content="2023-11-04T10:40:00.000Z">
-<meta property="article:modified_time" content="2024-01-10T06:56:28.578Z">
+<meta property="article:modified_time" content="2024-01-22T01:58:02.952Z">
 <meta property="article:author" content="windism">
 <meta property="article:tag" content="Anti fraud">
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:image" content="https://www.windism.space/img/1_2_6-CatchSync_1.png">
+<meta name="twitter:image" content="https://www.windism.space/img/4_2_6-CatchSync_1.png">
   
   
     <meta name="referrer" content="no-referrer-when-downgrade">
@@ -337,7 +337,7 @@
                 <h2 id="引言">引言</h2>
 <p>在社交网络中, 用户与用户之间以及用户与商家之间会形成网络. 例如, 电商中的购买评价关系等, 即 <code>who-buy-who</code>, <code>who-rate-who</code>. 在电商等评价体系中, 会基于评价等进行激励, 因此会引发欺诈风险, 即 <code>虚假转发</code>, <code>虚假评论</code> 等等<sup id="fnref:1" class="footnote-ref"><a href="#fn:1" rel="footnote"><span class="hint--top hint--rounded" aria-label="[基于稀有行为+同步行为的反欺诈检测算法 - CatchSync](https://zhuanlan.zhihu.com/p/482331508)">[1]</span></a></sup><sup id="fnref:2" class="footnote-ref"><a href="#fn:2" rel="footnote"><span class="hint--top hint--rounded" aria-label="[CatchSync-利用静态网络中的异常检测定位水军](https://www.cnblogs.com/zhangyuren/p/6636619.html)">[2]</span></a></sup>.</p>
 <p>本文介绍 <code>Meng Jiang</code> 论文 <code>CatchSync: catching synchronized behavior in large directed graphs</code><sup id="fnref:3" class="footnote-ref"><a href="#fn:3" rel="footnote"><span class="hint--top hint--rounded" aria-label="[CatchSync: catching synchronized behavior in large directed graphs](https://pdfs.semanticscholar.org/4c9b/478c3f69f4bad89bd5ff1c94d9390b17af56.pdf)">[3]</span></a></sup> 中的 <code>CatchSync</code> 算法. 论文作者针对 <code>Twitter</code>、<code>Tencent Weibo</code> 数据进行分析<sup id="fnref:5" class="footnote-ref"><a href="#fn:5" rel="footnote"><span class="hint--top hint--rounded" aria-label="[Catching Synchronized Behaviors in Large Networks: A Graph Mining Approach](https://pengcui.thumedialab.com/papers/tkdd-catchsync.pdf)">[5]</span></a></sup>，发现用户具备同步性行为, 在图结构上类似图a情况; 在数据集上构建出度频次进行画图b,c,d可知, 欺诈者会在图形中形成比较明显的异常突变(相较于平滑图形), 但通过 <code>CatchSync</code> 算法后, 整体图形将会更加平缓, 由此可见算法效果.</p>
-<p><img src="/img/1_2_6-CatchSync_1.png" srcset="/img/loading.gif" lazyload alt="图1: 典型欺诈场景示例"></p>
+<p><img src="/img/4_2_6-CatchSync_1.png" srcset="/img/loading.gif" lazyload alt="图1: 典型欺诈场景示例"></p>
 <h2 id="基础假设">基础假设</h2>
 <p><code>CatchSync</code> 基于欺诈者基本难以避免的特征进行识别, 即</p>
 <ul>
@@ -387,7 +387,7 @@ norm(u) &amp;= \frac{\sum_{(v, v&#x27;) \in O(u) \times \mathbb{U}} c(v, v&#x27;
 <li><code>SN-plot</code> 图节点 <strong>同步值</strong> 与 <strong>正常值</strong> 的分布图</li>
 </ul>
 <p>如下图形即为在 <code>Twitter/Weibo</code> 数据上的 <code>InF-plot</code> 和 <code>SN-plot</code> 图形, 其中 <code>X</code> 代表欺诈者示例点, <code>Y</code> 代表正常者示例点.</p>
-<p><img src="/img/1_2_6-CatchSync_2.png" srcset="/img/loading.gif" lazyload alt="图2: 欺诈攻击场景"></p>
+<p><img src="/img/4_2_6-CatchSync_2.png" srcset="/img/loading.gif" lazyload alt="图2: 欺诈攻击场景"></p>
 <h2 id="算法步骤">算法步骤</h2>
 <ol>
 <li>构建节点的二维特征空间</li>
